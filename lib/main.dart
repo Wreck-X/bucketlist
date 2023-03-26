@@ -10,39 +10,65 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final roundedBox = SizedBox(
+      height: 300,
+      width: double.infinity,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 100,
+                      backgroundImage: NetworkImage(imageUrl),
+                    ),
+                    Expanded(
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: TextField(
+                            enabled: false,
+                            controller: TextEditingController(text: 'Last update: Made a flutter container'),
+                          )
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              TextField(
+                enabled: false,
+                controller: TextEditingController(text: 'Progress bar'),
+              ),
+              SizedBox(
+                height: 20,
+                child: LinearProgressIndicator(
+                  value: complete,
+                  color: Colors.blue,
+                  minHeight: 10,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
     return MaterialApp(
       home: Scaffold(
         body: Column(
           children: [
             Expanded(
-              child: Row(
+              child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 100,
-                    backgroundImage: NetworkImage(imageUrl),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: TextField(
-                        enabled: false,
-                        controller: TextEditingController(text: 'Last update: Made a flutter container'),
-                      )
-                    ),
-                  ),
+                  roundedBox,
+                  SizedBox(height: 20),
+                  roundedBox,
                 ],
-              ),
-            ),
-            TextField(
-              enabled: false,
-              controller: TextEditingController(text: 'Progress bar'),
-            ),
-            SizedBox(
-              height: 20,
-              child: LinearProgressIndicator(
-                value: complete,
-                color: Colors.blue,
-                minHeight: 10,
               ),
             ),
           ],
