@@ -50,8 +50,11 @@ class RoundedBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return SizedBox(
-      height: 300,
+      height: mediaQuery.size.width < 600
+          ? (mediaQuery.size.height)/100 * 33.333
+          : 300,
       width: double.infinity,
       child: Card(
         shape: RoundedRectangleBorder(
@@ -65,36 +68,44 @@ class RoundedBox extends StatelessWidget {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      radius: 100,
+                      radius: mediaQuery.size.width < 600
+                          ? mediaQuery.size.width/8
+                          : 100,
                       backgroundImage: NetworkImage(imageUrl),
                     ),
                     Expanded(
                       child: Column(
                         children: [
-                          Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: TextField(
-                                enabled: false,
-                                controller: TextEditingController(
-                                    text: 'Random name'),
-                              )),
-                          Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: Text('Last update:\n At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
-                              style: TextStyle(fontSize: 16)),
-                              )
-                        ],),
+                          Text(
+                              'Random name',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          Expanded(child: SingleChildScrollView(
+                              child:Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                child: Text('Last update:\n At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                          )
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
               TextField(
                 enabled: false,
-                controller:
-                TextEditingController(text: 'Progress bar'),
+                controller: TextEditingController(text: 'Progress bar'),
+                style: TextStyle(fontSize: mediaQuery.size.width < 600
+                      ? mediaQuery.size.width/100 * 2
+                      : 16)
               ),
               SizedBox(
-                height: 20,
+                height: mediaQuery.size.width < 600
+                    ? (mediaQuery.size.width)/ 100 * 2
+                    : 20,
                 child: LinearProgressIndicator(
                   value: complete,
                   color: Colors.blue,
