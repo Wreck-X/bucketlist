@@ -1,46 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  final List<String> imageUrls = [
-    'https://picsum.photos/100',
-    'https://picsum.photos/200',
-    'https://picsum.photos/300',
-    'https://picsum.photos/400',
-    'https://picsum.photos/500',
-    'https://picsum.photos/600',
-    'https://picsum.photos/700',
-    'https://picsum.photos/800',
-    'https://picsum.photos/900',
-    'https://picsum.photos/1000',
-  ];
-  final List<double> completed = [
-    0.8,
-    0.9,
-    0.10,
-    0.3,
-    0.1,
-    0.2,
-    0.4,
-    0.5,
-    0.6,
-    0.7,
-  ];
-  final List<String> names = [
-    'name-1',
-    'name-2',
-    'name-3',
-    'name-4',
-    'name-5',
-    'name-6',
-    'name-7',
-    'name-8',
-    'name-9',
-    'name-10',
-  ];
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<String> imageUrls = [];
+  List<double> completed = [];
+  List<String> names = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      final pfp = await http.get(Uri.parse('https://cold-night-f451.simeddon.workers.dev/pfp'));
+      final List<String> pfpdata = pfp.body.split(',');
+      print(pfpdata);
+      final proggress = await http.get(Uri.parse('https://cold-night-f451.simeddon.workers.dev/complete'));
+      final List<String> comp = proggress.body.split(',');
+
+      final namereq = await http.get(Uri.parse('https://cold-night-f451.simeddon.workers.dev/name'));
+      final List<String> name = namereq.body.split(',');
+
+      setState(() {
+        imageUrls = pfpdata.sublist(0, 10);
+        completed = comp.sublist(0, 10).map(double.parse).toList();
+        names = name.sublist(0, 10);
+      });
+    } catch (error) {
+      print(error);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -91,19 +92,18 @@ class RoundedBox extends StatelessWidget {
       child: InkWell(
         onTap: () {
           showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
               ),
               content: SizedBox(
-                height: mediaQuery.size.height*0.75,
-                width: mediaQuery.size.width*0.75,
-                child: SingleChildScrollView(
-                  child: Center(
-                    child: Text('This is a custom-sized alert dialog'),
-                  ),
+              height: mediaQuery.size.height*0.75,
+              width: mediaQuery.size.width*0.75,
+              child: SingleChildScrollView(
+              child: Center(
+              child: Text('\n#0      RenderObjectElement._updateParentData.<anonymous closure> (package:flutter/src/widgets/framework.dart:6119:11)\n#1      RenderObjectElement._updateParentData (package:flutter/src/widgets/framework.dart:6136:6)\n#2      ParentDataElement._applyParentData.applyParentDataToChild (package:flutter/src/widgets/framework.dart:5331:15)\n#3      ComponentElement.visitChildren (package:flutter/src/widgets/framework.dart:5020:14)\n#4      ParentDataElement._applyParentData (package:flutter/src/widgets/framework.dart:5337:5)\n#5      ParentDataElement.notifyClients (package:flutter/src/widgets/framework.dart:5381:5)\n#6      ProxyElement.updated (package:flutter/src/widgets/framework.dart:5311:5)\n#7      ProxyElement.update (package:flutter/src/widgets/framework.dart:5300:5)'),              ),
                 ),
               ),
               actions: [
@@ -175,7 +175,7 @@ class RoundedBox extends StatelessWidget {
                                     ),
                                     child: SingleChildScrollView(
                                       child: Text(
-                                        'Last update:\n#0      RenderObjectElement._updateParentData.<anonymous closure> (package:flutter/src/widgets/framework.dart:6119:11)\n#1      RenderObjectElement._updateParentData (package:flutter/src/widgets/framework.dart:6136:6)\n#2      ParentDataElement._applyParentData.applyParentDataToChild (package:flutter/src/widgets/framework.dart:5331:15)\n#3      ComponentElement.visitChildren (package:flutter/src/widgets/framework.dart:5020:14)\n#4      ParentDataElement._applyParentData (package:flutter/src/widgets/framework.dart:5337:5)\n#5      ParentDataElement.notifyClients (package:flutter/src/widgets/framework.dart:5381:5)\n#6      ProxyElement.updated (package:flutter/src/widgets/framework.dart:5311:5)\n#7      ProxyElement.update (package:flutter/src/widgets/framework.dart:5300:5)',
+                                        'Last update:\nAt vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
                                         style: TextStyle(fontSize: 16),
                                       ),
                                     ),
