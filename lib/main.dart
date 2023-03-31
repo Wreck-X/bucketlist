@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -5,44 +7,7 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  List<String> imageUrls = [];
-  List<double> completed = [];
-  List<String> names = [];
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
-
-  Future<void> fetchData() async {
-    try {
-      final pfp = await http.get(Uri.parse('https://cold-night-f451.simeddon.workers.dev/pfp'));
-      final List<String> pfpdata = pfp.body.split(',');
-      print(pfpdata);
-      final proggress = await http.get(Uri.parse('https://cold-night-f451.simeddon.workers.dev/complete'));
-      final List<String> comp = proggress.body.split(',');
-
-      final namereq = await http.get(Uri.parse('https://cold-night-f451.simeddon.workers.dev/name'));
-      final List<String> name = namereq.body.split(',');
-
-      setState(() {
-        imageUrls = pfpdata.sublist(0, 10);
-        completed = comp.sublist(0, 10).map(double.parse).toList();
-        names = name.sublist(0, 10);
-      });
-    } catch (error) {
-      print(error);
-    }
-  }
-
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -52,17 +17,38 @@ class _MyAppState extends State<MyApp> {
           foregroundColor: Colors.black,
           backgroundColor: Colors.orange,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: List.generate(
-              imageUrls.length,
-                  (index) => RoundedBox(
-                imageUrl: imageUrls[index],
-                complete: completed[index],
-                name: names[index],
-              ),
-            ),
-          ),
+        body: FutureBuilder(
+          future: http.get(Uri.parse('https://cold-night-f451.simeddon.workers.dev/data')),
+          builder: (BuildContext context, AsyncSnapshot<http.Response> snapshot) {
+            if (snapshot.hasData && snapshot.data!.statusCode == 200) {
+              final data = json.decode(snapshot.data!.body);
+              print(data);
+              final List<String> names = data.keys.toList();
+
+              final List<String> imageUrls = [];
+              final List<double> completed = [];
+              data.forEach((key, value) {
+                imageUrls.add(value["pfp"]);
+                completed.add(value["complete"]);
+              });
+              return SingleChildScrollView(
+                child: Column(
+                  children: List.generate(
+                    imageUrls.length,
+                        (index) => RoundedBox(
+                      imageUrl: imageUrls[index],
+                      complete: completed[index],
+                      name: names[index],
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
         ),
       ),
     );
@@ -92,18 +78,19 @@ class RoundedBox extends StatelessWidget {
       child: InkWell(
         onTap: () {
           showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                  shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
               ),
               content: SizedBox(
-              height: mediaQuery.size.height*0.75,
-              width: mediaQuery.size.width*0.75,
-              child: SingleChildScrollView(
-              child: Center(
-              child: Text('\n#0      RenderObjectElement._updateParentData.<anonymous closure> (package:flutter/src/widgets/framework.dart:6119:11)\n#1      RenderObjectElement._updateParentData (package:flutter/src/widgets/framework.dart:6136:6)\n#2      ParentDataElement._applyParentData.applyParentDataToChild (package:flutter/src/widgets/framework.dart:5331:15)\n#3      ComponentElement.visitChildren (package:flutter/src/widgets/framework.dart:5020:14)\n#4      ParentDataElement._applyParentData (package:flutter/src/widgets/framework.dart:5337:5)\n#5      ParentDataElement.notifyClients (package:flutter/src/widgets/framework.dart:5381:5)\n#6      ProxyElement.updated (package:flutter/src/widgets/framework.dart:5311:5)\n#7      ProxyElement.update (package:flutter/src/widgets/framework.dart:5300:5)'),              ),
+                height: mediaQuery.size.height*0.75,
+                width: mediaQuery.size.width*0.75,
+                child: SingleChildScrollView(
+                  child: Center(
+                    child: Text('\n#0      RenderObjectElement._updateParentData.<anonymous closure> (package:flutter/src/widgets/framework.dart:6119:11)\n#1      RenderObjectElement._updateParentData (package:flutter/src/widgets/framework.dart:6136:6)\n#2      ParentDataElement._applyParentData.applyParentDataToChild (package:flutter/src/widgets/framework.dart:5331:15)\n#3      ComponentElement.visitChildren (package:flutter/src/widgets/framework.dart:5020:14)\n#4      ParentDataElement._applyParentData (package:flutter/src/widgets/framework.dart:5337:5)\n#5      ParentDataElement.notifyClients (package:flutter/src/widgets/framework.dart:5381:5)\n#6      ProxyElement.updated (package:flutter/src/widgets/framework.dart:5311:5)\n#7      ProxyElement.update (package:flutter/src/widgets/framework.dart:5300:5)'),
+                  ),
                 ),
               ),
               actions: [
