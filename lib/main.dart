@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,14 +46,29 @@ class MyApp extends StatelessWidget {
                 ),
               );
             } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
-      ),
+
+              return Scaffold(
+              backgroundColor: Colors.white,body: Center(
+    child: AnimatedContainer(duration: Duration(milliseconds: 500),
+    decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(10),
+    color: Colors.grey[300],
+    border: Border.all(
+    color: Theme.of(context).primaryColor,
+    width: 2,
+    ),
+    ),
+    width: 80,
+    height: 80,
+    child: Icon(Icons.check, color: Theme.of(context).primaryColor),
+    ),
+    ),
     );
+    }
+            }
+          ),
+        ),
+      );
   }
 }
 
@@ -85,12 +102,17 @@ class RoundedBox extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0),
               ),
               content: SizedBox(
-                height: mediaQuery.size.height*0.75,
-                width: mediaQuery.size.width*0.75,
+                height: mediaQuery.size.height*0.70,
+                width: mediaQuery.size.width*0.80,
                 child: SingleChildScrollView(
-                  child: Center(
-                    child: Text('\n#0      RenderObjectElement._updateParentData.<anonymous closure> (package:flutter/src/widgets/framework.dart:6119:11)\n#1      RenderObjectElement._updateParentData (package:flutter/src/widgets/framework.dart:6136:6)\n#2      ParentDataElement._applyParentData.applyParentDataToChild (package:flutter/src/widgets/framework.dart:5331:15)\n#3      ComponentElement.visitChildren (package:flutter/src/widgets/framework.dart:5020:14)\n#4      ParentDataElement._applyParentData (package:flutter/src/widgets/framework.dart:5337:5)\n#5      ParentDataElement.notifyClients (package:flutter/src/widgets/framework.dart:5381:5)\n#6      ProxyElement.updated (package:flutter/src/widgets/framework.dart:5311:5)\n#7      ProxyElement.update (package:flutter/src/widgets/framework.dart:5300:5)'),
-                  ),
+                  child: Column(
+                  children: const [ Center(
+                      child: Text('Bucket list:'),
+                    ),
+
+                    Text('\n#0      RenderObjectElement._updateParentData.<anonymous closure> (package:flutter/src/widgets/framework.dart:6119:11)\n#1      RenderObjectElement._updateParentData (package:flutter/src/widgets/framework.dart:6136:6)\n#2      ParentDataElement._applyParentData.applyParentDataToChild (package:flutter/src/widgets/framework.dart:5331:15)\n#3      ComponentElement.visitChildren (package:flutter/src/widgets/framework.dart:5020:14)\n#4      ParentDataElement._applyParentData (package:flutter/src/widgets/framework.dart:5337:5)\n#5      ParentDataElement.notifyClients (package:flutter/src/widgets/framework.dart:5381:5)\n#6      ProxyElement.updated (package:flutter/src/widgets/framework.dart:5311:5)\n#7      ProxyElement.update (package:flutter/src/widgets/framework.dart:5300:5)'
+                        ),
+                  ])
                 ),
               ),
               actions: [
@@ -98,7 +120,7 @@ class RoundedBox extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('Close'),
+                  child: const Text('Close'),
                 ),
               ],
             );
@@ -110,7 +132,7 @@ class RoundedBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               children: [
                 Expanded(
@@ -127,12 +149,12 @@ class RoundedBox extends StatelessWidget {
                             child: mediaQuery.size.width > 600
                                 ? Padding(
                               padding: EdgeInsets.symmetric(vertical: 5),
-                              child: Text(
-                                name,
-                                style: TextStyle(fontSize: 16),
+                                  child: Text(
+                                    name,
+                                    style: TextStyle(fontSize: 16),
                               ),
                             )
-                                : Padding(
+                                : const Padding(
                               padding: EdgeInsets.symmetric(vertical: 5),
                             ))
                       ]),
@@ -143,8 +165,7 @@ class RoundedBox extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 20),
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
                                   child: Text(
                                     name,
                                     style: TextStyle(fontSize: 24),
@@ -154,7 +175,7 @@ class RoundedBox extends StatelessWidget {
                             ],
                           )
                               : Stack(
-                            children: [
+                            children: const [
                               Expanded(
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
