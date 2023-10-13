@@ -1,3 +1,4 @@
+import '../view/login_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,30 +33,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
  
-      home: const Login(),
+      home: const LoginScreen(),
     );
   }
-}
-
-class Login extends StatefulWidget {
-    const Login({super.key});
-
-    @override
-        State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-    @override
-        Widget build(BuildContext context) {
-            return  DefaultTabController(
-                length: 2, 
-                child: Scaffold(
-                    body: Column(children: [
-                            TabBar(tabs: [Text("test"),Text("test2")]),
-                            TabBarView(children: [])
-                        ],
-                    )
-                ) 
-            ); 
-    }
 }
