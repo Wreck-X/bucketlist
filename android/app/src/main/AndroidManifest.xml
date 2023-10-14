@@ -1,7 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.new_flutter">
-   <application
-        android:label="new_flutter"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:label="bucketlist"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
