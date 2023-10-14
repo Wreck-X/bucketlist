@@ -1,10 +1,16 @@
 import 'package:bucketlist/utils/Routes/route_names.dart';
 import 'package:flutter/material.dart';
+import 'models/session_token.dart';
 import 'utils/Routes/route.dart';
+import 'package:provider/provider.dart';
+import 'view/token_view.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(
+  ChangeNotifierProvider(
+    create: (context) => TokenViewModel(TokenStorage()),
+    child: MyApp(),
+  ),
+);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
