@@ -1,8 +1,8 @@
 import 'package:bucketlist/resources/buttons.dart';
 import 'package:flutter/material.dart';
-
+import '../resources/animation.dart';
 import '../resources/colors.dart';
-import '../utils/Routes/route_names.dart';
+import 'signup_view.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ))),
                 child: InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, RouteNames.signup);
+                   Navigator.of(context).push(FadeRoute(page: const SignupScreen()));
                   },
                   child: const Text(
                     "SIGNUP",

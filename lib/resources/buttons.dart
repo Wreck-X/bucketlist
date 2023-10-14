@@ -1,3 +1,4 @@
+import 'package:bucketlist/resources/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -25,7 +26,10 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(19),
         ),
       ),
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(color: ColorsClass.white, fontSize: 20),
+      ),
     );
   }
 }
