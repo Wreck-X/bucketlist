@@ -197,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: 'Login',
                   color: ColorsClass.violet,
                   function: () {
-                    storeToken('yourUsername', 'yourPassword', 'supposed to be token here');
+                    login('lemon', 'lemon');
                   },
                 ),
               ),
