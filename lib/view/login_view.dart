@@ -197,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: 'Login',
                   color: ColorsClass.violet,
                   function: () {
-                    login('lemon', 'lemon');
+                    login('email@gmail.com', 'password');
                   },
                 ),
               ),
