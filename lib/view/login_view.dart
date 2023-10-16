@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../resources/animation.dart';
 import '../resources/colors.dart';
 import '../utils/utils.dart';
+import '../view_model/login_view_model.dart';
 import 'signup_view.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -119,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       border: InputBorder.none,
                       floatingLabelStyle: TextStyle(color: ColorsClass.violet),
-                      hintText: 'Username',
+                      hintText: 'Email',
                       hintStyle: TextStyle(
                         color: ColorsClass.grey,
                         fontSize: 20,
@@ -195,7 +196,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: CustomButton(
                   text: 'Login',
                   color: ColorsClass.violet,
-                  function: () {},
+                  function: () {
+                    login(_userNameController.text, _passwordController.text);
+                  },
                 ),
               ),
               Positioned(
