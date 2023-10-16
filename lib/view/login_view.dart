@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       border: InputBorder.none,
                       floatingLabelStyle: TextStyle(color: ColorsClass.violet),
-                      hintText: 'Username',
+                      hintText: 'Email',
                       hintStyle: TextStyle(
                         color: ColorsClass.grey,
                         fontSize: 20,
@@ -197,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: 'Login',
                   color: ColorsClass.violet,
                   function: () {
-                    login('email@gmail.com', 'password');
+                    login(_userNameController.text, _passwordController.text);
                   },
                 ),
               ),

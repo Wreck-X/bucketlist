@@ -8,7 +8,7 @@ import 'view/token_view.dart';
 void main() => runApp(
   ChangeNotifierProvider(
     create: (context) => TokenViewModel(TokenStorage()),
-    child: MyApp(),
+    child: const MyApp(),
   ),
 );
 
