@@ -73,9 +73,12 @@ class ApiService {
   }
 
   Future<dynamic> Post(String url, Map<String, dynamic> data) async {
+    String? session_key = await session_token.getToken();
     String? token = await csrf_token.getToken();
     if (token != null) {
+      print(session_key);
       headers['X-CSRFToken'] = token;
+      headers['session_token'] = session_key!;
     }
     return http
         .post(Uri.parse("$baseUrl$url"),
@@ -90,6 +93,10 @@ class ApiService {
         throw new Exception("Error while fetching data");
       }
       print("POST /login");
+      if (json.decode(response.body)['status'] == "success") {
+        print("we're in");
+        session_token.storeToken(json.decode(response.body)["session_token"]);
+      }
       print(response.body);
       return 0;
     });
