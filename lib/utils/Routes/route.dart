@@ -8,7 +8,7 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteNames.login:
-        return MaterialPageRoute(builder: (_) => const ProjectsScreen());
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
       case RouteNames.signup:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
       case RouteNames.organizations:
