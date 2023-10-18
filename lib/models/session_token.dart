@@ -8,7 +8,7 @@ class TokenStorage {
   }
 
   Future<String?> getToken() async {
-    return await _storage.read(key: 'session_token');
+    return _storage.read(key: 'session_token');
   }
 
   // Delete the token during logout
