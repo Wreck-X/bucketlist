@@ -97,7 +97,7 @@ class ApiService {
         print("we're in");
         session_token.storeToken(json.decode(response.body)["session_token"]);
       }
-      print(response.body);
+      //print(response.body);
       return 0;
     });
   }
