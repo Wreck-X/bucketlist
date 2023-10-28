@@ -28,3 +28,36 @@ class _TappableCardState extends State<TappableCard> {
     );
   }
 }
+
+class TextCard extends StatelessWidget {
+  final String number;
+  final String label;
+
+  TextCard(this.number, this.label);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 4),
+      child: AspectRatio(
+        aspectRatio: 1, // to keep the card square-shaped
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  number,
+                  style: TextStyle(fontSize: 24),
+                ),
+                Text(label),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
