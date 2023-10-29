@@ -37,6 +37,7 @@ class TextCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Icon(Icons.chevron_right);
     return Container(
       constraints:
           BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 4),
@@ -58,6 +59,43 @@ class TextCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class BigTextCard extends StatelessWidget {
+  final String displayed_text;
+
+  BigTextCard(this.displayed_text);
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(20),
+        width: double.infinity,
+        height: 200,
+        child: Center(child: Text(displayed_text)),
+      ),
+    );
+  }
+}
+
+class Dropdown extends StatelessWidget {
+  final List<String> list;
+
+  Dropdown(this.list);
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      items: list.map((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      onChanged: (_) {},
+      hint: Text('No one assigned'),
     );
   }
 }
