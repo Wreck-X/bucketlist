@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class TappableCard extends StatefulWidget {
   final String title;
@@ -108,8 +109,10 @@ class ImageCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-            child: Image.network(
-              'https://picsum.photos/200', // Placeholder image URL
+            child: CachedNetworkImage(
+              imageUrl: 'https://picsum.photos/200',
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
               fit: BoxFit.cover,
             ),
           ),
