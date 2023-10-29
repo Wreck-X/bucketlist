@@ -49,9 +49,9 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   BigTextCard("This is a project description"),
                   Row(
                     children: [
-                      Padding(padding: EdgeInsets.all(10)),
+                      const Padding(padding: EdgeInsets.all(10)),
                       Dropdown(['No one assigned', 'Assigned to John']),
-                      Padding(padding: EdgeInsets.all(10)),
+                      const Padding(padding: EdgeInsets.all(10)),
                       Dropdown(['Open - High Prio', 'Closed'])
                     ],
                   ),

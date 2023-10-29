@@ -1,3 +1,4 @@
+import 'package:bucketlist/view/organization_view.dart';
 import 'package:bucketlist/view/project_view.dart';
 
 import '../../utils/Routes/route_names.dart';
@@ -10,7 +11,7 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteNames.login:
-        return MaterialPageRoute(builder: (_) => const ProjectScreen());
+        return MaterialPageRoute(builder: (_) => const OrganizationScreen());
       case RouteNames.signup:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
       case RouteNames.organizations:

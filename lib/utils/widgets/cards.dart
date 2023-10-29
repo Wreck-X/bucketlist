@@ -99,3 +99,26 @@ class Dropdown extends StatelessWidget {
     );
   }
 }
+
+class ImageCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Image.network(
+              'https://picsum.photos/200', // Placeholder image URL
+              fit: BoxFit.cover,
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Name'),
+          ),
+        ],
+      ),
+    );
+  }
+}
