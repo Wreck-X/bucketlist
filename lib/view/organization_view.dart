@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../resources/colors.dart';
 import '../utils/widgets/cards.dart';
 
 class OrganizationScreen extends StatefulWidget {
@@ -18,7 +19,14 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
     columns = columns >= 2 ? columns : 2; // Ensure a minimum of 2 columns
 
     return Scaffold(
-      appBar: AppBar(title: Text('Organizations')),
+      appBar: AppBar(
+        title: const Text('Organizations',
+            style: TextStyle(color: GlobalTheme.foreground)),
+        backgroundColor: GlobalTheme.background,
+        iconTheme: IconThemeData(color: GlobalTheme.foreground),
+        foregroundColor: GlobalTheme.background,
+      ),
+      backgroundColor: GlobalTheme.background,
       body: Column(
         children: [
           const Padding(
@@ -39,7 +47,8 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
                 mainAxisSpacing: 8,
               ),
               padding: const EdgeInsets.all(8),
-              itemBuilder: (context, index) => ImageCard(),
+              itemBuilder: (context, index) =>
+                  const ImageCard(name: "temp name"),
               itemCount: 6,
             ),
           ),

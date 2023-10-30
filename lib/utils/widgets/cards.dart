@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import '../../resources/colors.dart';
+
 class TappableCard extends StatefulWidget {
   final String title;
 
@@ -102,23 +104,34 @@ class Dropdown extends StatelessWidget {
 }
 
 class ImageCard extends StatelessWidget {
+  final String name;
+
+  const ImageCard({super.key, this.name = "default value"});
+
   @override
   Widget build(BuildContext context) {
+    GlobalTheme.background;
     return Card(
+      color: GlobalTheme.back_widget,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-            child: CachedNetworkImage(
-              imageUrl: 'https://picsum.photos/200',
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-              fit: BoxFit.cover,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CachedNetworkImage(
+                imageUrl: 'https://picsum.photos/200',
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text('Name'),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+            // Use the name variable here
+            child: Text(name,
+                style: const TextStyle(color: GlobalTheme.foreground)),
           ),
         ],
       ),

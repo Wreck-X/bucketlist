@@ -72,13 +72,13 @@ class ApiService {
     return cookie;
   }
 
-  Future<dynamic> Post(String url, Map<String, dynamic> data) async {
-    String? session_key = await session_token.getToken();
+  Future<bool> Post(String url, Map<String, dynamic> data) async {
+    String? sessionKey = await session_token.getToken();
     String? token = await csrf_token.getToken();
     if (token != null) {
-      print(session_key);
+      print(sessionKey);
       headers['X-CSRFToken'] = token;
-      headers['session_token'] = session_key!;
+      headers['session_token'] = sessionKey!;
     }
     return http
         .post(Uri.parse("$baseUrl$url"),
@@ -90,15 +90,26 @@ class ApiService {
       _updateCookie(response);
 
       if (statusCode < 200 || statusCode > 400 || json == null) {
-        throw new Exception("Error while fetching data");
+        print("Error while fetching data");
+        return false;
       }
       print("POST /login");
       if (json.decode(response.body)['status'] == "success") {
         print("we're in");
         session_token.storeToken(json.decode(response.body)["session_token"]);
+        return true;
       }
       //print(response.body);
-      return 0;
+      return false;
     });
+  }
+
+  Future<dynamic> refresh_cookies() async {
+    try {
+      api._fetchBaseCookies();
+      return 0;
+    } catch (e) {
+      return 1;
+    }
   }
 }

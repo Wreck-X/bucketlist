@@ -10,3 +10,10 @@ class ColorsClass {
   static const Color darkGrey = Color.fromARGB(255, 50, 50, 50);
   static const Color transparent = Color(0x44000000);
 }
+
+class GlobalTheme {
+  static const Color background = ColorsClass.black;
+  static const Color back_widget = ColorsClass.darkGrey;
+  static const Color accent = ColorsClass.violet;
+  static const Color foreground = ColorsClass.white;
+}
