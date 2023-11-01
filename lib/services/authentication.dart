@@ -72,7 +72,7 @@ class ApiService {
     return cookie;
   }
 
-  Future<bool> Post(String url, Map<String, dynamic> data) async {
+  Future<bool> post(String url, Map<String, dynamic> data) async {
     String? sessionKey = await session_token.getToken();
     String? token = await csrf_token.getToken();
     if (token != null) {
@@ -101,6 +101,37 @@ class ApiService {
       }
       //print(response.body);
       return false;
+    });
+  }
+
+  Future<String> get(String url) async {
+    String? sessionKey = await session_token.getToken();
+    String? token = await csrf_token.getToken();
+    if (token != null) {
+      print(sessionKey);
+      headers['X-CSRFToken'] = token;
+      headers['Authorization'] = sessionKey!;
+    }
+    return http
+        .get(Uri.parse("$baseUrl$url"), headers: headers)
+        .then((http.Response response) {
+      final String res = response.body;
+      final int statusCode = response.statusCode;
+
+      _updateCookie(response);
+
+      if (statusCode < 200 || statusCode > 400 || json == null) {
+        print("Error while fetching data");
+        return res;
+      }
+      print("POST /login");
+      if (json.decode(response.body)['status'] == "success") {
+        print(res);
+        session_token.storeToken(json.decode(response.body)["session_token"]);
+        return res;
+      }
+      //print(response.body);
+      return res;
     });
   }
 

@@ -5,3 +5,4 @@ TokenStorage csrf_token = TokenStorage();
 TokenStorage session_token = TokenStorage();
 String base_url = 'http://127.0.0.1:8000/';
 ApiService api = ApiService(baseUrl: base_url);
+List<dynamic> servers = [];
