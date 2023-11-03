@@ -1,12 +1,12 @@
 import '../utils/constants.dart';
 import '../utils/utils.dart';
 
-class OrgRepository {
+class ProjRepository {
   Future<List> fetchData() async {
     try {
-      List org = Utils.stringToList(await api.get('orgs/'));
-      print(org);
-      servers = org;
+      List proj = Utils.stringToList(await api.get('projects/'));
+      print(proj);
+      servers = proj;
       return servers;
     } catch (e) {
       return [];

@@ -18,7 +18,7 @@ class _TappableCardState extends State<TappableCard> {
     return Card(
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        splashColor: Colors.blue.withAlpha(30),
+        splashColor: GlobalTheme.accent.withAlpha(30),
         onTap: () {
           debugPrint('${widget.title} tapped.');
         },
@@ -113,28 +113,37 @@ class ImageCard extends StatelessWidget {
     GlobalTheme.background;
     return Card(
       color: GlobalTheme.back_widget,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CachedNetworkImage(
-                imageUrl: 'https://picsum.photos/200',
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-                fit: BoxFit.cover,
+      child: InkWell(
+          splashColor: GlobalTheme.accent.withAlpha(30),
+          onTap: () {
+            debugPrint('$name tapped.');
+          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 14, 0, 6),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0), // Adjust the radius here for desired curve
+                  child: CachedNetworkImage(
+                    imageUrl: 'https://picsum.photos/200',
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-            // Use the name variable here
-            child: Text(name,
-                style: const TextStyle(color: GlobalTheme.foreground)),
-          ),
-        ],
-      ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+              // Use the name variable here
+              child: Text(name,
+                  style: const TextStyle(color: GlobalTheme.foreground)),
+            ),
+          ],
+        ),
+      )
     );
   }
 }

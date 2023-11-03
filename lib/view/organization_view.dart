@@ -1,6 +1,8 @@
+import 'package:bucketlist/repositories/my_orgs.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/colors.dart';
+import '../utils/constants.dart';
 import '../utils/widgets/cards.dart';
 
 class OrganizationScreen extends StatefulWidget {
@@ -11,6 +13,21 @@ class OrganizationScreen extends StatefulWidget {
 }
 
 class _OrganizationScreenState extends State<OrganizationScreen> {
+  List<dynamic> servers = []; // List to store the fetched data
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    List fetchedData = await org_repo.fetchData();
+    setState(() {
+      servers = fetchedData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // Calculate number of columns based on screen width
@@ -47,9 +64,8 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
                 mainAxisSpacing: 8,
               ),
               padding: const EdgeInsets.all(8),
-              itemBuilder: (context, index) =>
-                  const ImageCard(name: "temp name"),
-              itemCount: 6,
+              itemBuilder: (context, index) => ImageCard(name: servers[index]["name"]), // Use the names list
+              itemCount: servers.length, // Set itemCount to the length of the names list
             ),
           ),
         ],
