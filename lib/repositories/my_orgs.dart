@@ -1,16 +1,19 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 
-class DataRepository {
-  final String _baseUrl = "https://django-beacon.vercel.app";
+import '../utils/constants.dart';
+import '../utils/utils.dart';
 
-  Future<Map<String, dynamic>> fetchData() async {
-    final response = await http.get(Uri.parse("$_baseUrl/orgs"));
-
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to load data');
+class OrgRepository {
+  Future<List> fetchData() async {
+    try {
+      List org = Utils.stringToList(await api.get('orgs/'));
+      if (kDebugMode) {
+        print(org);
+      }
+      servers = org;
+      return servers;
+    } catch (e) {
+      return [];
     }
   }
 }

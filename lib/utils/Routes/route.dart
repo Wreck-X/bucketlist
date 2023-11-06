@@ -1,5 +1,7 @@
 import '../../utils/Routes/route_names.dart';
 import '../../view/login_view.dart';
+import '../../view/organization_view.dart';
+import '../../view/project_view.dart';
 import '../../view/signup_view.dart';
 import '../../view/projects_view.dart';
 import '../../view/status_view.dart';
@@ -9,15 +11,15 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteNames.login:
-        return MaterialPageRoute(builder: (_) => const StatusScreen());
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
       case RouteNames.signup:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
       case RouteNames.organizations:
-        return MaterialPageRoute(builder: (_) => const SignupScreen());
-      case RouteNames.status:
-        return MaterialPageRoute(builder: (_) => const StatusScreen());
+        return MaterialPageRoute(builder: (_) => const OrganizationScreen());
       case RouteNames.projects:
-        return MaterialPageRoute(builder: (_) => const ProjectsScreen());
+        return MaterialPageRoute(builder: (_) => const ProjectsScreen(org_uid: '',));
+      case RouteNames.project:
+        return MaterialPageRoute(builder: (_) => const ProjectScreen());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

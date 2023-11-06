@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-
 import '../models/session_token.dart';
 
 class TokenViewModel with ChangeNotifier {
