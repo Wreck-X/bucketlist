@@ -1,3 +1,4 @@
+import 'package:bucketlist/resources/colors.dart';
 import 'package:flutter/material.dart';
 import '../utils/widgets/cards.dart';
 
@@ -17,9 +18,18 @@ class _ProjectScreenState extends State<ProjectScreen> {
           decoration: InputDecoration(
             hintText: 'Project Name',
             border: InputBorder.none,
+            hintStyle: TextStyle(
+              color: GlobalTheme.foreground, // Set your hint text color here
+            ),
           ),
+          style: TextStyle(color: GlobalTheme.foreground),
         ),
+        backgroundColor: GlobalTheme.background,
+        iconTheme: IconThemeData(color: GlobalTheme.foreground),
+        foregroundColor: GlobalTheme.foreground,
       ),
+
+      backgroundColor: GlobalTheme.background,
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           bool isLandscape = constraints.maxWidth > constraints.maxHeight;
@@ -33,28 +43,33 @@ class _ProjectScreenState extends State<ProjectScreen> {
                       Expanded(
                           //It will crash if this is not placed in Expanded
                           child: BigTextCard("This is a project description")),
-                      SizedBox(width: 20),
                       Expanded(
                         child: Column(
                           children: [
-                            Dropdown(['No one assigned', 'Assigned to John']),
-                            Dropdown(['Open - High Prio', 'Closed']),
+                            //Text("Assigned to: ",style: TextStyle(color: GlobalTheme.foreground),),
+                            Dropdown(['No one assigned', 'Assigned to John'],'Assigned to'),
+                            Padding(padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                            //Text("Status: "),
+                            Dropdown(['Open - High Prio', 'Closed'], "Status"),
                           ],
                         ),
                       )
                     ],
                   ),
+                  SizedBox(height: 50),
                 ],
                 if (!isLandscape) ...[
                   BigTextCard("This is a project description"),
+                  Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                   Row(
                     children: [
+                      const Padding(padding: EdgeInsets.all(4)),
+                      Dropdown(['No one assigned', 'Assigned to John'],'Assigned to'),
                       const Padding(padding: EdgeInsets.all(10)),
-                      Dropdown(['No one assigned', 'Assigned to John']),
-                      const Padding(padding: EdgeInsets.all(10)),
-                      Dropdown(['Open - High Prio', 'Closed'])
+                      Dropdown(['Open - High Prio', 'Closed'], "Status")
                     ],
                   ),
+                  Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                 ],
                 Expanded(
                   child: ListView.separated(
@@ -63,12 +78,14 @@ class _ProjectScreenState extends State<ProjectScreen> {
                         padding: const EdgeInsets.only(top: 10.0),
                         child: InkWell(
                           onTap: () {
-                            print('Card $index clicked');
+                            debugPrint('Card $index clicked');
                           },
                           child: Card(
+                            color: GlobalTheme.backWidget,
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: Text('Card $index'),
+                              child: Text('Card $index',
+                                  style: const TextStyle(color: GlobalTheme.foreground),),
                             ),
                           ),
                         ),

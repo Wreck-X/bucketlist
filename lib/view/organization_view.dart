@@ -13,7 +13,6 @@ class OrganizationScreen extends StatefulWidget {
 }
 
 class _OrganizationScreenState extends State<OrganizationScreen> {
-  List<dynamic> servers = []; // List to store the fetched data
 
   @override
   void initState() {
@@ -41,7 +40,7 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
             style: TextStyle(color: GlobalTheme.foreground)),
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
-        foregroundColor: GlobalTheme.background,
+        foregroundColor: GlobalTheme.foreground,
       ),
       backgroundColor: GlobalTheme.background,
       body: Column(
@@ -64,7 +63,7 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
                 mainAxisSpacing: 8,
               ),
               padding: const EdgeInsets.all(8),
-              itemBuilder: (context, index) => ImageCard(name: servers[index]["name"]), // Use the names list
+              itemBuilder: (context, index) => ImageCard(name: servers[index]["name"]!, org_uid: servers[index]["id"]!),
               itemCount: servers.length, // Set itemCount to the length of the names list
             ),
           ),

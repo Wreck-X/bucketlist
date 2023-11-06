@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -76,7 +77,7 @@ class ApiService {
     String? sessionKey = await session_token.getToken();
     String? token = await csrf_token.getToken();
     if (token != null) {
-      print(sessionKey);
+      debugPrint(sessionKey);
       headers['X-CSRFToken'] = token;
       headers['session_token'] = sessionKey!;
     }
@@ -90,12 +91,12 @@ class ApiService {
       _updateCookie(response);
 
       if (statusCode < 200 || statusCode > 400 || json == null) {
-        print("Error while fetching data");
+        debugPrint("Error while fetching data");
         return false;
       }
-      print("POST /login");
+      debugPrint("POST /login");
       if (json.decode(response.body)['status'] == "success") {
-        print("we're in");
+        debugPrint("we're in");
         session_token.storeToken(json.decode(response.body)["session_token"]);
         return true;
       }
@@ -108,7 +109,7 @@ class ApiService {
     String? sessionKey = await session_token.getToken();
     String? token = await csrf_token.getToken();
     if (token != null) {
-      print(sessionKey);
+      debugPrint(sessionKey);
       headers['X-CSRFToken'] = token;
       headers['Authorization'] = sessionKey!;
     }
@@ -121,14 +122,51 @@ class ApiService {
       _updateCookie(response);
 
       if (statusCode < 200 || statusCode > 400 || json == null) {
-        print("Error while fetching data");
+        debugPrint("Error while fetching data");
         return res;
       }
-      print("POST /login");
+      debugPrint("POST /login");
       if (json.decode(response.body)['status'] == "success") {
-        print(res);
+        debugPrint(res);
         session_token.storeToken(json.decode(response.body)["session_token"]);
         return res;
+      }
+      //print(response.body);
+      return res;
+    });
+  }
+
+  Future<String> get_projects(String url, String org) async {
+    String? sessionKey = await session_token.getToken();
+    String? token = await csrf_token.getToken();
+    if (token != null) {
+      debugPrint("-");
+      debugPrint(org);
+      debugPrint("-");
+      headers['X-CSRFToken'] = token;
+      headers['Authorization'] = sessionKey!;
+      headers['org'] = org;
+    }
+    return http
+        .get(Uri.parse("$baseUrl$url"), headers: headers)
+        .then((http.Response response) {
+      final String res = response.body;
+      final int statusCode = response.statusCode;
+
+      _updateCookie(response);
+
+      if (statusCode < 200 || statusCode > 400 || json == null) {
+        debugPrint("Error while fetching data");
+        return res;
+      }
+      debugPrint("POST /login");
+      if (json.decode(response.body)['status'] == "success") {
+        debugPrint(res);
+        session_token.storeToken(json.decode(response.body)["session_token"]);
+        return res;
+      }
+      else{
+        debugPrint(response.body );
       }
       //print(response.body);
       return res;

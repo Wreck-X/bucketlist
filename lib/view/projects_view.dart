@@ -1,8 +1,13 @@
+import 'package:bucketlist/view/project_view.dart';
 import 'package:flutter/material.dart';
+import '../resources/animation.dart';
+import '../resources/colors.dart';
+import '../utils/constants.dart';
 import '../utils/widgets/cards.dart';
 
 class ProjectsScreen extends StatefulWidget {
-  const ProjectsScreen({Key? key}) : super(key: key);
+  final String org_uid;
+  const ProjectsScreen({Key? key, required this.org_uid}) : super(key: key);
 
   @override
   State<ProjectsScreen> createState() => _ProjectsScreenState();
@@ -10,11 +15,31 @@ class ProjectsScreen extends StatefulWidget {
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
   @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    List fetchedData = await proj_repo.fetchData(widget.org_uid);
+    setState(() {
+      projects = fetchedData;
+      print(projects);
+      print("ran");
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Projects'),
+        title: Text('Projects',
+            style: TextStyle(color: GlobalTheme.foreground)),
+        backgroundColor: GlobalTheme.background,
+        iconTheme: IconThemeData(color: GlobalTheme.foreground),
+        foregroundColor: GlobalTheme.foreground,
       ),
+      backgroundColor: GlobalTheme.background,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -42,18 +67,24 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             // Scroll area with clickable rows of cards
             Expanded(
               child: ListView.builder(
-                itemCount: 10, // Sample number of cards
+                itemCount: projects.length, // Use the length of the projects list
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: InkWell(
                       onTap: () {
-                        print('Card $index clicked');
+                        print('Card ${projects[index]['id']} clicked');
+                        Navigator.of(context)
+                            .push(FadeRoute(page: const ProjectScreen()));
                       },
                       child: Card(
+                        color: GlobalTheme.backWidget,
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: Text('Card $index'),
+                          child: Text(
+                            projects[index]['name'] ?? 'Unnamed Project', // Display the project name
+                            style: const TextStyle(color: GlobalTheme.foreground),
+                          ),
                         ),
                       ),
                     ),
@@ -68,4 +99,5 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   }
 }
 
-void main() => runApp(MaterialApp(home: ProjectsScreen()));
+void main() => runApp(MaterialApp(home: ProjectsScreen(org_uid: 'your_org_uid_here')));
+

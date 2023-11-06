@@ -16,7 +16,7 @@ class Routes {
       case RouteNames.organizations:
         return MaterialPageRoute(builder: (_) => const OrganizationScreen());
       case RouteNames.projects:
-        return MaterialPageRoute(builder: (_) => const ProjectsScreen());
+        return MaterialPageRoute(builder: (_) => const ProjectsScreen(org_uid: '',));
       case RouteNames.project:
         return MaterialPageRoute(builder: (_) => const ProjectScreen());
       default:

@@ -20,3 +20,12 @@ class Utils {
     return (list);
   }
 }
+List<Map<String, String>> parseResponse(String responseBody) {
+  final parsed = json.decode(responseBody) as Map<String, dynamic>;
+  return parsed.entries.map((entry) {
+    return {
+      'uid': entry.key,
+      'name': entry.value['name'] as String,
+    };
+  }).toList();
+}

@@ -1,4 +1,4 @@
-import 'package:bucketlist/resources/buttons.dart';
+import 'package:bucketlist/utils/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import '../resources/animation.dart';
 import '../resources/colors.dart';

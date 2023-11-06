@@ -1,7 +1,9 @@
+import 'package:bucketlist/view/projects_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
+import '../../resources/animation.dart';
 import '../../resources/colors.dart';
+import '../constants.dart';
 
 class TappableCard extends StatefulWidget {
   final String title;
@@ -47,6 +49,7 @@ class TextCard extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1, // to keep the card square-shaped
         child: Card(
+          color: GlobalTheme.backWidget,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -54,9 +57,10 @@ class TextCard extends StatelessWidget {
               children: [
                 Text(
                   number,
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(fontSize: 24, color: GlobalTheme.foreground),
                 ),
-                Text(label),
+                Text(label,
+                  style: TextStyle(color: GlobalTheme.foreground),),
               ],
             ),
           ),
@@ -73,11 +77,12 @@ class BigTextCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: GlobalTheme.darkAccent,
       child: Container(
         padding: EdgeInsets.all(20),
         width: double.infinity,
         height: 200,
-        child: Center(child: Text(displayed_text)),
+        child: Center(child: Text(displayed_text, textScaleFactor: 1.15, style: const TextStyle(color: GlobalTheme.foreground)),),
       ),
     );
   }
@@ -85,38 +90,57 @@ class BigTextCard extends StatelessWidget {
 
 class Dropdown extends StatelessWidget {
   final List<String> list;
+  final title;
 
-  Dropdown(this.list);
+  Dropdown(this.list, this.title);
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      items: list.map((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      onChanged: (_) {},
-      hint: Text('No one assigned'),
+    return Container(
+      decoration: BoxDecoration(
+        color: GlobalTheme.backWidget,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          items: list.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value, style: const TextStyle(color: GlobalTheme.foreground)),
+            );
+          }).toList(),
+          onChanged: (_) {},
+          hint: Text(title, style: const TextStyle(color: GlobalTheme.foreground)),
+
+          dropdownColor: GlobalTheme.backWidget,
+        ),
+      ),
     );
   }
 }
 
+
 class ImageCard extends StatelessWidget {
   final String name;
+  final String org_uid;
 
-  const ImageCard({super.key, this.name = "default value"});
+  const ImageCard({super.key, this.name = "default value", this.org_uid = ''});
 
   @override
   Widget build(BuildContext context) {
+
     GlobalTheme.background;
     return Card(
-      color: GlobalTheme.back_widget,
+      color: GlobalTheme.backWidget,
       child: InkWell(
           splashColor: GlobalTheme.accent.withAlpha(30),
           onTap: () {
             debugPrint('$name tapped.');
+            selected_org = org_uid;
+            debugPrint(selected_org);
+            Navigator.of(context)
+                .push(FadeRoute(page: ProjectsScreen(org_uid: org_uid)));
           },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
