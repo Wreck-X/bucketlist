@@ -9,4 +9,6 @@ class ColorsClass {
   static const Color lightGrey = Color.fromARGB(255, 211, 211, 211);
   static const Color darkGrey = Color.fromARGB(255, 50, 50, 50);
   static const Color transparent = Color(0x44000000);
+  static const Color lightblack = Color.fromARGB(255,30,30,30);
+  static const Color purp = Color.fromARGB(255, 151, 31, 253);
 }
