@@ -4,6 +4,7 @@ import '../../view/organization_view.dart';
 import '../../view/project_view.dart';
 import '../../view/signup_view.dart';
 import '../../view/projects_view.dart';
+import '../../view/status_view.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
