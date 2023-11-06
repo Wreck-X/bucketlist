@@ -13,7 +13,7 @@ class _StatusCardState extends State<StatusCard> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(width: 10, height: 10),
+        const SizedBox(height: 10),
         Container(
           color: ColorsClass.lightblack,
           height: 40,
