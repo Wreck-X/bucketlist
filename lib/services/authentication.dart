@@ -90,7 +90,7 @@ class ApiService {
 
       _updateCookie(response);
 
-      if (statusCode < 200 || statusCode > 400 || json == null) {
+      if (statusCode < 200 || statusCode > 400) {
         debugPrint("Error while fetching data");
         return false;
       }
@@ -121,7 +121,7 @@ class ApiService {
 
       _updateCookie(response);
 
-      if (statusCode < 200 || statusCode > 400 || json == null) {
+      if (statusCode < 200 || statusCode > 400) {
         debugPrint("Error while fetching data");
         return res;
       }
@@ -155,7 +155,7 @@ class ApiService {
 
       _updateCookie(response);
 
-      if (statusCode < 200 || statusCode > 400 || json == null) {
+      if (statusCode < 200 || statusCode > 400) {
         debugPrint("Error while fetching data");
         return res;
       }
