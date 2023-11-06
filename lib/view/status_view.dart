@@ -1,7 +1,9 @@
 import 'package:bucketlist/utils/widgets/bottombar.dart';
 import 'package:bucketlist/utils/widgets/statuscard.dart';
+import 'package:bucketlist/view/members_view.dart';
 import 'package:flutter/material.dart';
 import '../resources/colors.dart';
+import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class StatusScreen extends StatefulWidget {
   const StatusScreen({super.key});
@@ -21,6 +23,16 @@ class _StatusScreenState extends State<StatusScreen> {
               Container(
                 height: 90,
                 color: ColorsClass.purp,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push<void>(SwipeablePageRoute(
+                    // You can customize the width of the detection area with
+                    // `backGestureDetectionWidth`.
+                    builder: (_) => MembersScreen(),
+                  ));
+                },
+                child: const Text('Open page 3'),
               ),
               Expanded(
                 child: Container(

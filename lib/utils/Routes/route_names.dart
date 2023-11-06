@@ -4,4 +4,5 @@ class RouteNames {
   static const String organizations = "organizations_view";
   static const String projects = "projects_view";
   static const String project = "project_view";
+  static const String status = "status_view";
 }

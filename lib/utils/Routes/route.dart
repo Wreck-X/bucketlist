@@ -12,12 +12,17 @@ class Routes {
     switch (settings.name) {
       case RouteNames.login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
+      case RouteNames.status:
+        return MaterialPageRoute(builder: (_) => const StatusScreen());
       case RouteNames.signup:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
       case RouteNames.organizations:
         return MaterialPageRoute(builder: (_) => const OrganizationScreen());
       case RouteNames.projects:
-        return MaterialPageRoute(builder: (_) => const ProjectsScreen(org_uid: '',));
+        return MaterialPageRoute(
+            builder: (_) => const ProjectsScreen(
+                  org_uid: '',
+                ));
       case RouteNames.project:
         return MaterialPageRoute(builder: (_) => const ProjectScreen());
       default:
