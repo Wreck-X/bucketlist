@@ -1,3 +1,4 @@
+import 'package:bucketlist/utils/Routes/route_names.dart';
 import 'package:bucketlist/utils/widgets/bottombar.dart';
 import 'package:bucketlist/utils/widgets/statuscard.dart';
 import 'package:bucketlist/view/members_view.dart';
@@ -26,11 +27,7 @@ class _StatusScreenState extends State<StatusScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push<void>(SwipeablePageRoute(
-                    // You can customize the width of the detection area with
-                    // `backGestureDetectionWidth`.
-                    builder: (_) => MembersScreen(),
-                  ));
+                  Navigator.of(context).pushNamed(RouteNames.members);
                 },
                 child: const Text('Open page 3'),
               ),

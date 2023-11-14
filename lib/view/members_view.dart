@@ -1,4 +1,7 @@
+import 'package:bucketlist/resources/colors.dart';
 import 'package:bucketlist/resources/screendat.dart';
+import 'package:bucketlist/utils/widgets/statuscard.dart';
+import 'package:bucketlist/utils/widgets/bottombar.dart';
 import 'package:flutter/material.dart';
 
 class MembersScreen extends StatefulWidget {
@@ -14,7 +17,51 @@ class _MembersScreenState extends State<MembersScreen> {
     return Container(
       height: ScreenUtil.screenHeight(context),
       width: ScreenUtil.screenWidth(context),
-      child: Placeholder(),
+      child: Scaffold(
+        backgroundColor: ColorsClass.black,
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(15, 2, 15, 15),
+                child: Text(
+                  "Members",
+                  style: TextStyle(color: Colors.white, fontSize: 30),
+                ),
+              ),
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: ColorsClass.textfcolor),
+                    height: ScreenUtil.screenHeight(context) * 0.05,
+                    width: ScreenUtil.screenHeight(context) * 0.3,
+                    child: const TextField(
+                      decoration: InputDecoration(
+                          labelText: 'Search', border: InputBorder.none),
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Container(
+                    height: ScreenUtil.screenHeight(context) * 0.8,
+                    width: ScreenUtil.screenWidth(context),
+                    color: ColorsClass.black,
+                    child: ListView.builder(
+                        itemCount: 10, // Temp count change on api call
+                        itemBuilder: (context, index) {
+                          return const StatusCard();
+                        })),
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: SafeArea(child: BottomBar()),
+      ),
     );
   }
 }

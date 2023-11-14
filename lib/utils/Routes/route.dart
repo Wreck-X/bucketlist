@@ -5,11 +5,15 @@ import '../../view/project_view.dart';
 import '../../view/signup_view.dart';
 import '../../view/projects_view.dart';
 import '../../view/status_view.dart';
+import '../../view/members_view.dart';
 import 'package:flutter/material.dart';
+import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RouteNames.members:
+        return SwipeablePageRoute(builder: (_) => MembersScreen());
       case RouteNames.login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case RouteNames.status:
