@@ -1,5 +1,6 @@
 import 'package:bucketlist/resources/colors.dart';
 import 'package:bucketlist/resources/screendat.dart';
+import 'package:bucketlist/utils/widgets/membercard.dart';
 import 'package:bucketlist/utils/widgets/statuscard.dart';
 import 'package:bucketlist/utils/widgets/bottombar.dart';
 import 'package:flutter/material.dart';
@@ -32,19 +33,35 @@ class _MembersScreenState extends State<MembersScreen> {
               ),
               Row(
                 children: [
+                  SizedBox(
+                    height: ScreenUtil.screenHeight(context) * 0.05,
+                    width: ScreenUtil.screenHeight(context) * 0.05,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)))),
+                        onPressed: () {},
+                        child: const Center(child: Icon(Icons.filter_alt))),
+                  ),
+                  SizedBox(width: 10),
                   Container(
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: ColorsClass.textfcolor),
                     height: ScreenUtil.screenHeight(context) * 0.05,
-                    width: ScreenUtil.screenHeight(context) * 0.3,
+                    width: ScreenUtil.screenHeight(context) * 0.38,
                     child: const TextField(
                       decoration: InputDecoration(
                           labelText: 'Search', border: InputBorder.none),
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Expanded(
                 child: Container(
@@ -54,7 +71,7 @@ class _MembersScreenState extends State<MembersScreen> {
                     child: ListView.builder(
                         itemCount: 10, // Temp count change on api call
                         itemBuilder: (context, index) {
-                          return const StatusCard();
+                          return MembersCard();
                         })),
               ),
             ],

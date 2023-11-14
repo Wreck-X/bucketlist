@@ -1,5 +1,6 @@
 import 'package:bucketlist/utils/Routes/route_names.dart';
 import 'package:bucketlist/utils/widgets/bottombar.dart';
+import 'package:bucketlist/utils/widgets/membercard.dart';
 import 'package:bucketlist/utils/widgets/statuscard.dart';
 import 'package:bucketlist/view/members_view.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,6 @@ class _StatusScreenState extends State<StatusScreen> {
               Container(
                 height: 90,
                 color: ColorsClass.purp,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(RouteNames.members);
-                },
-                child: const Text('Open page 3'),
               ),
               Expanded(
                 child: Container(
