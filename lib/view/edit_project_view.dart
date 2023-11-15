@@ -2,20 +2,28 @@ import 'package:bucketlist/resources/colors.dart';
 import 'package:flutter/material.dart';
 import '../utils/widgets/cards.dart';
 
-class ProjectScreen extends StatefulWidget {
-  const ProjectScreen({Key? key}) : super(key: key);
+class EditProjectScreen extends StatefulWidget {
+  const EditProjectScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProjectScreen> createState() => _ProjectScreenState();
+  State<EditProjectScreen> createState() => _ProjectScreenState();
 }
 
-class _ProjectScreenState extends State<ProjectScreen> {
+class _ProjectScreenState extends State<EditProjectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Project Name',
-            style: TextStyle(color: GlobalTheme.foreground)),
+        title: const TextField(
+          decoration: InputDecoration(
+            hintText: 'Project Name',
+            border: InputBorder.none,
+            hintStyle: TextStyle(
+              color: GlobalTheme.foreground, // Set your hint text color here
+            ),
+          ),
+          style: TextStyle(color: GlobalTheme.foreground),
+        ),
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
@@ -34,7 +42,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                     children: [
                       Expanded(
                           //It will crash if this is not placed in Expanded
-                          child: BigTextCard("This is a project description", false)),
+                          child: BigTextCard("This is a project description",true)),
                       Expanded(
                         child: Column(
                           children: [
@@ -51,7 +59,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   SizedBox(height: 50),
                 ],
                 if (!isLandscape) ...[
-                  BigTextCard("This is a project description", false),
+                  BigTextCard("This is a project description", true),
                   Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                   Row(
                     children: [

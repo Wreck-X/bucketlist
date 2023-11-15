@@ -72,10 +72,32 @@ class TextCard extends StatelessWidget {
 
 class BigTextCard extends StatelessWidget {
   final String displayed_text;
+  bool edit = false;
 
-  BigTextCard(this.displayed_text);
+  BigTextCard(this.displayed_text, this.edit);
   @override
   Widget build(BuildContext context) {
+    if (edit){
+      return Card(
+        color: GlobalTheme.darkAccent,
+        child: Container(
+          padding: EdgeInsets.all(20),
+          width: double.infinity,
+          height: 200,
+          child: Center(child: TextField(
+              decoration: InputDecoration(
+                hintText: displayed_text,
+                border: InputBorder.none,
+                hintStyle: TextStyle(
+                  color: GlobalTheme.foreground,
+                  fontSize: MediaQuery.of(context).textScaleFactor * 14.0, // Adjust the font size as needed
+                ),
+              ),
+              style: TextStyle(color: GlobalTheme.foreground),
+            ),),
+        ),
+      );
+    } else{
     return Card(
       color: GlobalTheme.darkAccent,
       child: Container(
@@ -85,7 +107,7 @@ class BigTextCard extends StatelessWidget {
         child: Center(child: Text(displayed_text, textScaleFactor: 1.15, style: const TextStyle(color: GlobalTheme.foreground)),),
       ),
     );
-  }
+  }}
 }
 
 class Dropdown extends StatelessWidget {

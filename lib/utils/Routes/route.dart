@@ -1,4 +1,5 @@
 import '../../utils/Routes/route_names.dart';
+import '../../view/edit_project_view.dart';
 import '../../view/login_view.dart';
 import '../../view/organization_view.dart';
 import '../../view/project_view.dart';
@@ -29,6 +30,8 @@ class Routes {
                 ));
       case RouteNames.project:
         return MaterialPageRoute(builder: (_) => const ProjectScreen());
+      case RouteNames.editProject:
+        return MaterialPageRoute(builder: (_) => const EditProjectScreen());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

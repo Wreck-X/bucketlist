@@ -2,6 +2,7 @@ import 'package:bucketlist/view/project_view.dart';
 import 'package:flutter/material.dart';
 import '../resources/animation.dart';
 import '../resources/colors.dart';
+import '../utils/Routes/route_names.dart';
 import '../utils/constants.dart';
 import '../utils/widgets/cards.dart';
 
@@ -33,7 +34,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Projects',
+        title: const Text('Projects',
             style: TextStyle(color: GlobalTheme.foreground)),
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
@@ -75,7 +76,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                       onTap: () {
                         print('Card ${projects[index]['id']} clicked');
                         Navigator.of(context)
-                            .push(FadeRoute(page: const ProjectScreen()));
+                            .pushNamed(RouteNames.project);
                       },
                       child: Card(
                         color: GlobalTheme.backWidget,
