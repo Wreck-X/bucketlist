@@ -1,3 +1,5 @@
+import 'package:bucketlist/view/statistics.dart';
+
 import '../../utils/Routes/route_names.dart';
 import '../../view/login_view.dart';
 import '../../view/organization_view.dart';
@@ -12,6 +14,8 @@ import 'package:swipeable_page_route/swipeable_page_route.dart';
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RouteNames.statistics:
+        return MaterialPageRoute(builder: (_) => StatisticScreen());
       case RouteNames.members:
         return SwipeablePageRoute(builder: (_) => MembersScreen());
       case RouteNames.login:

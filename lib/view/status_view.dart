@@ -22,9 +22,14 @@ class _StatusScreenState extends State<StatusScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              Container(
-                height: 90,
-                color: ColorsClass.purp,
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(RouteNames.statistics);
+                },
+                child: Container(
+                  height: 90,
+                  color: ColorsClass.purp,
+                ),
               ),
               Expanded(
                 child: Container(

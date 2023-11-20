@@ -6,4 +6,5 @@ class RouteNames {
   static const String project = "project_view";
   static const String status = "status_view";
   static const String members = "members_view";
+  static const String statistics = "statistic_view";
 }
