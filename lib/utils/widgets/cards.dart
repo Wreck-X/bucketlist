@@ -49,22 +49,29 @@ class TextCard extends StatelessWidget {
           BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 4),
       child: AspectRatio(
         aspectRatio: 1, // to keep the card square-shaped
-        child: Card(
-          color: GlobalTheme.backWidget,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  number,
-                  style: TextStyle(fontSize: 24, color: GlobalTheme.foreground),
-                ),
-                Text(
-                  label,
-                  style: TextStyle(color: GlobalTheme.foreground),
-                ),
-              ],
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: ColorsClass.lightblack,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    number,
+                    style:
+                        TextStyle(fontSize: 24, color: GlobalTheme.foreground),
+                  ),
+                  Text(
+                    label,
+                    style: TextStyle(color: GlobalTheme.foreground),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -121,7 +128,7 @@ class Dropdown extends StatelessWidget {
           onChanged: (_) {},
           hint: Text(title,
               style: const TextStyle(color: GlobalTheme.foreground)),
-          dropdownColor: GlobalTheme.backWidget,
+          dropdownColor: const Color.fromARGB(255, 255, 22, 22),
         ),
       ),
     );

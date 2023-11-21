@@ -28,9 +28,20 @@ class _MemebersCardState extends State<MembersCard> {
             children: [
               Container(
                 padding: const EdgeInsets.all(5),
-                child: const Row(
+                child: Row(
                   children: [
-                    SizedBox(height: 25, width: 25, child: Placeholder()),
+                    Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                          color: ColorsClass.yellow,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Center(
+                          child: Text(
+                        "H",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    ),
                     SizedBox(
                       width: 10,
                     ),

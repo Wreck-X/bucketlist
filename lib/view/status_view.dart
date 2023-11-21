@@ -1,3 +1,4 @@
+import 'package:bucketlist/resources/screen.dart';
 import 'package:bucketlist/utils/Routes/route_names.dart';
 import 'package:bucketlist/utils/widgets/statuscard.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,63 @@ class _StatusScreenState extends State<StatusScreen> {
               onTap: () {
                 Navigator.of(context).pushNamed(RouteNames.statistics);
               },
-              child: Container(
-                height: 90,
-                color: ColorsClass.purp,
-              ),
+              child: Stack(children: [
+                Container(
+                  height: ScreenUtil.screenHeight(context) * 0.115,
+                  color: ColorsClass.darkGrey,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Container(
+                      height: 80,
+                      width: ScreenUtil.screenWidth(context) * 0.99,
+                      decoration: BoxDecoration(
+                          color: ColorsClass.grey,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: ScreenUtil.screenHeight(context) * 0.08,
+                              width: ScreenUtil.screenWidth(context) * 0.18,
+                              decoration: BoxDecoration(
+                                  color: ColorsClass.darkGrey,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: const Center(
+                                child: Text(
+                                  "PFP",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Expanded(
+                              child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "VIRGIL MARCUS",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "Members 40/50",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
             ),
             Expanded(
               child: Container(
@@ -39,11 +93,23 @@ class _StatusScreenState extends State<StatusScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () {
-            Navigator.of(context).pushNamed(RouteNames.sendupdate);
-          }),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.add),
+          ),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(RouteNames.sendupdate);
+            },
+            child: Icon(Icons.add),
+          ),
+        ],
+      ),
     );
   }
 }

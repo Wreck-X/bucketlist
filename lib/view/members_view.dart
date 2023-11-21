@@ -29,34 +29,47 @@ class _MembersScreenState extends State<MembersScreen> {
                   style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
               ),
-              Row(
-                children: [
-                  SizedBox(
-                    height: ScreenUtil.screenHeight(context) * 0.05,
-                    width: ScreenUtil.screenHeight(context) * 0.05,
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)))),
-                        onPressed: () {},
-                        child: const Center(child: Icon(Icons.filter_alt))),
-                  ),
-                  SizedBox(width: 10),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: ColorsClass.textfcolor),
-                    height: ScreenUtil.screenHeight(context) * 0.05,
-                    width: ScreenUtil.screenHeight(context) * 0.38,
-                    child: const TextField(
-                      decoration: InputDecoration(
-                          labelText: 'Search', border: InputBorder.none),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: ScreenUtil.screenHeight(context) * 0.05,
+                      width: ScreenUtil.screenHeight(context) * 0.048,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: ColorsClass.purp,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.filter_alt,
+                            color: Colors.white,
+                          ),
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(12)))),
+                          onPressed: () {},
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 10),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: ColorsClass.textfcolor),
+                      height: ScreenUtil.screenHeight(context) * 0.05,
+                      width: ScreenUtil.screenHeight(context) * 0.38,
+                      child: const TextField(
+                        decoration: InputDecoration(
+                            labelText: 'Search', border: InputBorder.none),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 10,

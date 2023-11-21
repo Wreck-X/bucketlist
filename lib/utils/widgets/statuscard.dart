@@ -16,10 +16,12 @@ class _StatusCardState extends State<StatusCard> {
       children: [
         const SizedBox(height: 10),
         Container(
+          decoration: BoxDecoration(
+              color: ColorsClass.lightblack,
+              borderRadius: BorderRadius.circular(10)),
           padding: const EdgeInsets.all(20),
-          color: ColorsClass.lightblack,
-          height: ScreenUtil.screenHeight(context) * 0.2,
-          width: ScreenUtil.screenHeight(context) * 0.95,
+          height: ScreenUtil.screenHeight(context) * 0.18,
+          width: ScreenUtil.screenWidth(context) * 0.96,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

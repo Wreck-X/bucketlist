@@ -55,7 +55,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               ),
             ),
             SizedBox(height: 20), // Spacing
-
             // Three text cards that are horizontally aligned
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
