@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:bucketlist/utils/Routes/route_names.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({super.key});
+  final PageController controller;
+  const BottomBar({super.key, required this.controller});
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -12,33 +13,31 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
-    var _selectedTab = _SelectedTab.groups;
-
-    void _handleIndexChanged(int i) {
-      setState(() {
-        _selectedTab = _SelectedTab.values[i];
-      });
-    }
-
     return Container(
         color: ColorsClass.darkGrey,
         height: 80,
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(RouteNames.status);
+              widget.controller.animateToPage(0,
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeInOut);
             },
             child: const Icon(Icons.message, color: Colors.white),
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(RouteNames.projects);
+              widget.controller.animateToPage(1,
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeInOut);
             },
             child: const Icon(Icons.playlist_add, color: Colors.white),
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(RouteNames.members);
+              widget.controller.animateToPage(2,
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeInOut);
             },
             child: const Icon(Icons.groups, color: Colors.white),
           ),

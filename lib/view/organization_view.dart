@@ -1,4 +1,3 @@
-import 'package:bucketlist/repositories/my_orgs.dart';
 import 'package:flutter/material.dart';
 import '../resources/colors.dart';
 import '../utils/constants.dart';

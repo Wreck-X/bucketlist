@@ -1,4 +1,5 @@
 import 'package:bucketlist/view/projects_view.dart';
+import 'package:bucketlist/view/tripage_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../resources/animation.dart';
@@ -59,8 +60,10 @@ class TextCard extends StatelessWidget {
                   number,
                   style: TextStyle(fontSize: 24, color: GlobalTheme.foreground),
                 ),
-                Text(label,
-                  style: TextStyle(color: GlobalTheme.foreground),),
+                Text(
+                  label,
+                  style: TextStyle(color: GlobalTheme.foreground),
+                ),
               ],
             ),
           ),
@@ -82,7 +85,11 @@ class BigTextCard extends StatelessWidget {
         padding: EdgeInsets.all(20),
         width: double.infinity,
         height: 200,
-        child: Center(child: Text(displayed_text, textScaleFactor: 1.15, style: const TextStyle(color: GlobalTheme.foreground)),),
+        child: Center(
+          child: Text(displayed_text,
+              textScaleFactor: 1.15,
+              style: const TextStyle(color: GlobalTheme.foreground)),
+        ),
       ),
     );
   }
@@ -107,12 +114,13 @@ class Dropdown extends StatelessWidget {
           items: list.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value, style: const TextStyle(color: GlobalTheme.foreground)),
+              child: Text(value,
+                  style: const TextStyle(color: GlobalTheme.foreground)),
             );
           }).toList(),
           onChanged: (_) {},
-          hint: Text(title, style: const TextStyle(color: GlobalTheme.foreground)),
-
+          hint: Text(title,
+              style: const TextStyle(color: GlobalTheme.foreground)),
           dropdownColor: GlobalTheme.backWidget,
         ),
       ),
@@ -120,54 +128,53 @@ class Dropdown extends StatelessWidget {
   }
 }
 
-
 class ImageCard extends StatelessWidget {
   final String name;
   final String org_uid;
 
-  const ImageCard({super.key, this.name = "default value", this.org_uid = ''});
+  const ImageCard({Key? key, this.name = "default value", this.org_uid = ''});
 
   @override
   Widget build(BuildContext context) {
-
     GlobalTheme.background;
     return Card(
-      color: GlobalTheme.backWidget,
-      child: InkWell(
+        color: GlobalTheme.backWidget,
+        child: InkWell(
           splashColor: GlobalTheme.accent.withAlpha(30),
           onTap: () {
             debugPrint('$name tapped.');
             selected_org = org_uid;
             debugPrint(selected_org);
             Navigator.of(context)
-                .push(FadeRoute(page: ProjectsScreen(org_uid: org_uid)));
+                .push(FadeRoute(page: TriPage(org_uid: org_uid)));
           },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 14, 0, 6),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0), // Adjust the radius here for desired curve
-                  child: CachedNetworkImage(
-                    imageUrl: 'https://picsum.photos/200',
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                    fit: BoxFit.cover,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 14, 0, 6),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                        8.0), // Adjust the radius here for desired curve
+                    child: CachedNetworkImage(
+                      imageUrl: 'https://picsum.photos/200',
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-              // Use the name variable here
-              child: Text(name,
-                  style: const TextStyle(color: GlobalTheme.foreground)),
-            ),
-          ],
-        ),
-      )
-    );
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                // Use the name variable here
+                child: Text(name,
+                    style: const TextStyle(color: GlobalTheme.foreground)),
+              ),
+            ],
+          ),
+        ));
   }
 }

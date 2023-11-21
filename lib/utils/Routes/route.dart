@@ -1,4 +1,6 @@
+import 'package:bucketlist/view/sendupdate_view.dart';
 import 'package:bucketlist/view/statistics.dart';
+import 'package:bucketlist/view/tripage_view.dart';
 
 import '../../utils/Routes/route_names.dart';
 import '../../view/login_view.dart';
@@ -14,6 +16,8 @@ import 'package:swipeable_page_route/swipeable_page_route.dart';
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RouteNames.tripage:
+        return MaterialPageRoute(builder: (_) => TriPage(org_uid: ''));
       case RouteNames.statistics:
         return MaterialPageRoute(builder: (_) => StatisticScreen());
       case RouteNames.members:
@@ -26,11 +30,11 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const SignupScreen());
       case RouteNames.organizations:
         return MaterialPageRoute(builder: (_) => const OrganizationScreen());
+      case RouteNames.sendupdate:
+        return MaterialPageRoute(builder: (_) => SendStatus());
       case RouteNames.projects:
         return SwipeablePageRoute(
-            builder: (_) => const ProjectsScreen(
-                  org_uid: '',
-                ));
+            builder: (_) => const ProjectsScreen(org_uid: ''));
       case RouteNames.project:
         return MaterialPageRoute(builder: (_) => const ProjectScreen());
       default:

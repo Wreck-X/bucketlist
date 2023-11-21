@@ -57,10 +57,14 @@ class _StatusCardState extends State<StatusCard> {
                         size: 30,
                       )),
                   SizedBox(width: 10),
-                  Text(
-                    "currently working on blah",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  Column(
+                    children: [
+                      Text(
+                        "currently working on blah",
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ],
                   ),
                 ],
               ),

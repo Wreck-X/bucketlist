@@ -6,7 +6,8 @@ import '../utils/constants.dart';
 import '../utils/widgets/cards.dart';
 
 class ProjectsScreen extends StatefulWidget {
-  final String org_uid;
+  final org_uid;
+
   const ProjectsScreen({Key? key, required this.org_uid}) : super(key: key);
 
   @override
@@ -17,6 +18,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   @override
   void initState() {
     super.initState();
+
+    print("widget" + widget.org_uid);
     fetchData();
   }
 
@@ -33,8 +36,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Projects',
-            style: TextStyle(color: GlobalTheme.foreground)),
+        title:
+            Text('Projects', style: TextStyle(color: GlobalTheme.foreground)),
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
@@ -67,7 +70,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             // Scroll area with clickable rows of cards
             Expanded(
               child: ListView.builder(
-                itemCount: projects.length, // Use the length of the projects list
+                itemCount:
+                    projects.length, // Use the length of the projects list
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
@@ -82,8 +86,10 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Text(
-                            projects[index]['name'] ?? 'Unnamed Project', // Display the project name
-                            style: const TextStyle(color: GlobalTheme.foreground),
+                            projects[index]['name'] ??
+                                'Unnamed Project', // Display the project name
+                            style:
+                                const TextStyle(color: GlobalTheme.foreground),
                           ),
                         ),
                       ),
@@ -99,5 +105,5 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   }
 }
 
-void main() => runApp(MaterialApp(home: ProjectsScreen(org_uid: 'your_org_uid_here')));
-
+void main() =>
+    runApp(MaterialApp(home: ProjectsScreen(org_uid: 'your_org_uid_here')));

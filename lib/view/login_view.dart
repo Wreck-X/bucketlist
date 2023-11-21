@@ -206,7 +206,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           _userNameController.text, _passwordController.text);
                       org_repo.fetchData();
                       if (success) {
-                        Navigator.of(context).pushNamed(RouteNames.status);
+                        Navigator.of(context)
+                            .pushNamed(RouteNames.organizations);
                       } else {
                         print("failed to login");
                       }
