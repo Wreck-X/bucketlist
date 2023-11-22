@@ -1,5 +1,6 @@
 import 'package:bucketlist/resources/colors.dart';
 import 'package:flutter/material.dart';
+import '../utils/Routes/route_names.dart';
 import '../utils/widgets/cards.dart';
 
 class ProjectScreen extends StatefulWidget {
@@ -19,6 +20,14 @@ class _ProjectScreenState extends State<ProjectScreen> {
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
+        actions: [IconButton(
+          icon: const Icon(Icons.edit),
+          tooltip: 'Open settings',
+          onPressed: () {
+            Navigator.of(context)
+                .pushNamed(RouteNames.editProject);
+          },
+        )],
       ),
 
       backgroundColor: GlobalTheme.background,

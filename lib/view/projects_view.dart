@@ -39,6 +39,14 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
+        actions: [IconButton(
+          icon: const Icon(Icons.settings),
+          tooltip: 'Open settings',
+          onPressed: () {
+            Navigator.of(context)
+                .pushNamed(RouteNames.settings);
+          },
+        )],
       ),
       backgroundColor: GlobalTheme.background,
       body: Padding(
@@ -58,9 +66,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(child: TextCard('4', 'Open')),
-                Expanded(child: TextCard('0', 'Overdue')),
-                Expanded(child: TextCard('2', 'In progress')),
+                Expanded(child: TextCard(api.orgStat["open"]!, 'Open')),
+                Expanded(child: TextCard(api.orgStat["overdue"]!, 'Overdue')),
+                Expanded(child: TextCard(api.orgStat["in_progress"]!, 'In progress')),
               ],
             ),
             SizedBox(height: 20), // Spacing
@@ -68,23 +76,25 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             // Scroll area with clickable rows of cards
             Expanded(
               child: ListView.builder(
-                itemCount: projects.length, // Use the length of the projects list
+                itemCount:
+                    projects.length, // Use the length of the projects list
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: InkWell(
                       onTap: () {
                         print('Card ${projects[index]['id']} clicked');
-                        Navigator.of(context)
-                            .pushNamed(RouteNames.project);
+                        Navigator.of(context).pushNamed(RouteNames.project);
                       },
                       child: Card(
                         color: GlobalTheme.backWidget,
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Text(
-                            projects[index]['name'] ?? 'Unnamed Project', // Display the project name
-                            style: const TextStyle(color: GlobalTheme.foreground),
+                            projects[index]['name'] ??
+                                'Unnamed Project', // Display the project name
+                            style:
+                                const TextStyle(color: GlobalTheme.foreground),
                           ),
                         ),
                       ),
@@ -100,5 +110,5 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   }
 }
 
-void main() => runApp(MaterialApp(home: ProjectsScreen(org_uid: 'your_org_uid_here')));
-
+void main() =>
+    runApp(MaterialApp(home: ProjectsScreen(org_uid: 'your_org_uid_here')));

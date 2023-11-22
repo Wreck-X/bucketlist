@@ -1,3 +1,4 @@
+import 'package:bucketlist/resources/screendat.dart';
 import 'package:bucketlist/view/projects_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,8 +8,9 @@ import '../constants.dart';
 
 class TappableCard extends StatefulWidget {
   final String title;
+  final String description;
 
-  const TappableCard(this.title, {Key? key}) : super(key: key);
+  const TappableCard(this.title,this.description, {Key? key}) : super(key: key);
 
   @override
   _TappableCardState createState() => _TappableCardState();
@@ -24,12 +26,13 @@ class _TappableCardState extends State<TappableCard> {
         onTap: () {
           debugPrint('${widget.title} tapped.');
         },
-        child: SizedBox(
-          width: 300,
-          height: 100,
-          child: Center(child: Text(widget.title)),
+        child: Expanded(child: Container(
+          decoration: BoxDecoration(color: GlobalTheme.backWidget),
+          height: 50,
+          width: ScreenUtil.screenWidth(context)-20,
+          child: Center(child: Column(children:[Text(widget.title,style: TextStyle(color: GlobalTheme.foreground),),Text(widget.description,style: TextStyle(color: GlobalTheme.foreground))])),
         ),
-      ),
+      ),)
     );
   }
 }
