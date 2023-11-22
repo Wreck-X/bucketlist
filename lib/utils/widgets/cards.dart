@@ -1,3 +1,4 @@
+import 'package:bucketlist/resources/screendat.dart';
 import 'package:bucketlist/view/projects_view.dart';
 import 'package:bucketlist/view/tripage_view.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,9 @@ import '../constants.dart';
 
 class TappableCard extends StatefulWidget {
   final String title;
+  final String description;
 
-  const TappableCard(this.title, {Key? key}) : super(key: key);
+  const TappableCard(this.title,this.description, {Key? key}) : super(key: key);
 
   @override
   _TappableCardState createState() => _TappableCardState();
@@ -25,12 +27,13 @@ class _TappableCardState extends State<TappableCard> {
         onTap: () {
           debugPrint('${widget.title} tapped.');
         },
-        child: SizedBox(
-          width: 300,
-          height: 100,
-          child: Center(child: Text(widget.title)),
+        child: Expanded(child: Container(
+          decoration: BoxDecoration(color: GlobalTheme.backWidget),
+          height: 50,
+          width: ScreenUtil.screenWidth(context)-20,
+          child: Center(child: Column(children:[Text(widget.title,style: TextStyle(color: GlobalTheme.foreground),),Text(widget.description,style: TextStyle(color: GlobalTheme.foreground))])),
         ),
-      ),
+      ),)
     );
   }
 }
@@ -82,10 +85,32 @@ class TextCard extends StatelessWidget {
 
 class BigTextCard extends StatelessWidget {
   final String displayed_text;
+  bool edit = false;
 
-  BigTextCard(this.displayed_text);
+  BigTextCard(this.displayed_text, this.edit);
   @override
   Widget build(BuildContext context) {
+    if (edit){
+      return Card(
+        color: GlobalTheme.darkAccent,
+        child: Container(
+          padding: EdgeInsets.all(20),
+          width: double.infinity,
+          height: 200,
+          child: Center(child: TextField(
+              decoration: InputDecoration(
+                hintText: displayed_text,
+                border: InputBorder.none,
+                hintStyle: TextStyle(
+                  color: GlobalTheme.foreground,
+                  fontSize: MediaQuery.of(context).textScaleFactor * 14.0, // Adjust the font size as needed
+                ),
+              ),
+              style: TextStyle(color: GlobalTheme.foreground),
+            ),),
+        ),
+      );
+    } else{
     return Card(
       color: GlobalTheme.darkAccent,
       child: Container(
@@ -99,7 +124,7 @@ class BigTextCard extends StatelessWidget {
         ),
       ),
     );
-  }
+  }}
 }
 
 class Dropdown extends StatelessWidget {

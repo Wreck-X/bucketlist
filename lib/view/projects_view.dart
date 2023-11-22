@@ -2,6 +2,7 @@ import 'package:bucketlist/view/project_view.dart';
 import 'package:flutter/material.dart';
 import '../resources/animation.dart';
 import '../resources/colors.dart';
+import '../utils/Routes/route_names.dart';
 import '../utils/constants.dart';
 import '../utils/widgets/cards.dart';
 
@@ -36,11 +37,19 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text('Projects', style: TextStyle(color: GlobalTheme.foreground)),
+        title: const Text('Projects',
+            style: TextStyle(color: GlobalTheme.foreground)),
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
+        actions: [IconButton(
+          icon: const Icon(Icons.settings),
+          tooltip: 'Open settings',
+          onPressed: () {
+            Navigator.of(context)
+                .pushNamed(RouteNames.settings);
+          },
+        )],
       ),
       backgroundColor: GlobalTheme.background,
       body: Padding(
@@ -59,9 +68,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(child: TextCard('4', 'Open')),
-                Expanded(child: TextCard('0', 'Overdue')),
-                Expanded(child: TextCard('2', 'In progress')),
+                Expanded(child: TextCard(api.orgStat["open"]!, 'Open')),
+                Expanded(child: TextCard(api.orgStat["overdue"]!, 'Overdue')),
+                Expanded(child: TextCard(api.orgStat["in_progress"]!, 'In progress')),
               ],
             ),
             SizedBox(height: 20), // Spacing
@@ -77,8 +86,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                     child: InkWell(
                       onTap: () {
                         print('Card ${projects[index]['id']} clicked');
-                        Navigator.of(context)
-                            .push(FadeRoute(page: const ProjectScreen()));
+                        Navigator.of(context).pushNamed(RouteNames.project);
                       },
                       child: Card(
                         color: GlobalTheme.backWidget,
