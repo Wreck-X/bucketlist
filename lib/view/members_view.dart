@@ -1,11 +1,10 @@
 import 'package:bucketlist/resources/colors.dart';
 import 'package:bucketlist/resources/screendat.dart';
-import 'package:bucketlist/utils/widgets/statuscard.dart';
-import 'package:bucketlist/utils/widgets/bottombar.dart';
+import 'package:bucketlist/utils/widgets/membercard.dart';
 import 'package:flutter/material.dart';
 
 class MembersScreen extends StatefulWidget {
-  MembersScreen({Key? key}) : super(key: key);
+  const MembersScreen({Key? key}) : super(key: key);
 
   @override
   _MembersScreenState createState() => _MembersScreenState();
@@ -30,21 +29,50 @@ class _MembersScreenState extends State<MembersScreen> {
                   style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
               ),
-              Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: ColorsClass.textfcolor),
-                    height: ScreenUtil.screenHeight(context) * 0.05,
-                    width: ScreenUtil.screenHeight(context) * 0.3,
-                    child: const TextField(
-                      decoration: InputDecoration(
-                          labelText: 'Search', border: InputBorder.none),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: ScreenUtil.screenHeight(context) * 0.05,
+                      width: ScreenUtil.screenHeight(context) * 0.048,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: ColorsClass.purp,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.filter_alt,
+                            color: Colors.white,
+                          ),
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(12)))),
+                          onPressed: () {},
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 10),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: ColorsClass.textfcolor),
+                      height: ScreenUtil.screenHeight(context) * 0.05,
+                      width: ScreenUtil.screenHeight(context) * 0.38,
+                      child: const TextField(
+                        decoration: InputDecoration(
+                            labelText: 'Search', border: InputBorder.none),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Expanded(
                 child: Container(
@@ -54,13 +82,12 @@ class _MembersScreenState extends State<MembersScreen> {
                     child: ListView.builder(
                         itemCount: 10, // Temp count change on api call
                         itemBuilder: (context, index) {
-                          return const StatusCard();
+                          return MembersCard();
                         })),
               ),
             ],
           ),
         ),
-        bottomNavigationBar: SafeArea(child: BottomBar()),
       ),
     );
   }

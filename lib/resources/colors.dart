@@ -13,6 +13,8 @@ class ColorsClass {
   static const Color lightblack = Color.fromARGB(255, 30, 30, 30);
   static const Color purp = Color.fromARGB(255, 151, 31, 253);
   static const Color textfcolor = Color.fromARGB(255, 44, 44, 44);
+  static const Color yellow = Color.fromARGB(255, 241, 205, 80);
+  static const Color blue = Color.fromARGB(255, 80, 183, 241);
 }
 
 class GlobalTheme {

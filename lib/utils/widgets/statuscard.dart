@@ -16,10 +16,12 @@ class _StatusCardState extends State<StatusCard> {
       children: [
         const SizedBox(height: 10),
         Container(
+          decoration: BoxDecoration(
+              color: ColorsClass.lightblack,
+              borderRadius: BorderRadius.circular(10)),
           padding: const EdgeInsets.all(20),
-          color: ColorsClass.lightblack,
-          height: ScreenUtil.screenHeight(context) * 0.2,
-          width: ScreenUtil.screenHeight(context) * 0.95,
+          height: ScreenUtil.screenHeight(context) * 0.18,
+          width: ScreenUtil.screenWidth(context) * 0.96,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,36 +30,61 @@ class _StatusCardState extends State<StatusCard> {
                 padding: const EdgeInsets.all(5),
                 child: Row(
                   children: [
-                    Container(height: 25, width: 25, child: Placeholder()),
+                    Container(
+                      height: 30,
+                      width: 20,
+                      child: const Icon(
+                        Icons.person,
+                        color: ColorsClass.purp,
+                      ),
+                    ),
                     const SizedBox(
                       width: 10,
                     ),
                     const Text(
                       "Ivin",
-                      style: TextStyle(color: ColorsClass.white, fontSize: 20),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Row(
-                  children: [
-                    Container(height: 20, width: 20, child: Placeholder()),
-                    const SizedBox(width: 10),
-                    const Text(
-                      "currently working on blah blah",
                       style: TextStyle(color: ColorsClass.white, fontSize: 18),
                     ),
                   ],
                 ),
               ),
+              const Row(
+                children: [
+                  SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: Icon(
+                        Icons.pending_outlined,
+                        color: ColorsClass.yellow,
+                        size: 30,
+                      )),
+                  SizedBox(width: 10),
+                  Column(
+                    children: [
+                      Text(
+                        "currently working on blah",
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
               Row(
                 children: [
-                  Container(height: 20, width: 20, child: Placeholder()),
+                  Container(
+                    height: 30,
+                    width: 30,
+                    child: Icon(
+                      Icons.play_circle_outline,
+                      color: ColorsClass.blue,
+                      size: 30,
+                    ),
+                  ),
                   SizedBox(width: 10),
                   const Text(
                     "Started working on blah blah",
-                    style: TextStyle(color: ColorsClass.white, fontSize: 18),
+                    style: TextStyle(color: ColorsClass.white, fontSize: 14),
                   ),
                 ],
               )

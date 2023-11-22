@@ -1,10 +1,8 @@
+import 'package:bucketlist/resources/screen.dart';
 import 'package:bucketlist/utils/Routes/route_names.dart';
-import 'package:bucketlist/utils/widgets/bottombar.dart';
 import 'package:bucketlist/utils/widgets/statuscard.dart';
-import 'package:bucketlist/view/members_view.dart';
 import 'package:flutter/material.dart';
 import '../resources/colors.dart';
-import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class StatusScreen extends StatefulWidget {
   const StatusScreen({super.key});
@@ -17,32 +15,101 @@ class _StatusScreenState extends State<StatusScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
-        body: SafeArea(
-          child: Column(
-            children: [
-              Container(
-                height: 90,
-                color: ColorsClass.purp,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(RouteNames.members);
-                },
-                child: const Text('Open page 3'),
-              ),
-              Expanded(
-                child: Container(
-                    color: ColorsClass.black,
-                    child: ListView.builder(
-                        itemCount: 10, // Temp count change on api call
-                        itemBuilder: (context, index) {
-                          return StatusCard();
-                        })),
-              )
-            ],
-          ),
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(RouteNames.statistics);
+              },
+              child: Stack(children: [
+                Container(
+                  height: ScreenUtil.screenHeight(context) * 0.115,
+                  color: ColorsClass.darkGrey,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Container(
+                      height: 80,
+                      width: ScreenUtil.screenWidth(context) * 0.99,
+                      decoration: BoxDecoration(
+                          color: ColorsClass.grey,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: ScreenUtil.screenHeight(context) * 0.08,
+                              width: ScreenUtil.screenWidth(context) * 0.18,
+                              decoration: BoxDecoration(
+                                  color: ColorsClass.darkGrey,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: const Center(
+                                child: Text(
+                                  "PFP",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Expanded(
+                              child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "VIRGIL MARCUS",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "Members 40/50",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
+            ),
+            Expanded(
+              child: Container(
+                  color: ColorsClass.black,
+                  child: ListView.builder(
+                      itemCount: 10, // Temp count change on api call
+                      itemBuilder: (context, index) {
+                        return StatusCard();
+                      })),
+            )
+          ],
         ),
-        bottomNavigationBar: SafeArea(child: BottomBar()));
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.add),
+          ),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(RouteNames.sendupdate);
+            },
+            child: Icon(Icons.add),
+          ),
+        ],
+      ),
+    );
   }
 }

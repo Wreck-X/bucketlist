@@ -7,7 +7,8 @@ import '../utils/constants.dart';
 import '../utils/widgets/cards.dart';
 
 class ProjectsScreen extends StatefulWidget {
-  final String org_uid;
+  final org_uid;
+
   const ProjectsScreen({Key? key, required this.org_uid}) : super(key: key);
 
   @override
@@ -18,6 +19,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   @override
   void initState() {
     super.initState();
+
+    print("widget" + widget.org_uid);
     fetchData();
   }
 
@@ -61,7 +64,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               ),
             ),
             SizedBox(height: 20), // Spacing
-
             // Three text cards that are horizontally aligned
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -1,6 +1,4 @@
-import 'package:bucketlist/repositories/my_orgs.dart';
 import 'package:flutter/material.dart';
-
 import '../resources/colors.dart';
 import '../utils/constants.dart';
 import '../utils/widgets/cards.dart';
@@ -13,7 +11,6 @@ class OrganizationScreen extends StatefulWidget {
 }
 
 class _OrganizationScreenState extends State<OrganizationScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -63,8 +60,11 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
                 mainAxisSpacing: 8,
               ),
               padding: const EdgeInsets.all(8),
-              itemBuilder: (context, index) => ImageCard(name: servers[index]["name"]!, org_uid: servers[index]["id"]!),
-              itemCount: servers.length, // Set itemCount to the length of the names list
+              itemBuilder: (context, index) => ImageCard(
+                  name: servers[index]["name"]!,
+                  org_uid: servers[index]["id"]!),
+              itemCount: servers
+                  .length, // Set itemCount to the length of the names list
             ),
           ),
         ],

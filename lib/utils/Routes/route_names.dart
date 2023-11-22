@@ -8,4 +8,7 @@ class RouteNames {
   static const String editProject = "edit_project_view";
   static const String status = "status_view";
   static const String members = "members_view";
+  static const String statistics = "statistic_view";
+  static const String tripage = "tripage_view";
+  static const String sendupdate = "sendupdate_view";
 }
