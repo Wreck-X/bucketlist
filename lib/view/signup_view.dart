@@ -41,7 +41,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: InkWell(
                   onTap: () {
                     Navigator.of(context)
-                        .push(FadeRoute(page: const LoginScreen()));
+                        .pushReplacement(FadeRoute(page: const LoginScreen()));
                   },
                   child: const Text(
                     "LOGIN",
