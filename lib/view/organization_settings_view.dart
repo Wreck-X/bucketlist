@@ -1,10 +1,9 @@
 import 'package:bucketlist/resources/colors.dart';
 import 'package:flutter/material.dart';
-import '../utils/Routes/route_names.dart';
 import '../utils/widgets/cards.dart';
 
 class OrgSettings extends StatefulWidget {
-  const OrgSettings({Key? key, required String org_uid}) : super(key: key);
+  const OrgSettings({Key? key, required String orgUid}) : super(key: key);
 
   @override
   State<OrgSettings> createState() => _OrgSettingsScreenState();
@@ -15,38 +14,39 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-        title: const Text('Settings',
-            style: TextStyle(color: GlobalTheme.foreground)),
         backgroundColor: GlobalTheme.background,
-        iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground
       ),
+
       backgroundColor: GlobalTheme.background,
+
       body: Column(
         children: [
+
           Container(
             height: 200,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: GlobalTheme.accent,
               image: DecorationImage(
                 image: AssetImage('assets/banner_image.png'),
                 fit: BoxFit.cover,
               ),
             ),
+
             child: Align(
-              alignment: Alignment.bottomCenter,
-              child: CircleAvatar(
-                radius: 50,
-                backgroundColor: GlobalTheme.darkAccent,
-                child: Text(
-                  'V',
-                  style: TextStyle(
-                    color: GlobalTheme.foreground,
-                    fontSize: 40,
-                  ),
-                ),
+              alignment: Offset.fromDirection(0, 0),
+              child : ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),//or 15.0
+                  child: Container(
+                      height: 70.0,
+                      width: 70.0,
+                      color: const Color(0xffFF0E58),
+                      child: const Icon(Icons.volume_up, color: Colors.white, size: 50.0),
+                      ),
               ),
+
             ),
           ),
           SizedBox(height: 20),
