@@ -168,11 +168,9 @@ class ImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalTheme.background;
     return Card(
-        color: GlobalTheme.backWidget,
-        child: InkWell(
-          splashColor: GlobalTheme.accent.withAlpha(30),
+        color: const Color.fromARGB(0, 50, 50, 50),
+        child: GestureDetector(
           onTap: () {
             debugPrint('$name tapped.');
             selected_org = org_uid;
@@ -180,32 +178,34 @@ class ImageCard extends StatelessWidget {
             Navigator.of(context)
                 .push(FadeRoute(page: TriPage(org_uid: org_uid)));
           },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 14, 0, 6),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        8.0), // Adjust the radius here for desired curve
-                    child: CachedNetworkImage(
-                      imageUrl: 'https://picsum.photos/200',
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                      fit: BoxFit.cover,
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 14, 0, 6),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                          8.0), // Adjust the radius here for desired curve
+                      child: CachedNetworkImage(
+                        imageUrl: 'https://picsum.photos/200',
+                        placeholder: (context, url) =>
+                            Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                // Use the name variable here
-                child: Text(name,
-                    style: const TextStyle(color: GlobalTheme.foreground)),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                  // Use the name variable here
+                  child: Text(name,
+                      style: const TextStyle(color: GlobalTheme.foreground)),
+                ),
+              ],
+            ),
           ),
         ));
   }
