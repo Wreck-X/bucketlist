@@ -118,7 +118,7 @@ class _StatusScreenState extends State<StatusScreen> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              getmembers();
+              ;
             },
             child: Icon(Icons.add),
           ),

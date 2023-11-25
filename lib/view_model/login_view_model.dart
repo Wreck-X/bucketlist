@@ -12,5 +12,16 @@ Future<List<dynamic>> getupdates() async {
 
 Future<List<dynamic>> getmembers() async {
   var response = await api.get_members('members/');
+  print(response);
   return response;
+}
+
+Future<Map<String, dynamic>> getprojects(String org_uid, String type) async {
+  try {
+    final response = await api.get_projects('projects/', org_uid, type);
+    return response;
+  } catch (e) {
+    print("Error parsing response: $e");
+    return {"error ": e};
+  }
 }

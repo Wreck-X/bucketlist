@@ -28,7 +28,6 @@ class _ProjectScreenState extends State<EditProjectScreen> {
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
       ),
-
       backgroundColor: GlobalTheme.background,
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -42,13 +41,17 @@ class _ProjectScreenState extends State<EditProjectScreen> {
                     children: [
                       Expanded(
                           //It will crash if this is not placed in Expanded
-                          child: BigTextCard("This is a project description",true)),
+                          child: BigTextCard(
+                              "This is a project description", true)),
                       Expanded(
                         child: Column(
                           children: [
                             //Text("Assigned to: ",style: TextStyle(color: GlobalTheme.foreground),),
-                            Dropdown(['No one assigned', 'Assigned to John'],'Assigned to'),
-                            Padding(padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                            Dropdown(['No one assigned', 'Assigned to John'],
+                                'Assigned to'),
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5)),
                             //Text("Status: "),
                             Dropdown(['Open - High Prio', 'Closed'], "Status"),
                           ],
@@ -64,7 +67,8 @@ class _ProjectScreenState extends State<EditProjectScreen> {
                   Row(
                     children: [
                       const Padding(padding: EdgeInsets.all(4)),
-                      Dropdown(['No one assigned', 'Assigned to John'],'Assigned to'),
+                      Dropdown(['No one assigned', 'Assigned to John'],
+                          'Assigned to'),
                       const Padding(padding: EdgeInsets.all(10)),
                       Dropdown(['Open - High Prio', 'Closed'], "Status")
                     ],
@@ -84,8 +88,11 @@ class _ProjectScreenState extends State<EditProjectScreen> {
                             color: GlobalTheme.backWidget,
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: Text('Card $index',
-                                  style: const TextStyle(color: GlobalTheme.foreground),),
+                              child: Text(
+                                'Card $index',
+                                style: const TextStyle(
+                                    color: GlobalTheme.foreground),
+                              ),
                             ),
                           ),
                         ),
