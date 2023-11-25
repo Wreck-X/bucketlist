@@ -11,6 +11,8 @@ class OrgSettings extends StatefulWidget {
 }
 
 class _OrgSettingsScreenState extends State<OrgSettings> {
+  bool isChipVisible = true;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,19 +119,49 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
 
           const SizedBox(height: 20),
 
-          const Text(
-            'Tags: ',
+          Row( 
+          children: [const Padding (
+          padding: EdgeInsets.only(left:15),
+          child: Text(
+            'Tags ',
             style: TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          const Text(
-            'Gaming, Members',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
-            ),
           ),
-          SizedBox(height: 20),
+
+                    GestureDetector(
+                      onTap: () {
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 2),
+                        child: Icon(
+                          Icons.add_box,
+                          color: Colors.white,
+                          size: 12,
+                        ),
+                      ),
+                    ),
+          ],),
+  Row ( 
+  children: [ Padding(
+  padding: EdgeInsets.only(left:15),
+  child: Visibility( 
+  visible: isChipVisible,
+  child: ActionChip(
+        backgroundColor: GlobalTheme.background,  
+        side: BorderSide(color: GlobalTheme.accent),
+        shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0), 
+                    ),
+        
+        label: Row( children: [Text('Gaming'), GestureDetector(onTap: () {}, child: const Padding( padding: EdgeInsets.only(left:2), child: Icon( Icons.exit_to_app, color: GlobalTheme.accent, size:12)))]),
+          labelStyle: TextStyle(color: GlobalTheme.accent),
+          onPressed: () {
+                setState(() {
+                    isChipVisible = false;
+            });
+            }),),),
+            ],),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
