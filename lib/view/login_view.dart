@@ -202,16 +202,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: ColorsClass.violet,
                   function: () async {
                     try {
-                      // var success = await login(
-                      //    _userNameController.text, _passwordController.text);
-                      //org_repo.fetchData();
-                      //if (success) {
+                      var success = await login(
+                          _userNameController.text, _passwordController.text);
+                      org_repo.fetchData();
+                      if (success) {
                         Navigator.of(context)
                             .pushNamed(RouteNames.organizations);
-                      //} else {
-                      //  Navigator.of(context)
-                      //      .pushNamed(RouteNames.organizations);
-                      //}
+                      } else {
+                        Navigator.of(context)
+                            .pushNamed(RouteNames.organizations);
+                      }
                     } catch (e) {
                       throw new Exception(e);
                     }

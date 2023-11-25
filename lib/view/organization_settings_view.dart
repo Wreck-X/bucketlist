@@ -1,7 +1,8 @@
 import 'package:bucketlist/resources/colors.dart';
 import 'package:bucketlist/resources/screen.dart';
+import 'package:bucketlist/view_model/login_view_model.dart';
+import 'package:bucketlist/utils/widgets/membercard.dart';
 import 'package:flutter/material.dart';
-import '../utils/widgets/cards.dart';
 
 class OrgSettings extends StatefulWidget {
   const OrgSettings({Key? key, required String orgUid}) : super(key: key);
@@ -160,6 +161,29 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ],
           ),
+            Expanded(          child: Container( child: FutureBuilder<List<dynamic>>(
+                    future: getmembers(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // While waiting for data, return a loading indicator or placeholder
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        // If there's an error, display an error message
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        // If data is successfully fetched, use ListView.builder
+                        return ListView.builder(
+                          itemCount: snapshot.data?.length,
+                          itemBuilder: (context, index) {
+                            return MembersCard(
+                              content: snapshot.data,
+                              index: index,
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),),),
           GestureDetector(
             onTap: () {
               print("hello");
@@ -192,7 +216,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ),
           ),
-          SizedBox(height: 2),
+          const SizedBox(height: 2),
           GestureDetector(
             onTap: () {
               print("hello");
@@ -225,7 +249,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ),
           ),
-          SizedBox(height: 2),
+          const SizedBox(height: 2),
           GestureDetector(
             onTap: () {
               print("hello");
