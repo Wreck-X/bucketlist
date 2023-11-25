@@ -11,19 +11,30 @@ class OrgSettings extends StatefulWidget {
   State<OrgSettings> createState() => _OrgSettingsScreenState();
 }
 
-class _OrgSettingsScreenState extends State<OrgSettings> {
+class _OrgSettingsScreenState extends State<OrgSettings> with TickerProviderStateMixin{
   bool isChipVisible = true;
+  late TabController _tabController;
 
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // APPBAR
       appBar: AppBar(
           backgroundColor: GlobalTheme.background,
-          foregroundColor: GlobalTheme.foreground),
+          foregroundColor: GlobalTheme.foreground,
+          ),
+
       backgroundColor: GlobalTheme.background,
+
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+        // Community Banner 
           Container(
             height: ScreenUtil.screenHeight(context) * (1 / 5),
             decoration: const BoxDecoration(
@@ -33,6 +44,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                 fit: BoxFit.cover,
               ),
             ),
+        // Community Avatar
             child: Align(
               alignment: const Alignment(-.9, 4),
               child: ClipRRect(
@@ -47,10 +59,12 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ),
           ),
+        // Spacing to account for community avatar offset
           SizedBox(
             width: ScreenUtil.screenWidth(context),
             height: ScreenUtil.screenHeight(context) * (1 / 13.3),
           ),
+        // Community Name
           Padding(
             padding: const EdgeInsets.only(left: 15.0, top: 5),
             child: Column(
@@ -78,6 +92,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                     ),
                   ],
                 ),
+                // Community Description
                 const SizedBox(height: 8),
                 Row(
                   children: [
@@ -104,6 +119,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ],
             ),
           ),
+          // Tags Heading
           const SizedBox(height: 20),
           Row(
             children: [
@@ -130,6 +146,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ],
           ),
+          // Tags Paintchips
           Row(
             children: [
               Padding(
@@ -161,29 +178,91 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ],
           ),
-            Expanded(          child: Container( child: FutureBuilder<List<dynamic>>(
-                    future: getmembers(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        // While waiting for data, return a loading indicator or placeholder
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        // If there's an error, display an error message
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        // If data is successfully fetched, use ListView.builder
-                        return ListView.builder(
-                          itemCount: snapshot.data?.length,
-                          itemBuilder: (context, index) {
-                            return MembersCard(
-                              content: snapshot.data,
-                              index: index,
-                            );
-                          },
+        // Members List
+ // Members List with Tabs
+
+// Members List with Tabs
+Expanded(
+  child: Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      // TabBar
+      TabBar(
+        controller: _tabController,
+        tabs: const [
+          Tab(text: 'Members'),
+          Tab(text: 'Join Requests'),
+        ],
+        isScrollable: true,
+        dividerColor: Colors.transparent,
+        labelColor: GlobalTheme.accent,
+        unselectedLabelColor: GlobalTheme.darkAccent,
+        tabAlignment: TabAlignment.start,
+        labelPadding: EdgeInsets.only(left: 15, right:30),
+        automaticIndicatorColorAdjustment: false,
+      ),
+      // Expanded TabBarView
+      Expanded(
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            // Members Tab
+            Container(
+              child: FutureBuilder<List<dynamic>>(
+                future: getmembers(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return ListView.builder(
+                      itemCount: snapshot.data?.length,
+                      itemBuilder: (context, index) {
+                        return MembersCard(
+                          content: snapshot.data,
+                          index: index,
                         );
-                      }
-                    },
-                  ),),),
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
+            // Join Requests Tab
+            Container(
+              child: FutureBuilder<List<dynamic>>(
+                future: getmembers(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return ListView.builder(
+                      itemCount: snapshot.data?.length,
+                      itemBuilder: (context, index) {
+                        return MembersCard(
+                          content: snapshot.data,
+                          index: index,
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  ),
+),
+          // Visibility Setting
           GestureDetector(
             onTap: () {
               print("hello");
@@ -216,6 +295,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ),
           ),
+          // Manage roles setting
           const SizedBox(height: 2),
           GestureDetector(
             onTap: () {
@@ -249,6 +329,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ),
           ),
+          // Assign tasks setting
           const SizedBox(height: 2),
           GestureDetector(
             onTap: () {
@@ -266,12 +347,12 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Manage Roles',
+                        'Assign Roles',
                         style: TextStyle(fontSize: 18.0, color: Colors.white),
                       ),
                       SizedBox(height: 4),
                       Text(
-                        'Create, Edit and Delete roles',
+                        'Filter by roles and assign tasks',
                         style: TextStyle(fontSize: 13.0, color: Colors.white),
                       )
                     ],
