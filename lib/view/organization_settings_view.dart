@@ -31,7 +31,10 @@ class _OrgSettingsScreenState extends State<OrgSettings> with TickerProviderStat
 
       backgroundColor: GlobalTheme.background,
 
-      body: Column(
+      body: SingleChildScrollView (
+      child: Container( 
+      height: ScreenUtil.screenHeight(context) * 1.1,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
         // Community Banner 
@@ -178,15 +181,11 @@ class _OrgSettingsScreenState extends State<OrgSettings> with TickerProviderStat
               ),
             ],
           ),
-        // Members List
- // Members List with Tabs
-
-// Members List with Tabs
+// Tabs
 Expanded(
   child: Column(
   crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      // TabBar
       TabBar(
         controller: _tabController,
         tabs: const [
@@ -201,7 +200,6 @@ Expanded(
         labelPadding: EdgeInsets.only(left: 15, right:30),
         automaticIndicatorColorAdjustment: false,
       ),
-      // Expanded TabBarView
       Expanded(
         child: TabBarView(
           controller: _tabController,
@@ -364,7 +362,7 @@ Expanded(
             ),
           ),
         ],
-      ),
+      ),),),
     );
   }
 }
