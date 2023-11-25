@@ -132,17 +132,17 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
           Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 15),
                 child: Visibility(
                   visible: isChipVisible,
                   child: ActionChip(
                       backgroundColor: GlobalTheme.background,
-                      side: BorderSide(color: GlobalTheme.accent),
+                      side: const BorderSide(color: GlobalTheme.accent),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       label: Row(children: [
-                        Text('Gaming'),
+                        const Text('Gaming'),
                         GestureDetector(
                             onTap: () {},
                             child: const Padding(
@@ -150,7 +150,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                                 child: Icon(Icons.exit_to_app,
                                     color: GlobalTheme.accent, size: 12)))
                       ]),
-                      labelStyle: TextStyle(color: GlobalTheme.accent),
+                      labelStyle: const TextStyle(color: GlobalTheme.accent),
                       onPressed: () {
                         setState(() {
                           isChipVisible = false;
@@ -160,65 +160,67 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Members: ',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ],
-          ),
-          Expanded(
-            child: ListView.separated(
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.only(top: 10.0, right: 10, left: 10),
-                  child: InkWell(
-                    onTap: () {
-                      debugPrint('Card $index clicked');
-                    },
-                    child: Card(
-                      color: GlobalTheme.backWidget,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'Member $index',
-                          style: const TextStyle(color: GlobalTheme.foreground),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) => SizedBox(height: 10),
-              itemCount: 10,
-            ),
-          ),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TappableCard(
-                'Visibility: ',
-                'Set visibility to open, create, edit, and delete roles',
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TappableCard(
-                'Manage Roles: ',
-                'Filter by roles and assign tasks',
-              ),
-            ],
-          ),
+
+GestureDetector(
+onTap: () {
+    print("hello");
+},
+child: Container(
+  color: GlobalTheme.backWidget,
+  padding: const EdgeInsets.only(left: 15, top: 10, bottom:10),
+  width: ScreenUtil.screenWidth(context),
+    child: const Column ( crossAxisAlignment: CrossAxisAlignment.start,
+    children: [Text(
+      'Visibility',
+      style: TextStyle(fontSize: 18.0, color: Colors.white),
+    ), SizedBox(height:4),Text('Set server visibility to Open, Closed, Request Only.',
+        style: TextStyle(fontSize: 13.0, color: Colors.white),
+    )],
+    ),
+  ),
+),
+
+SizedBox(height:2),
+
+GestureDetector(
+onTap: () {
+    print("hello");
+},
+child: Container(
+  color: GlobalTheme.backWidget,
+  padding: const EdgeInsets.only(left: 15, top: 10, bottom:10),
+  width: ScreenUtil.screenWidth(context),
+    child: const Column ( crossAxisAlignment: CrossAxisAlignment.start,
+    children: [Text(
+      'Manage Roles',
+      style: TextStyle(fontSize: 18.0, color: Colors.white),
+    ), SizedBox(height:4),Text('Create, Edit and Delete roles',
+        style: TextStyle(fontSize: 13.0, color: Colors.white),
+    )],
+    ),
+  ),
+),
+SizedBox(height:2),
+
+GestureDetector(
+onTap: () {
+    print("hello");
+},
+child: Container(
+  color: GlobalTheme.backWidget,
+  padding: const EdgeInsets.only(left: 15, top: 10, bottom:10),
+  width: ScreenUtil.screenWidth(context),
+    child: const Column ( crossAxisAlignment: CrossAxisAlignment.start,
+    children: [Text(
+      'Assign Tasks',
+      style: TextStyle(fontSize: 18.0, color: Colors.white),
+    ), SizedBox(height:4),Text('Filter by roles and assign text',
+        style: TextStyle(fontSize: 13.0, color: Colors.white),
+    )],
+    ),
+  ),
+),
+
         ],
       ),
     );
