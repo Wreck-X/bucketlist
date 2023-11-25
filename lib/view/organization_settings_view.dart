@@ -147,7 +147,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                             onTap: () {},
                             child: const Padding(
                                 padding: EdgeInsets.only(left: 2),
-                                child: Icon(Icons.exit_to_app,
+                                child: Icon(Icons.close,
                                     color: GlobalTheme.accent, size: 12)))
                       ]),
                       labelStyle: const TextStyle(color: GlobalTheme.accent),
@@ -161,25 +161,25 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
             ],
           ),
 
+
 GestureDetector(
 onTap: () {
     print("hello");
 },
 child: Container(
   color: GlobalTheme.backWidget,
-  padding: const EdgeInsets.only(left: 15, top: 10, bottom:10),
+  padding: const EdgeInsets.only(left: 15, top: 10, bottom:10, right:15),
   width: ScreenUtil.screenWidth(context),
-    child: const Column ( crossAxisAlignment: CrossAxisAlignment.start,
+    child: const Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Column ( crossAxisAlignment: CrossAxisAlignment.start,
     children: [Text(
       'Visibility',
       style: TextStyle(fontSize: 18.0, color: Colors.white),
-    ), SizedBox(height:4),Text('Set server visibility to Open, Closed, Request Only.',
+    ), SizedBox(height:4),Text('Set server visibility to Open, Closed, Request only.',
         style: TextStyle(fontSize: 13.0, color: Colors.white),
     )],
-    ),
+    ),Icon(Icons.visibility, color:GlobalTheme.foreground,size:22)],),
   ),
 ),
-
 SizedBox(height:2),
 
 GestureDetector(
@@ -188,19 +188,20 @@ onTap: () {
 },
 child: Container(
   color: GlobalTheme.backWidget,
-  padding: const EdgeInsets.only(left: 15, top: 10, bottom:10),
+  padding: const EdgeInsets.only(left: 15, top: 10, bottom:10, right:15),
   width: ScreenUtil.screenWidth(context),
-    child: const Column ( crossAxisAlignment: CrossAxisAlignment.start,
+    child: const Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Column ( crossAxisAlignment: CrossAxisAlignment.start,
     children: [Text(
       'Manage Roles',
       style: TextStyle(fontSize: 18.0, color: Colors.white),
     ), SizedBox(height:4),Text('Create, Edit and Delete roles',
         style: TextStyle(fontSize: 13.0, color: Colors.white),
     )],
-    ),
+    ),Icon(Icons.label_important, color:GlobalTheme.foreground,size:22)],),
   ),
 ),
 SizedBox(height:2),
+
 
 GestureDetector(
 onTap: () {
@@ -208,16 +209,16 @@ onTap: () {
 },
 child: Container(
   color: GlobalTheme.backWidget,
-  padding: const EdgeInsets.only(left: 15, top: 10, bottom:10),
+  padding: const EdgeInsets.only(left: 15, top: 10, bottom:10, right:15),
   width: ScreenUtil.screenWidth(context),
-    child: const Column ( crossAxisAlignment: CrossAxisAlignment.start,
+    child: const Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Column ( crossAxisAlignment: CrossAxisAlignment.start,
     children: [Text(
-      'Assign Tasks',
+      'Manage Roles',
       style: TextStyle(fontSize: 18.0, color: Colors.white),
-    ), SizedBox(height:4),Text('Filter by roles and assign text',
+    ), SizedBox(height:4),Text('Create, Edit and Delete roles',
         style: TextStyle(fontSize: 13.0, color: Colors.white),
     )],
-    ),
+    ),Icon(Icons.check_outlined, color:GlobalTheme.foreground,size:22)],),
   ),
 ),
 
