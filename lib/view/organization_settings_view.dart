@@ -12,21 +12,17 @@ class OrgSettings extends StatefulWidget {
 
 class _OrgSettingsScreenState extends State<OrgSettings> {
   bool isChipVisible = true;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
           backgroundColor: GlobalTheme.background,
           foregroundColor: GlobalTheme.foreground),
-
       backgroundColor: GlobalTheme.background,
-
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          
           Container(
             height: ScreenUtil.screenHeight(context) * (1 / 5),
             decoration: const BoxDecoration(
@@ -36,7 +32,6 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                 fit: BoxFit.cover,
               ),
             ),
-
             child: Align(
               alignment: const Alignment(-.9, 4),
               child: ClipRRect(
@@ -51,18 +46,15 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ),
           ),
-
           SizedBox(
             width: ScreenUtil.screenWidth(context),
             height: ScreenUtil.screenHeight(context) * (1 / 13.3),
           ),
-
           Padding(
             padding: const EdgeInsets.only(left: 15.0, top: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 Row(
                   children: [
                     const Text(
@@ -72,10 +64,8 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
-
                     GestureDetector(
-                      onTap: () {
-                      },
+                      onTap: () {},
                       child: const Padding(
                         padding: EdgeInsets.only(left: 3),
                         child: Icon(
@@ -87,21 +77,18 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 8),
-
-               Row( 
-               children: [
-               const Text(
-                  'This is a community for hardcore gamers',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
-                ),
+                Row(
+                  children: [
+                    const Text(
+                      'This is a community for hardcore gamers',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
+                    ),
                     GestureDetector(
-                      onTap: () {
-                      },
+                      onTap: () {},
                       child: const Padding(
                         padding: EdgeInsets.only(left: 6),
                         child: Icon(
@@ -111,57 +98,68 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                         ),
                       ),
                     ),
-                ],
+                  ],
                 )
               ],
             ),
           ),
-
           const SizedBox(height: 20),
-
-          Row( 
-          children: [const Padding (
-          padding: EdgeInsets.only(left:15),
-          child: Text(
-            'Tags ',
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+          Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 15),
+                child: Text(
+                  'Tags ',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 2),
+                  child: Icon(
+                    Icons.add_box,
+                    color: Colors.white,
+                    size: 12,
+                  ),
+                ),
+              ),
+            ],
           ),
-          ),
-
-                    GestureDetector(
-                      onTap: () {
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 2),
-                        child: Icon(
-                          Icons.add_box,
-                          color: Colors.white,
-                          size: 12,
-                        ),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 15),
+                child: Visibility(
+                  visible: isChipVisible,
+                  child: ActionChip(
+                      backgroundColor: GlobalTheme.background,
+                      side: BorderSide(color: GlobalTheme.accent),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                    ),
-          ],),
-  Row ( 
-  children: [ Padding(
-  padding: EdgeInsets.only(left:15),
-  child: Visibility( 
-  visible: isChipVisible,
-  child: ActionChip(
-        backgroundColor: GlobalTheme.background,  
-        side: BorderSide(color: GlobalTheme.accent),
-        shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0), 
-                    ),
-        
-        label: Row( children: [Text('Gaming'), GestureDetector(onTap: () {}, child: const Padding( padding: EdgeInsets.only(left:2), child: Icon( Icons.exit_to_app, color: GlobalTheme.accent, size:12)))]),
-          labelStyle: TextStyle(color: GlobalTheme.accent),
-          onPressed: () {
-                setState(() {
-                    isChipVisible = false;
-            });
-            }),),),
-            ],),
+                      label: Row(children: [
+                        Text('Gaming'),
+                        GestureDetector(
+                            onTap: () {},
+                            child: const Padding(
+                                padding: EdgeInsets.only(left: 2),
+                                child: Icon(Icons.exit_to_app,
+                                    color: GlobalTheme.accent, size: 12)))
+                      ]),
+                      labelStyle: TextStyle(color: GlobalTheme.accent),
+                      onPressed: () {
+                        setState(() {
+                          isChipVisible = false;
+                        });
+                      }),
+                ),
+              ),
+            ],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
