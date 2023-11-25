@@ -14,13 +14,17 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
           backgroundColor: GlobalTheme.background,
           foregroundColor: GlobalTheme.foreground),
+
       backgroundColor: GlobalTheme.background,
+
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          
           Container(
             height: ScreenUtil.screenHeight(context) * (1 / 5),
             decoration: const BoxDecoration(
@@ -30,6 +34,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                 fit: BoxFit.cover,
               ),
             ),
+
             child: Align(
               alignment: const Alignment(-.9, 4),
               child: ClipRRect(
@@ -44,15 +49,18 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ),
           ),
+
           SizedBox(
             width: ScreenUtil.screenWidth(context),
             height: ScreenUtil.screenHeight(context) * (1 / 13.3),
           ),
+
           Padding(
             padding: const EdgeInsets.only(left: 15.0, top: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 Row(
                   children: [
                     const Text(
@@ -62,32 +70,53 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
+
                     GestureDetector(
                       onTap: () {
-                        print("edit icon");
                       },
-                      child: Padding(
+                      child: const Padding(
                         padding: EdgeInsets.only(left: 3),
                         child: Icon(
                           Icons.edit,
                           color: Colors.white,
+                          size: 20,
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
-                Text(
+
+                const SizedBox(height: 8),
+
+               Row( 
+               children: [
+               const Text(
                   'This is a community for hardcore gamers',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey,
                   ),
                 ),
+                    GestureDetector(
+                      onTap: () {
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 6),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                          size: 12,
+                        ),
+                      ),
+                    ),
+                ],
+                )
               ],
             ),
           ),
+
           const SizedBox(height: 20),
+
           const Text(
             'Tags: ',
             style: TextStyle(
