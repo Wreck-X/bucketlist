@@ -1,6 +1,7 @@
 import 'package:bucketlist/resources/colors.dart';
 import 'package:bucketlist/resources/screendat.dart';
 import 'package:bucketlist/utils/widgets/membercard.dart';
+import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
 
 class MembersScreen extends StatefulWidget {
@@ -76,15 +77,34 @@ class _MembersScreenState extends State<MembersScreen> {
               ),
               Expanded(
                 child: Container(
-                    height: ScreenUtil.screenHeight(context) * 0.8,
-                    width: ScreenUtil.screenWidth(context),
-                    color: ColorsClass.black,
-                    child: ListView.builder(
-                        itemCount: 10, // Temp count change on api call
-                        itemBuilder: (context, index) {
-                          return MembersCard();
-                        })),
-              ),
+                  height: ScreenUtil.screenHeight(context) * 0.8,
+                  width: ScreenUtil.screenWidth(context),
+                  color: ColorsClass.black,
+                  child: FutureBuilder<List<dynamic>>(
+                    future: getmembers(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // While waiting for data, return a loading indicator or placeholder
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        // If there's an error, display an error message
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        // If data is successfully fetched, use ListView.builder
+                        return ListView.builder(
+                          itemCount: snapshot.data?.length,
+                          itemBuilder: (context, index) {
+                            return MembersCard(
+                              content: snapshot.data,
+                              index: index,
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
+                ),
+              )
             ],
           ),
         ),

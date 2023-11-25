@@ -28,6 +28,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     List fetchedData = await proj_repo.fetchData(widget.org_uid);
     setState(() {
       projects = fetchedData;
+      print(api.orgStat["open"]);
       print(projects);
       print("ran");
     });
@@ -42,14 +43,15 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
-        actions: [IconButton(
-          icon: const Icon(Icons.settings),
-          tooltip: 'Open settings',
-          onPressed: () {
-            Navigator.of(context)
-                .pushNamed(RouteNames.settings);
-          },
-        )],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: 'Open settings',
+            onPressed: () {
+              Navigator.of(context).pushNamed(RouteNames.settings);
+            },
+          )
+        ],
       ),
       backgroundColor: GlobalTheme.background,
       body: Padding(
@@ -70,7 +72,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               children: [
                 Expanded(child: TextCard(api.orgStat["open"]!, 'Open')),
                 Expanded(child: TextCard(api.orgStat["overdue"]!, 'Overdue')),
-                Expanded(child: TextCard(api.orgStat["in_progress"]!, 'In progress')),
+                Expanded(
+                    child:
+                        TextCard(api.orgStat["in_progress"]!, 'In progress')),
               ],
             ),
             SizedBox(height: 20), // Spacing

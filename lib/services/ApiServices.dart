@@ -6,7 +6,11 @@ import '../utils/constants.dart';
 
 class ApiService {
   final String baseUrl;
-  Map<String, String?> orgStat = {"open":'-1',"overdue":'-1',"in_progress":'-1'};
+  Map<String, String?> orgStat = {
+    "open": '-1',
+    "overdue": '-1',
+    "in_progress": '-1'
+  };
   final JsonDecoder _decoder = new JsonDecoder();
   final JsonEncoder _encoder = new JsonEncoder();
 
@@ -125,7 +129,7 @@ class ApiService {
         debugPrint("Error while fetching data");
         return res;
       }
-      debugPrint("POST /login");
+      debugPrint("POST");
       if (json.decode(response.body)['status'] == "success") {
         debugPrint(res);
         session_token.storeToken(json.decode(response.body)["session_token"]);
@@ -163,21 +167,91 @@ class ApiService {
       if (json.decode(response.body)['status'] == "success") {
         debugPrint(res);
 
-        try{
-          orgStat = {"open":response.headers['OPEN'],"overdue":response.headers['OVERDUE'],"in_progress":response.headers['IN_PROGRESS']};
-        }
-        catch (e){
+        try {
+          orgStat = {
+            "open": response.headers['OPEN'],
+            "overdue": response.headers['OVERDUE'],
+            "in_progress": response.headers['IN_PROGRESS']
+          };
+        } catch (e) {
           orgStat = orgStat;
           debugPrint(e as String?);
         }
         session_token.storeToken(json.decode(response.body)["session_token"]);
         return res;
-      }
-      else{
-        debugPrint(response.body );
+      } else {
+        debugPrint(response.body);
       }
       //print(response.body);
       return res;
+    });
+  }
+
+  Future<List<dynamic>> get_updates(String url) async {
+    String? sessionKey = await session_token.getToken();
+    String? token = await csrf_token.getToken();
+    if (token != null) {
+      headers['X-CSRFToken'] = token;
+      headers['Authorization'] = sessionKey!;
+    }
+    return http
+        .get(Uri.parse("$baseUrl$url"), headers: headers)
+        .then((http.Response response) {
+      final String res = response.body;
+      final int statusCode = response.statusCode;
+
+      _updateCookie(response);
+
+      if (statusCode < 200 || statusCode > 400) {
+        debugPrint("Error while fetching data");
+        return [];
+      }
+      if (statusCode == 200) {
+        Map<String, dynamic> responseBody = json.decode(res);
+        print(responseBody['status_update'].runtimeType);
+        return responseBody['status_update'];
+      }
+
+      if (json.decode(response.body) == "success") {
+        session_token.storeToken(json.decode(response.body)["session_token"]);
+        return [];
+      }
+      // print(response.body);
+      return [];
+    });
+  }
+
+  Future<List<dynamic>> get_members(String url) async {
+    String? sessionKey = await session_token.getToken();
+    String? token = await csrf_token.getToken();
+    if (token != null) {
+      headers['X-CSRFToken'] = token;
+      headers['Authorization'] = sessionKey!;
+    }
+    return http
+        .get(Uri.parse("$baseUrl$url"), headers: headers)
+        .then((http.Response response) {
+      final String res = response.body;
+      final int statusCode = response.statusCode;
+
+      _updateCookie(response);
+
+      if (statusCode < 200 || statusCode > 400) {
+        debugPrint("Error while fetching data");
+        return [];
+      }
+      if (statusCode == 200) {
+        Map<String, dynamic> responseBody = json.decode(res);
+        print(responseBody['members'].runtimeType);
+        return responseBody['members'];
+      }
+
+      if (json.decode(response.body) == "success") {
+        session_token.storeToken(json.decode(response.body)["session_token"]);
+        return [];
+      }
+      // print(response.body);
+      return [];
     });
   }
 
