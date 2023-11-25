@@ -14,6 +14,7 @@ class OrgSettings extends StatefulWidget {
 class _OrgSettingsScreenState extends State<OrgSettings> with TickerProviderStateMixin{
   bool isChipVisible = true;
   late TabController _tabController;
+  bool showAllMembers = false;
 
   @override
   void initState() {
@@ -205,31 +206,56 @@ Expanded(
           controller: _tabController,
           children: [
             // Members Tab
-            Container(
-              child: FutureBuilder<List<dynamic>>(
-                future: getmembers(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    return ListView.builder(
-                      itemCount: snapshot.data?.length,
-                      itemBuilder: (context, index) {
-                        return MembersCard(
-                          content: snapshot.data,
-                          index: index,
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
-            ),
-            // Join Requests Tab
+          // Members Tab
+Container(
+  child: FutureBuilder<List<dynamic>>(
+    future: getmembers(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      } else if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      } else {
+        // Use null-aware operator to handle the case when snapshot.data is null
+        final List<dynamic> members = snapshot.data ?? [];
+
+        // Display either all members or at most two members based on the showAllMembers variable
+        final List<MembersCard> displayedMembers = showAllMembers
+            ? members.map((member) => MembersCard(content: members, index: members.indexOf(member))).toList()
+            : members.take(2).map((member) => MembersCard(content: members, index: members.indexOf(member))).toList();
+
+        // Check if there are more than two members
+        final bool hasMoreMembers = members.length > 2;
+
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Displayed member cards
+              ...displayedMembers,
+
+              // Display the button if there are more members
+              if (hasMoreMembers)
+                Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    // Update the state variable to toggle between showing all members and just two members
+                    setState(() {
+                      showAllMembers = !showAllMembers;
+                    });
+                  },
+                  child: Icon(showAllMembers ? Icons.expand_less : Icons.expand_more),
+                ),),
+            ],
+          ),
+        );
+      }
+    },
+  ),
+),  // Join Requests Tab
             Container(
               child: FutureBuilder<List<dynamic>>(
                 future: getmembers(),
