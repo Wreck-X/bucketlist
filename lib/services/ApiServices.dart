@@ -4,13 +4,15 @@ import 'dart:convert';
 
 import '../utils/constants.dart';
 
+class OrgStat {
+  late String open;
+  late String overdue;
+  late String inprogress;
+}
+
 class ApiService {
   final String baseUrl;
-  Map<String, String?> orgStat = {
-    "open": '-1',
-    "overdue": '-1',
-    "in_progress": '-1'
-  };
+
   final JsonDecoder _decoder = new JsonDecoder();
   final JsonEncoder _encoder = new JsonEncoder();
 
@@ -140,7 +142,9 @@ class ApiService {
     });
   }
 
-  Future<String> get_projects(String url, String org) async {
+  Future<Map<String, dynamic>> get_projects(
+      String url, String org, String type) async {
+    OrgStat orgStat = OrgStat();
     String? sessionKey = await session_token.getToken();
     String? token = await csrf_token.getToken();
     if (token != null) {
@@ -150,6 +154,7 @@ class ApiService {
       headers['X-CSRFToken'] = token;
       headers['Authorization'] = sessionKey!;
       headers['org'] = org;
+      print(org);
     }
     return http
         .get(Uri.parse("$baseUrl$url"), headers: headers)
@@ -161,29 +166,12 @@ class ApiService {
 
       if (statusCode < 200 || statusCode > 400) {
         debugPrint("Error while fetching data");
-        return res;
-      }
-      debugPrint("POST /login");
-      if (json.decode(response.body)['status'] == "success") {
-        debugPrint(res);
-
-        try {
-          orgStat = {
-            "open": response.headers['OPEN'],
-            "overdue": response.headers['OVERDUE'],
-            "in_progress": response.headers['IN_PROGRESS']
-          };
-        } catch (e) {
-          orgStat = orgStat;
-          debugPrint(e as String?);
-        }
-        session_token.storeToken(json.decode(response.body)["session_token"]);
-        return res;
+        return {"Error code": statusCode};
       } else {
-        debugPrint(response.body);
+        Map<String, dynamic> responseBody = json.decode(res);
+        print(responseBody['projects']);
+        return responseBody;
       }
-      //print(response.body);
-      return res;
     });
   }
 

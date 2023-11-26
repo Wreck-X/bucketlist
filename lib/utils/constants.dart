@@ -9,6 +9,5 @@ String base_url = 'https://django-beacon.vercel.app/';
 ApiService api = ApiService(baseUrl: base_url);
 final OrgRepository org_repo = OrgRepository();
 List<dynamic> servers = [];
-final ProjRepository proj_repo = ProjRepository();
 List<dynamic> projects = [];
 String selected_org = '';

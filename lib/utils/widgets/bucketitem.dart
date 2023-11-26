@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import '../../utils/Routes/route_names.dart';
 import '../../resources/colors.dart';
 
-class BucketItem extends StatelessWidget {
+class BucketItem extends StatefulWidget {
   BucketItem({Key? key, required this.data, required this.index})
       : super(key: key);
   var data;
   var index;
   @override
+  State<BucketItem> createState() => _BucketItemState();
+}
+
+class _BucketItemState extends State<BucketItem> {
+  bool boolean = false; // Move the variable here to maintain its state.
+
+  @override
   Widget build(BuildContext context) {
-    print(data);
+    var name = widget.data['projects'][widget.index]['name'];
+    print('name $name ${widget.index}');
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: InkWell(
@@ -18,12 +26,25 @@ class BucketItem extends StatelessWidget {
         },
         child: Card(
           color: GlobalTheme.backWidget,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              '' ?? 'Unnamed Project', // Display the project name
-              style: const TextStyle(color: GlobalTheme.foreground),
-            ),
+
+          child: Row(
+            children: [
+              Checkbox(
+                value: boolean,
+                onChanged: (value) {
+                  setState(() {
+                    boolean = value ?? false;
+                  });
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  name ?? 'Unnamed Project',
+                  style: const TextStyle(color: GlobalTheme.foreground),
+                ),
+              ),
+            ],
           ),
         ),
       ),
