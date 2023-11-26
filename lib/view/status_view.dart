@@ -1,6 +1,7 @@
 import 'package:bucketlist/resources/screen.dart';
 import 'package:bucketlist/utils/Routes/route_names.dart';
 import 'package:bucketlist/utils/widgets/statuscard.dart';
+import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
 import '../resources/colors.dart';
 
@@ -83,12 +84,30 @@ class _StatusScreenState extends State<StatusScreen> {
             ),
             Expanded(
               child: Container(
-                  color: ColorsClass.black,
-                  child: ListView.builder(
-                      itemCount: 10, // Temp count change on api call
-                      itemBuilder: (context, index) {
-                        return StatusCard();
-                      })),
+                color: ColorsClass.black,
+                child: FutureBuilder(
+                  future: getupdates(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      // While waiting for data, return a loading indicator or placeholder
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      // If there's an error, display an error message
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data?.length,
+                        itemBuilder: (context, index) {
+                          return (StatusCard(
+                            content: snapshot.data,
+                            index: index,
+                          ));
+                        },
+                      );
+                    }
+                  },
+                ),
+              ),
             )
           ],
         ),
@@ -98,15 +117,22 @@ class _StatusScreenState extends State<StatusScreen> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              ;
+            },
             child: Icon(Icons.add),
           ),
           SizedBox(height: 10),
           FloatingActionButton(
+            backgroundColor: ColorsClass.purp,
             onPressed: () {
               Navigator.of(context).pushNamed(RouteNames.sendupdate);
             },
-            child: Icon(Icons.add),
+            child: const Icon(
+              Icons.add,
+              size: 30,
+              color: Colors.white,
+            ),
           ),
         ],
       ),

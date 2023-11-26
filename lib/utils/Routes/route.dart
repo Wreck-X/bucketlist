@@ -1,8 +1,6 @@
 import 'package:bucketlist/view/sendupdate_view.dart';
 import 'package:bucketlist/view/statistics.dart';
 import 'package:bucketlist/view/tripage_view.dart';
-import 'package:bucketlist/view/organization_settings_view.dart';
-
 import '../../utils/Routes/route_names.dart';
 import '../../view/edit_project_view.dart';
 import '../../view/login_view.dart';
@@ -37,13 +35,8 @@ class Routes {
       case RouteNames.projects:
         return MaterialPageRoute(
             builder: (_) => const ProjectsScreen(
-              org_uid: '',
-            ));
-      case RouteNames.settings:
-        return MaterialPageRoute(
-            builder: (_) => const OrgSettings(
-              org_uid: '',
-            ));
+                  org_uid: '',
+                ));
       case RouteNames.project:
         return MaterialPageRoute(builder: (_) => const ProjectScreen());
       case RouteNames.editProject:

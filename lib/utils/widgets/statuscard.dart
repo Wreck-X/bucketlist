@@ -3,7 +3,10 @@ import 'package:bucketlist/resources/screendat.dart';
 import 'package:flutter/material.dart';
 
 class StatusCard extends StatefulWidget {
-  const StatusCard({super.key});
+  final List<dynamic>? content;
+  int index;
+
+  StatusCard({super.key, required this.content, required this.index});
 
   @override
   State<StatusCard> createState() => _StatusCardState();
@@ -12,6 +15,8 @@ class StatusCard extends StatefulWidget {
 class _StatusCardState extends State<StatusCard> {
   @override
   Widget build(BuildContext context) {
+    String user = widget.content![widget.index].keys.toList().first;
+    String message = widget.content![widget.index][user]['message'];
     return Column(
       children: [
         const SizedBox(height: 10),
@@ -41,16 +46,16 @@ class _StatusCardState extends State<StatusCard> {
                     const SizedBox(
                       width: 10,
                     ),
-                    const Text(
-                      "Ivin",
+                    Text(
+                      user,
                       style: TextStyle(color: ColorsClass.white, fontSize: 18),
                     ),
                   ],
                 ),
               ),
-              const Row(
+              Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                       height: 30,
                       width: 30,
                       child: Icon(
@@ -62,7 +67,7 @@ class _StatusCardState extends State<StatusCard> {
                   Column(
                     children: [
                       Text(
-                        "currently working on blah",
+                        message,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.white, fontSize: 14),
                       ),
