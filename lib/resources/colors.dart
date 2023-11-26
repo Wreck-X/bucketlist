@@ -6,9 +6,21 @@ class ColorsClass {
   static const Color red = Color.fromARGB(223, 255, 0, 0);
   static const Color grey = Color.fromARGB(255, 95, 95, 95);
   static const Color violet = Color.fromARGB(255, 174, 79, 255);
+  static const Color darkViolet = Color.fromARGB(255, 109, 49, 153);
   static const Color lightGrey = Color.fromARGB(255, 211, 211, 211);
   static const Color darkGrey = Color.fromARGB(255, 50, 50, 50);
   static const Color transparent = Color(0x44000000);
-  static const Color lightblack = Color.fromARGB(255,30,30,30);
+  static const Color lightblack = Color.fromARGB(255, 30, 30, 30);
   static const Color purp = Color.fromARGB(255, 151, 31, 253);
+  static const Color textfcolor = Color.fromARGB(255, 44, 44, 44);
+  static const Color yellow = Color.fromARGB(255, 241, 205, 80);
+  static const Color blue = Color.fromARGB(255, 80, 183, 241);
+}
+
+class GlobalTheme {
+  static const Color background = ColorsClass.black;
+  static const Color backWidget = ColorsClass.darkGrey;
+  static const Color accent = ColorsClass.violet;
+  static const Color darkAccent = ColorsClass.darkViolet;
+  static const Color foreground = ColorsClass.white;
 }

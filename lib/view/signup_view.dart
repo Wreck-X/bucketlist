@@ -1,7 +1,7 @@
 import 'package:bucketlist/view/login_view.dart';
 import 'package:flutter/material.dart';
 import '../resources/animation.dart';
-import '../resources/buttons.dart';
+import '../utils/widgets/buttons.dart';
 import '../resources/colors.dart';
 import '../utils/utils.dart';
 

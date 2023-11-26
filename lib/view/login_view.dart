@@ -1,10 +1,12 @@
-import 'package:bucketlist/resources/buttons.dart';
+import 'package:bucketlist/utils/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import '../resources/animation.dart';
 import '../resources/colors.dart';
+import '../utils/Routes/route_names.dart';
 import '../utils/utils.dart';
 import '../view_model/login_view_model.dart';
 import 'signup_view.dart';
+import '../utils/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -35,6 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    api.refresh_cookies(); // refresh cookies
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -196,8 +200,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: CustomButton(
                   text: 'Login',
                   color: ColorsClass.violet,
-                  function: () {
-                    login(_userNameController.text, _passwordController.text);
+                  function: () async {
+                    try {
+                      var success = await login(
+                          _userNameController.text, _passwordController.text);
+                      org_repo.fetchData();
+                      if (success) {
+                        Navigator.of(context)
+                            .pushNamed(RouteNames.organizations);
+                      } else {
+                        Navigator.of(context)
+                            .pushNamed(RouteNames.organizations);
+                      }
+                    } catch (e) {
+                      throw new Exception(e);
+                    }
                   },
                 ),
               ),
