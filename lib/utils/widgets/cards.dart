@@ -78,6 +78,43 @@ class ProjectCards extends StatelessWidget {
   }
 }
 
+class ItemCards extends StatefulWidget {
+  int index;
+  ItemCards({Key? key, required this.index}) : super(key: key);
+
+  @override
+  _ItemCardsState createState() => _ItemCardsState();
+}
+
+class _ItemCardsState extends State<ItemCards> {
+  bool boolean = false;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: GlobalTheme.backWidget,
+      child: Row(
+        children: [
+          Checkbox(
+            value: boolean,
+            onChanged: (value) {
+              setState(() {
+                boolean = value ?? false;
+              });
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Card ${widget.index}',
+              style: const TextStyle(color: GlobalTheme.foreground),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class TextCard extends StatelessWidget {
   final String number;
   final String label;

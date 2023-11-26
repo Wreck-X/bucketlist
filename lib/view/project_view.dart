@@ -20,16 +20,16 @@ class _ProjectScreenState extends State<ProjectScreen> {
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
-        actions: [IconButton(
-          icon: const Icon(Icons.edit),
-          tooltip: 'Open settings',
-          onPressed: () {
-            Navigator.of(context)
-                .pushNamed(RouteNames.editProject);
-          },
-        )],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            tooltip: 'Open settings',
+            onPressed: () {
+              Navigator.of(context).pushNamed(RouteNames.editProject);
+            },
+          )
+        ],
       ),
-
       backgroundColor: GlobalTheme.background,
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -43,13 +43,17 @@ class _ProjectScreenState extends State<ProjectScreen> {
                     children: [
                       Expanded(
                           //It will crash if this is not placed in Expanded
-                          child: BigTextCard("This is a project description", false)),
+                          child: BigTextCard(
+                              "This is a project description", false)),
                       Expanded(
                         child: Column(
                           children: [
                             //Text("Assigned to: ",style: TextStyle(color: GlobalTheme.foreground),),
-                            Dropdown(['No one assigned', 'Assigned to John'],'Assigned to'),
-                            Padding(padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                            Dropdown(['No one assigned', 'Assigned to John'],
+                                'Assigned to'),
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5)),
                             //Text("Status: "),
                             Dropdown(['Open - High Prio', 'Closed'], "Status"),
                           ],
@@ -65,7 +69,8 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   Row(
                     children: [
                       const Padding(padding: EdgeInsets.all(4)),
-                      Dropdown(['No one assigned', 'Assigned to John'],'Assigned to'),
+                      Dropdown(['No one assigned', 'Assigned to John'],
+                          'Assigned to'),
                       const Padding(padding: EdgeInsets.all(10)),
                       Dropdown(['Open - High Prio', 'Closed'], "Status")
                     ],
@@ -78,18 +83,10 @@ class _ProjectScreenState extends State<ProjectScreen> {
                       return Padding(
                         padding: const EdgeInsets.only(top: 10.0),
                         child: InkWell(
-                          onTap: () {
-                            debugPrint('Card $index clicked');
-                          },
-                          child: Card(
-                            color: GlobalTheme.backWidget,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text('Card $index',
-                                  style: const TextStyle(color: GlobalTheme.foreground),),
-                            ),
-                          ),
-                        ),
+                            onTap: () {
+                              debugPrint('Card $index clicked');
+                            },
+                            child: ItemCards(index: index)),
                       );
                     },
                     separatorBuilder: (context, index) => SizedBox(height: 10),
