@@ -5,6 +5,7 @@ import '../../utils/Routes/route_names.dart';
 import '../../view/edit_project_view.dart';
 import '../../view/login_view.dart';
 import '../../view/organization_view.dart';
+import '../../view/organization_settings_view.dart';
 import '../../view/project_view.dart';
 import '../../view/signup_view.dart';
 import '../../view/projects_view.dart';

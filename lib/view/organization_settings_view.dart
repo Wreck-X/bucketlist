@@ -1,7 +1,8 @@
 import 'package:bucketlist/resources/colors.dart';
 import 'package:bucketlist/resources/screen.dart';
+import 'package:bucketlist/view_model/login_view_model.dart';
+import 'package:bucketlist/utils/widgets/membercard.dart';
 import 'package:flutter/material.dart';
-import '../utils/widgets/cards.dart';
 
 class OrgSettings extends StatefulWidget {
   const OrgSettings({Key? key, required String orgUid}) : super(key: key);
@@ -10,19 +11,36 @@ class OrgSettings extends StatefulWidget {
   State<OrgSettings> createState() => _OrgSettingsScreenState();
 }
 
-class _OrgSettingsScreenState extends State<OrgSettings> {
+class _OrgSettingsScreenState extends State<OrgSettings>
+    with TickerProviderStateMixin {
   bool isChipVisible = true;
+  late TabController _tabController;
+  bool showAllMembers = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // APPBAR
       appBar: AppBar(
-          backgroundColor: GlobalTheme.background,
-          foregroundColor: GlobalTheme.foreground),
+        backgroundColor: GlobalTheme.background,
+        foregroundColor: GlobalTheme.foreground,
+      ),
+
       backgroundColor: GlobalTheme.background,
-      body: Column(
+
+      body: SingleChildScrollView (
+      child: Container( 
+      height: ScreenUtil.screenHeight(context) * 1.1,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+        // Community Banner 
           Container(
             height: ScreenUtil.screenHeight(context) * (1 / 5),
             decoration: const BoxDecoration(
@@ -32,6 +50,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                 fit: BoxFit.cover,
               ),
             ),
+        // Community Avatar
             child: Align(
               alignment: const Alignment(-.9, 4),
               child: ClipRRect(
@@ -46,10 +65,12 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ),
           ),
+        // Spacing to account for community avatar offset
           SizedBox(
             width: ScreenUtil.screenWidth(context),
             height: ScreenUtil.screenHeight(context) * (1 / 13.3),
           ),
+        // Community Name
           Padding(
             padding: const EdgeInsets.only(left: 15.0, top: 5),
             child: Column(
@@ -77,6 +98,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
                     ),
                   ],
                 ),
+                // Community Description
                 const SizedBox(height: 8),
                 Row(
                   children: [
@@ -103,6 +125,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ],
             ),
           ),
+          // Tags Heading
           const SizedBox(height: 20),
           Row(
             children: [
@@ -129,6 +152,7 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ],
           ),
+          // Tags Paintchips
           Row(
             children: [
               Padding(
@@ -160,105 +184,71 @@ class _OrgSettingsScreenState extends State<OrgSettings> {
               ),
             ],
           ),
-          GestureDetector(
-            onTap: () {
-              print("hello");
-            },
-            child: Container(
-              color: GlobalTheme.backWidget,
-              padding: const EdgeInsets.only(
-                  left: 15, top: 10, bottom: 10, right: 15),
-              width: ScreenUtil.screenWidth(context),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Visibility',
-                        style: TextStyle(fontSize: 18.0, color: Colors.white),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        'Set server visibility to Open, Closed, Request only.',
-                        style: TextStyle(fontSize: 13.0, color: Colors.white),
-                      )
-                    ],
-                  ),
-                  Icon(Icons.visibility,
-                      color: GlobalTheme.foreground, size: 22)
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 2),
-          GestureDetector(
-            onTap: () {
-              print("hello");
-            },
-            child: Container(
-              color: GlobalTheme.backWidget,
-              padding: const EdgeInsets.only(
-                  left: 15, top: 10, bottom: 10, right: 15),
-              width: ScreenUtil.screenWidth(context),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Manage Roles',
-                        style: TextStyle(fontSize: 18.0, color: Colors.white),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        'Create, Edit and Delete roles',
-                        style: TextStyle(fontSize: 13.0, color: Colors.white),
-                      )
-                    ],
-                  ),
-                  Icon(Icons.label_important,
-                      color: GlobalTheme.foreground, size: 22)
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 2),
-          GestureDetector(
-            onTap: () {
-              print("hello");
-            },
-            child: Container(
-              color: GlobalTheme.backWidget,
-              padding: const EdgeInsets.only(
-                  left: 15, top: 10, bottom: 10, right: 15),
-              width: ScreenUtil.screenWidth(context),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Manage Roles',
-                        style: TextStyle(fontSize: 18.0, color: Colors.white),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        'Create, Edit and Delete roles',
-                        style: TextStyle(fontSize: 13.0, color: Colors.white),
-                      )
-                    ],
-                  ),
-                  Icon(Icons.check_outlined,
-                      color: GlobalTheme.foreground, size: 22)
-                ],
-              ),
-            ),
-          ),
+// Tabs
+Expanded(
+  child: Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      TabBar(
+        controller: _tabController,
+        tabs: const [
+          Tab(text: 'Members'),
+          Tab(text: 'Join Requests'),
         ],
+        isScrollable: true,
+        dividerColor: Colors.transparent,
+        labelColor: GlobalTheme.accent,
+        unselectedLabelColor: GlobalTheme.darkAccent,
+        tabAlignment: TabAlignment.start,
+        labelPadding: EdgeInsets.only(left: 15, right:30),
+        automaticIndicatorColorAdjustment: false,
+      ),
+      Expanded(
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            // Members Tab
+          // Members Tab
+Container(
+  child: FutureBuilder<List<dynamic>>(
+    future: getmembers(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      } else if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      } else {
+        final List<dynamic> members = snapshot.data ?? [];
+
+        final List<MembersCard> displayedMembers = showAllMembers
+            ? members.map((member) => MembersCard(content: members, index: members.indexOf(member))).toList()
+            : members.take(2).map((member) => MembersCard(content: members, index: members.indexOf(member))).toList();
+
+        final bool hasMoreMembers = members.length > 2;
+
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...displayedMembers,
+
+              if (hasMoreMembers)
+                Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    setState(() {
+                      showAllMembers = !showAllMembers;
+                    });
+                  },
+                  child: Icon(showAllMembers ? Icons.expand_less : Icons.expand_more),
+                ),),
+>>>>>>> e7ddd14 (final commit)
+            ],
+          ),
+        ),
       ),
     );
   }

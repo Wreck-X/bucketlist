@@ -7,7 +7,6 @@ class BucketItem extends StatefulWidget {
       : super(key: key);
   var data;
   var index;
-
   @override
   State<BucketItem> createState() => _BucketItemState();
 }
@@ -27,6 +26,7 @@ class _BucketItemState extends State<BucketItem> {
         },
         child: Card(
           color: GlobalTheme.backWidget,
+
           child: Row(
             children: [
               Checkbox(
