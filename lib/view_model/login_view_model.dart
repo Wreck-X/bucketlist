@@ -25,3 +25,5 @@ Future<Map<String, dynamic>> getprojects(String org_uid, String type) async {
     return {"error ": e};
   }
 }
+
+//post_boolstate for checkboxes and visibility here

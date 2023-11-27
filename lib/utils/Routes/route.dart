@@ -33,6 +33,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const OrganizationScreen());
       case RouteNames.sendupdate:
         return MaterialPageRoute(builder: (_) => SendStatus());
+      case RouteNames.settings:
+        return MaterialPageRoute(builder: (_) => OrgSettings(orgUid: ''));
       case RouteNames.projects:
         return MaterialPageRoute(
             builder: (_) => const ProjectsScreen(

@@ -1,7 +1,5 @@
 import 'package:bucketlist/resources/colors.dart';
 import 'package:bucketlist/utils/widgets/statcard1.dart';
-import 'package:bucketlist/utils/widgets/statcard2.dart';
-import 'package:bucketlist/utils/widgets/statcard3.dart';
 import 'package:flutter/material.dart';
 
 class StatisticScreen extends StatefulWidget {

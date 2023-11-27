@@ -208,9 +208,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (success) {
                         Navigator.of(context)
                             .pushNamed(RouteNames.organizations);
-                      } else {
-                        Navigator.of(context)
-                            .pushNamed(RouteNames.organizations);
                       }
                     } catch (e) {
                       throw new Exception(e);
