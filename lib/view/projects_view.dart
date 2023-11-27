@@ -83,7 +83,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               },
             ),
             SizedBox(height: 20), // Spacing
-
             // Scroll area with clickable rows of cards
             Expanded(
               child: FutureBuilder(

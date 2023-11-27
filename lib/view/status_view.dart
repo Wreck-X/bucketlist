@@ -3,6 +3,7 @@ import 'package:bucketlist/utils/Routes/route_names.dart';
 import 'package:bucketlist/utils/widgets/statuscard.dart';
 import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../resources/colors.dart';
 
 class StatusScreen extends StatefulWidget {
@@ -95,14 +96,17 @@ class _StatusScreenState extends State<StatusScreen> {
                       // If there's an error, display an error message
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      return ListView.builder(
-                        itemCount: snapshot.data?.length,
-                        itemBuilder: (context, index) {
-                          return (StatusCard(
-                            content: snapshot.data,
-                            index: index,
-                          ));
-                        },
+                      return Skeletonizer(
+                        enabled: ,
+                        child: ListView.builder(
+                          itemCount: snapshot.data?.length,
+                          itemBuilder: (context, index) {
+                            return (StatusCard(
+                              content: snapshot.data,
+                              index: index,
+                            ));
+                          },
+                        ),
                       );
                     }
                   },
