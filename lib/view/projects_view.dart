@@ -1,7 +1,10 @@
+import 'package:bucketlist/utils/widgets/bucketitem.dart';
 import 'package:bucketlist/view/project_view.dart';
+import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
 import '../resources/animation.dart';
 import '../resources/colors.dart';
+import '../utils/Routes/route_names.dart';
 import '../utils/constants.dart';
 import '../utils/widgets/cards.dart';
 
@@ -16,31 +19,40 @@ class ProjectsScreen extends StatefulWidget {
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
   @override
-  void initState() {
-    super.initState();
+  // void initState() {
+  //   super.initState();
 
-    print("widget" + widget.org_uid);
-    fetchData();
-  }
+  //   print("widget" + widget.org_uid);
+  //   fetchData();
+  // }
 
-  void fetchData() async {
-    List fetchedData = await proj_repo.fetchData(widget.org_uid);
-    setState(() {
-      projects = fetchedData;
-      print(projects);
-      print("ran");
-    });
-  }
+  // void fetchData() async {
+  //   List fetchedData = await proj_repo.fetchData(widget.org_uid);
+  //   setState(() {
+  //     projects = fetchedData;
+  //     print(projects);
+  //     print("ran");
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text('Projects', style: TextStyle(color: GlobalTheme.foreground)),
+        title: const Text('Projects',
+            style: TextStyle(color: GlobalTheme.foreground)),
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: 'Open settings',
+            onPressed: () {
+              Navigator.of(context).pushNamed(RouteNames.settings);
+            },
+          )
+        ],
       ),
       backgroundColor: GlobalTheme.background,
       body: Padding(
@@ -56,46 +68,43 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             ),
             SizedBox(height: 20), // Spacing
             // Three text cards that are horizontally aligned
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(child: TextCard('4', 'Open')),
-                Expanded(child: TextCard('0', 'Overdue')),
-                Expanded(child: TextCard('2', 'In progress')),
-              ],
+            FutureBuilder(
+              future: getprojects(widget.org_uid, 'status'),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  // While waiting for data, return a loading indicator or placeholder
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  // If there's an error, display an error message
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return Container(child: ProjectCards(data: snapshot.data));
+                }
+              },
             ),
             SizedBox(height: 20), // Spacing
 
             // Scroll area with clickable rows of cards
             Expanded(
-              child: ListView.builder(
-                itemCount:
-                    projects.length, // Use the length of the projects list
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: InkWell(
-                      onTap: () {
-                        print('Card ${projects[index]['id']} clicked');
-                        Navigator.of(context)
-                            .push(FadeRoute(page: const ProjectScreen()));
-                      },
-                      child: Card(
-                        color: GlobalTheme.backWidget,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            projects[index]['name'] ??
-                                'Unnamed Project', // Display the project name
-                            style:
-                                const TextStyle(color: GlobalTheme.foreground),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+              child: FutureBuilder(
+                  future: getprojects(widget.org_uid, 'items'),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      // While waiting for data, return a loading indicator or placeholder
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      // If there's an error, display an error message
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data?['projects']
+                            .length, // Use the length of the projects list
+                        itemBuilder: (context, index) {
+                          return BucketItem(data: snapshot.data, index: index);
+                        },
+                      );
+                    }
+                  }),
             ),
           ],
         ),

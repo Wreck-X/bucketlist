@@ -1,3 +1,4 @@
+import 'package:bucketlist/resources/screendat.dart';
 import 'package:bucketlist/view/projects_view.dart';
 import 'package:bucketlist/view/tripage_view.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,10 @@ import '../constants.dart';
 
 class TappableCard extends StatefulWidget {
   final String title;
+  final String description;
 
-  const TappableCard(this.title, {Key? key}) : super(key: key);
+  const TappableCard(this.title, this.description, {Key? key})
+      : super(key: key);
 
   @override
   _TappableCardState createState() => _TappableCardState();
@@ -19,17 +22,94 @@ class _TappableCardState extends State<TappableCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      clipBehavior: Clip.hardEdge,
-      child: InkWell(
-        splashColor: GlobalTheme.accent.withAlpha(30),
-        onTap: () {
-          debugPrint('${widget.title} tapped.');
-        },
-        child: SizedBox(
-          width: 300,
-          height: 100,
-          child: Center(child: Text(widget.title)),
-        ),
+        clipBehavior: Clip.hardEdge,
+        child: InkWell(
+          splashColor: GlobalTheme.accent.withAlpha(30),
+          onTap: () {
+            debugPrint('${widget.title} tapped.');
+          },
+          child: Expanded(
+            child: Container(
+              decoration: BoxDecoration(color: GlobalTheme.backWidget),
+              height: 50,
+              width: ScreenUtil.screenWidth(context) - 20,
+              child: Center(
+                  child: Column(children: [
+                Text(
+                  widget.title,
+                  style: TextStyle(color: GlobalTheme.foreground),
+                ),
+                Text(widget.description,
+                    style: TextStyle(color: GlobalTheme.foreground))
+              ])),
+            ),
+          ),
+        ));
+  }
+}
+
+class ProjectCards extends StatelessWidget {
+  var data;
+
+  ProjectCards({Key? key, required this.data}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> list = [];
+    for (final mapEntry in data.entries) {
+      final key = mapEntry.key;
+      final value = mapEntry.value;
+      try {
+        if (key == 'status') {
+          for (final status in value.entries) {
+            final key = status.key;
+            final value = status.value;
+            list.add(
+                Expanded(child: TextCard(value.toString(), key.toString())));
+          }
+        }
+      } catch (e) {
+        debugPrint(e as String?);
+      }
+
+      // Key: a, Value: 1 ...
+    }
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround, children: list);
+  }
+}
+
+class ItemCards extends StatefulWidget {
+  int index;
+  ItemCards({Key? key, required this.index}) : super(key: key);
+
+  @override
+  _ItemCardsState createState() => _ItemCardsState();
+}
+
+class _ItemCardsState extends State<ItemCards> {
+  bool boolean = false;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: GlobalTheme.backWidget,
+      child: Row(
+        children: [
+          Checkbox(
+            value: boolean,
+            onChanged: (value) {
+              setState(() {
+                boolean = value ?? false;
+              });
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Card ${widget.index}',
+              style: const TextStyle(color: GlobalTheme.foreground),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -82,23 +162,49 @@ class TextCard extends StatelessWidget {
 
 class BigTextCard extends StatelessWidget {
   final String displayed_text;
+  bool edit = false;
 
-  BigTextCard(this.displayed_text);
+  BigTextCard(this.displayed_text, this.edit);
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: GlobalTheme.darkAccent,
-      child: Container(
-        padding: EdgeInsets.all(20),
-        width: double.infinity,
-        height: 200,
-        child: Center(
-          child: Text(displayed_text,
-              textScaleFactor: 1.15,
-              style: const TextStyle(color: GlobalTheme.foreground)),
+    if (edit) {
+      return Card(
+        color: GlobalTheme.darkAccent,
+        child: Container(
+          padding: EdgeInsets.all(20),
+          width: double.infinity,
+          height: 200,
+          child: Center(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: displayed_text,
+                border: InputBorder.none,
+                hintStyle: TextStyle(
+                  color: GlobalTheme.foreground,
+                  fontSize: MediaQuery.of(context).textScaleFactor *
+                      14.0, // Adjust the font size as needed
+                ),
+              ),
+              style: TextStyle(color: GlobalTheme.foreground),
+            ),
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Card(
+        color: GlobalTheme.darkAccent,
+        child: Container(
+          padding: EdgeInsets.all(20),
+          width: double.infinity,
+          height: 200,
+          child: Center(
+            child: Text(displayed_text,
+                textScaleFactor: 1.15,
+                style: const TextStyle(color: GlobalTheme.foreground)),
+          ),
+        ),
+      );
+    }
   }
 }
 
@@ -143,11 +249,9 @@ class ImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalTheme.background;
     return Card(
-        color: GlobalTheme.backWidget,
-        child: InkWell(
-          splashColor: GlobalTheme.accent.withAlpha(30),
+        color: const Color.fromARGB(0, 50, 50, 50),
+        child: GestureDetector(
           onTap: () {
             debugPrint('$name tapped.');
             selected_org = org_uid;
@@ -155,32 +259,34 @@ class ImageCard extends StatelessWidget {
             Navigator.of(context)
                 .push(FadeRoute(page: TriPage(org_uid: org_uid)));
           },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 14, 0, 6),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        8.0), // Adjust the radius here for desired curve
-                    child: CachedNetworkImage(
-                      imageUrl: 'https://picsum.photos/200',
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                      fit: BoxFit.cover,
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 14, 0, 6),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                          8.0), // Adjust the radius here for desired curve
+                      child: CachedNetworkImage(
+                        imageUrl: 'https://picsum.photos/200',
+                        placeholder: (context, url) =>
+                            Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                // Use the name variable here
-                child: Text(name,
-                    style: const TextStyle(color: GlobalTheme.foreground)),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                  // Use the name variable here
+                  child: Text(name,
+                      style: const TextStyle(color: GlobalTheme.foreground)),
+                ),
+              ],
+            ),
           ),
         ));
   }

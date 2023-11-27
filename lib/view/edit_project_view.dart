@@ -1,34 +1,32 @@
 import 'package:bucketlist/resources/colors.dart';
 import 'package:flutter/material.dart';
-import '../utils/Routes/route_names.dart';
 import '../utils/widgets/cards.dart';
 
-class ProjectScreen extends StatefulWidget {
-  const ProjectScreen({Key? key}) : super(key: key);
+class EditProjectScreen extends StatefulWidget {
+  const EditProjectScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProjectScreen> createState() => _ProjectScreenState();
+  State<EditProjectScreen> createState() => _ProjectScreenState();
 }
 
-class _ProjectScreenState extends State<ProjectScreen> {
+class _ProjectScreenState extends State<EditProjectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Project Name',
-            style: TextStyle(color: GlobalTheme.foreground)),
+        title: const TextField(
+          decoration: InputDecoration(
+            hintText: 'Project Name',
+            border: InputBorder.none,
+            hintStyle: TextStyle(
+              color: GlobalTheme.foreground, // Set your hint text color here
+            ),
+          ),
+          style: TextStyle(color: GlobalTheme.foreground),
+        ),
         backgroundColor: GlobalTheme.background,
         iconTheme: IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            tooltip: 'Open settings',
-            onPressed: () {
-              Navigator.of(context).pushNamed(RouteNames.editProject);
-            },
-          )
-        ],
       ),
       backgroundColor: GlobalTheme.background,
       body: LayoutBuilder(
@@ -44,7 +42,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                       Expanded(
                           //It will crash if this is not placed in Expanded
                           child: BigTextCard(
-                              "This is a project description", false)),
+                              "This is a project description", true)),
                       Expanded(
                         child: Column(
                           children: [
@@ -64,7 +62,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   SizedBox(height: 50),
                 ],
                 if (!isLandscape) ...[
-                  BigTextCard("This is a project description", false),
+                  BigTextCard("This is a project description", true),
                   Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                   Row(
                     children: [
@@ -83,10 +81,21 @@ class _ProjectScreenState extends State<ProjectScreen> {
                       return Padding(
                         padding: const EdgeInsets.only(top: 10.0),
                         child: InkWell(
-                            onTap: () {
-                              debugPrint('Card $index clicked');
-                            },
-                            child: ItemCards(index: index)),
+                          onTap: () {
+                            debugPrint('Card $index clicked');
+                          },
+                          child: Card(
+                            color: GlobalTheme.backWidget,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text(
+                                'Card $index',
+                                style: const TextStyle(
+                                    color: GlobalTheme.foreground),
+                              ),
+                            ),
+                          ),
+                        ),
                       );
                     },
                     separatorBuilder: (context, index) => SizedBox(height: 10),

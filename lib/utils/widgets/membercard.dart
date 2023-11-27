@@ -1,9 +1,13 @@
+import 'package:bucketlist/utils/widgets/test.dart';
 import 'package:flutter/material.dart';
 import 'package:bucketlist/resources/colors.dart';
 import 'package:bucketlist/resources/screendat.dart';
 
 class MembersCard extends StatefulWidget {
-  MembersCard({Key? key}) : super(key: key);
+  final List<dynamic>? content;
+  int index;
+  MembersCard({Key? key, required this.content, required this.index})
+      : super(key: key);
 
   @override
   _MemebersCardState createState() => _MemebersCardState();
@@ -12,6 +16,13 @@ class MembersCard extends StatefulWidget {
 class _MemebersCardState extends State<MembersCard> {
   @override
   Widget build(BuildContext context) {
+    var maincontent = widget.content?[widget.index]
+        [widget.content?[widget.index].keys.toList().first];
+    var name = maincontent['name'];
+    var colour = maincontent['icon_color'];
+    var roles = maincontent['role'];
+    print(colour);
+    print(maincontent);
     return Column(
       children: [
         Container(
@@ -34,11 +45,11 @@ class _MemebersCardState extends State<MembersCard> {
                       height: 25,
                       width: 25,
                       decoration: BoxDecoration(
-                          color: ColorsClass.yellow,
+                          color: Color.fromARGB(255, 170, 17, 170),
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                           child: Text(
-                        "H",
+                        name[0].toUpperCase(),
                         style: TextStyle(fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -46,19 +57,16 @@ class _MemebersCardState extends State<MembersCard> {
                       width: 10,
                     ),
                     Text(
-                      "Member name",
+                      name,
                       style: TextStyle(color: ColorsClass.white, fontSize: 20),
                     ),
                   ],
                 ),
               ),
-              const Row(
+              Row(
                 children: [
                   SizedBox(height: 20, width: 45),
-                  Text(
-                    "Roles",
-                    style: TextStyle(color: ColorsClass.white, fontSize: 12),
-                  ),
+                  getRoleWidget(roles)
                 ],
               ),
             ],
