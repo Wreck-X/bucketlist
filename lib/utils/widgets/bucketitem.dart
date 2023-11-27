@@ -26,7 +26,6 @@ class _BucketItemState extends State<BucketItem> {
         },
         child: Card(
           color: GlobalTheme.backWidget,
-
           child: Row(
             children: [
               Checkbox(

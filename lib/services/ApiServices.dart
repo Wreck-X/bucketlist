@@ -4,12 +4,6 @@ import 'dart:convert';
 
 import '../utils/constants.dart';
 
-class OrgStat {
-  late String open;
-  late String overdue;
-  late String inprogress;
-}
-
 class ApiService {
   final String baseUrl;
 
@@ -144,7 +138,6 @@ class ApiService {
 
   Future<Map<String, dynamic>> get_projects(
       String url, String org, String type) async {
-    OrgStat orgStat = OrgStat();
     String? sessionKey = await session_token.getToken();
     String? token = await csrf_token.getToken();
     if (token != null) {
@@ -218,6 +211,46 @@ class ApiService {
     }
     return http
         .get(Uri.parse("$baseUrl$url"), headers: headers)
+        .then((http.Response response) {
+      final String res = response.body;
+      final int statusCode = response.statusCode;
+
+      _updateCookie(response);
+
+      if (statusCode < 200 || statusCode > 400) {
+        debugPrint("Error while fetching data");
+        return [];
+      }
+      if (statusCode == 200) {
+        Map<String, dynamic> responseBody = json.decode(res);
+        print(responseBody['members'].runtimeType);
+        return responseBody['members'];
+      }
+
+      if (json.decode(response.body) == "success") {
+        session_token.storeToken(json.decode(response.body)["session_token"]);
+        return [];
+      }
+      // print(response.body);
+      return [];
+    });
+  }
+
+  Future<List<dynamic>> post_boolstate(String url, bool state) async {
+    String? sessionKey = await session_token.getToken();
+    String? token = await csrf_token.getToken();
+
+    Map<String, dynamic> requestBody = {
+      'state': state,
+    };
+    String requestBodyJson = jsonEncode(requestBody);
+    if (token != null) {
+      headers['X-CSRFToken'] = token;
+      headers['Authorization'] = sessionKey!;
+    }
+    return http
+        .post(Uri.parse("$baseUrl$url"),
+            headers: headers, body: requestBodyJson)
         .then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
