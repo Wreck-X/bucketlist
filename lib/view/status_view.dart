@@ -14,19 +14,6 @@ class StatusScreen extends StatefulWidget {
 }
 
 class _StatusScreenState extends State<StatusScreen> {
-  bool _isloaded = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-
-    Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
-        _isloaded = true;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,21 +90,22 @@ class _StatusScreenState extends State<StatusScreen> {
                 child: FutureBuilder(
                   future: getupdates(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasError) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      // While waiting for data, return a loading indicator or placeholder
+                      return loadingShimer();
+                    } else if (snapshot.hasError) {
                       // If there's an error, display an error message
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      return _isloaded
-                          ? ListView.builder(
-                              itemCount: snapshot.data?.length,
-                              itemBuilder: (context, index) {
-                                return StatusCard(
-                                  content: snapshot.data,
-                                  index: index,
-                                );
-                              },
-                            )
-                          : loadingShimer();
+                      return ListView.builder(
+                        itemCount: snapshot.data?.length,
+                        itemBuilder: (context, index) {
+                          return StatusCard(
+                            content: snapshot.data,
+                            index: index,
+                          );
+                        },
+                      );
                     }
                   },
                 ),

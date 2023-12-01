@@ -22,7 +22,7 @@ class ApiService {
   Future<void> _fetchBaseCookies() async {
     final response = await http.get(Uri.parse(baseUrl));
     _updateCookie(response);
-    csrf_token.storeToken(cookies['csrftoken']!);
+    csrf_token.storeToken(cookies['csrftoken'] ?? "");
   }
 
   void _updateCookie(http.Response response) {

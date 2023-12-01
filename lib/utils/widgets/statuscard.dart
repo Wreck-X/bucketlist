@@ -15,8 +15,15 @@ class StatusCard extends StatefulWidget {
 class _StatusCardState extends State<StatusCard> {
   @override
   Widget build(BuildContext context) {
-    String user = widget.content![widget.index].keys.toList().first;
-    String message = widget.content![widget.index][user]['message'];
+    String user = " ";
+    String message = "";
+
+    if (widget.content != null &&
+        widget.index < widget.content!.length &&
+        widget.content![widget.index] != null) {
+      user = widget.content![widget.index].keys.toList().first.toString();
+      message = widget.content![widget.index][user]['message'];
+    }
     return Column(
       children: [
         const SizedBox(height: 10),

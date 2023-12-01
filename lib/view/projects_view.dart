@@ -71,10 +71,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             FutureBuilder(
               future: getprojects(widget.org_uid, 'status'),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  // While waiting for data, return a loading indicator or placeholder
-                  return Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
+                if (snapshot.hasError) {
                   // If there's an error, display an error message
                   return Text('Error: ${snapshot.error}');
                 } else {
