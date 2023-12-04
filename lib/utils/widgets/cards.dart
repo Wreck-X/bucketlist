@@ -55,11 +55,11 @@ class ProjectCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> list = [];
-    for (final mapEntry in data.entries) {
-      final key = mapEntry.key;
-      final value = mapEntry.value;
-      try {
-        if (key == 'status') {
+    if (data != null) {
+      for (final mapEntry in data.entries) {
+        final key = mapEntry.key;
+        final value = mapEntry.value;
+        if (key == 'status' && value != null) {
           for (final status in value.entries) {
             final key = status.key;
             final value = status.value;
@@ -67,12 +67,11 @@ class ProjectCards extends StatelessWidget {
                 Expanded(child: TextCard(value.toString(), key.toString())));
           }
         }
-      } catch (e) {
-        debugPrint(e as String?);
-      }
 
-      // Key: a, Value: 1 ...
+        // Key: a, Value: 1 ...
+      }
     }
+
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround, children: list);
   }
