@@ -229,17 +229,18 @@ class ApiService {
     });
   }
 
-  Future<List<dynamic>> post_boolstate(String url, bool state) async {
+  Future<String> post_boolstate(String url, bool state, String keys) async {
     String? sessionKey = await session_token.getToken();
     String? token = await csrf_token.getToken();
+    Map<String, dynamic> requestBody;
 
-    Map<String, dynamic> requestBody = {
-      'state': state,
-    };
+    requestBody = {"state": state};
+
     String requestBodyJson = jsonEncode(requestBody);
     if (token != null) {
       headers['X-CSRFToken'] = token;
       headers['Authorization'] = sessionKey!;
+      headers['proj'] = keys;
     }
     return http
         .post(Uri.parse("$baseUrl$url"),
@@ -252,7 +253,7 @@ class ApiService {
 
       if (statusCode < 200 || statusCode > 400) {
         debugPrint("Error while fetching data");
-        return [];
+        return '';
       }
       if (statusCode == 200) {
         Map<String, dynamic> responseBody = json.decode(res);
@@ -262,10 +263,10 @@ class ApiService {
 
       if (json.decode(response.body) == "success") {
         session_token.storeToken(json.decode(response.body)["session_token"]);
-        return [];
+        return '';
       }
       // print(response.body);
-      return [];
+      return '';
     });
   }
 

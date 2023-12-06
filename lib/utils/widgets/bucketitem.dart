@@ -1,5 +1,6 @@
 import 'package:bucketlist/resources/animation.dart';
 import 'package:bucketlist/view/project_view.dart';
+import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
 import '../../utils/Routes/route_names.dart';
 import '../../resources/colors.dart';
@@ -14,6 +15,7 @@ class BucketItem extends StatefulWidget {
 }
 
 class _BucketItemState extends State<BucketItem> {
+  var key;
   var name;
   var tasks;
   var completed = false;
@@ -22,6 +24,7 @@ class _BucketItemState extends State<BucketItem> {
     var entry = widget.data['projects'][widget.index].entries;
 
     for (var i in entry) {
+      key = i.key;
       name = i.value['name'];
       completed = i.value['completed'];
       tasks = i.value['tasks'];
@@ -31,9 +34,6 @@ class _BucketItemState extends State<BucketItem> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.data);
-
-    print('test $name ');
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: InkWell(
@@ -50,6 +50,8 @@ class _BucketItemState extends State<BucketItem> {
                 onChanged: (value) {
                   setState(() {
                     completed = !completed;
+                    postboolstate(completed, key)
+                        .then((value) => (print("posted")));
                   });
                 },
               ),

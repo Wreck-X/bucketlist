@@ -26,4 +26,8 @@ Future<Map<String, dynamic>> getprojects(String org_uid, String type) async {
   }
 }
 
+Future<String> postboolstate(bool state, String keys) async {
+  var response = api.post_boolstate('check_project/', state, keys);
+  return response;
+}
 //post_boolstate for checkboxes and visibility here
