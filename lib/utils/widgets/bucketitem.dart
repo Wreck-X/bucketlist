@@ -1,3 +1,5 @@
+import 'package:bucketlist/resources/animation.dart';
+import 'package:bucketlist/view/project_view.dart';
 import 'package:flutter/material.dart';
 import '../../utils/Routes/route_names.dart';
 import '../../resources/colors.dart';
@@ -12,33 +14,42 @@ class BucketItem extends StatefulWidget {
 }
 
 class _BucketItemState extends State<BucketItem> {
-  bool boolean = false; // Move the variable here to maintain its state.
+  var name;
+  var tasks;
+  var completed = false;
+  void initState() {
+    super.initState();
+    var entry = widget.data['projects'][widget.index].entries;
+
+    for (var i in entry) {
+      name = i.value['name'];
+      completed = i.value['completed'];
+      tasks = i.value['tasks'];
+    }
+    // Initialize localBoolean with the initial value from the API
+  }
 
   @override
   Widget build(BuildContext context) {
     print(widget.data);
-    var entry = widget.data['projects'][widget.index].entries;
-    var name;
-    var tasks;
-    for (var i in entry) {
-      name = i.value['name'];
-    }
+
     print('test $name ');
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed(RouteNames.project);
+          Navigator.of(context)
+              .push(FadeRoute(page: ProjectScreen(tasks: tasks)));
         },
         child: Card(
           color: GlobalTheme.backWidget,
           child: Row(
             children: [
               Checkbox(
-                value: boolean,
+                value: completed,
                 onChanged: (value) {
                   setState(() {
-                    boolean = value ?? false;
+                    completed = !completed;
                   });
                 },
               ),

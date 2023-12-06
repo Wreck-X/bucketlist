@@ -79,7 +79,9 @@ class ProjectCards extends StatelessWidget {
 
 class ItemCards extends StatefulWidget {
   int index;
-  ItemCards({Key? key, required this.index}) : super(key: key);
+  var tasks;
+  ItemCards({Key? key, required this.index, required this.tasks})
+      : super(key: key);
 
   @override
   _ItemCardsState createState() => _ItemCardsState();
@@ -87,6 +89,14 @@ class ItemCards extends StatefulWidget {
 
 class _ItemCardsState extends State<ItemCards> {
   bool boolean = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize localBoolean with the initial value from the API
+    boolean = widget.tasks[widget.index]['complete'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -97,14 +107,14 @@ class _ItemCardsState extends State<ItemCards> {
             value: boolean,
             onChanged: (value) {
               setState(() {
-                boolean = value ?? false;
+                boolean = !boolean;
               });
             },
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              'Card ${widget.index}',
+              widget.tasks[widget.index]['name'],
               style: const TextStyle(color: GlobalTheme.foreground),
             ),
           ),

@@ -41,7 +41,7 @@ class Routes {
                   org_uid: '',
                 ));
       case RouteNames.project:
-        return MaterialPageRoute(builder: (_) => const ProjectScreen());
+        return MaterialPageRoute(builder: (_) => ProjectScreen(tasks: ''));
       case RouteNames.editProject:
         return MaterialPageRoute(builder: (_) => const EditProjectScreen());
       default:

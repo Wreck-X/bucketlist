@@ -140,9 +140,7 @@ class ApiService {
     String? sessionKey = await session_token.getToken();
     String? token = await csrf_token.getToken();
     if (token != null) {
-      debugPrint("-");
-      debugPrint(org);
-      debugPrint("-");
+      debugPrint(sessionKey);
       headers['X-CSRFToken'] = token;
       headers['Authorization'] = sessionKey!;
       headers['org'] = org;
@@ -156,7 +154,7 @@ class ApiService {
       _updateCookie(response);
 
       if (statusCode < 200 || statusCode > 400) {
-        debugPrint("Error while fetching data");
+        debugPrint("Error while fetching data $statusCode");
         return {"Error code": statusCode};
       } else {
         Map<String, dynamic> responseBody = json.decode(res);

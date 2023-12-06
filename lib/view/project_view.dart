@@ -4,7 +4,8 @@ import '../utils/Routes/route_names.dart';
 import '../utils/widgets/cards.dart';
 
 class ProjectScreen extends StatefulWidget {
-  const ProjectScreen({Key? key}) : super(key: key);
+  var tasks;
+  ProjectScreen({Key? key, required this.tasks}) : super(key: key);
 
   @override
   State<ProjectScreen> createState() => _ProjectScreenState();
@@ -51,11 +52,12 @@ class _ProjectScreenState extends State<ProjectScreen> {
                             //Text("Assigned to: ",style: TextStyle(color: GlobalTheme.foreground),),
                             Dropdown(['No one assigned', 'Assigned to John'],
                                 'Assigned to'),
-                            Padding(
+                            const Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 5)),
                             //Text("Status: "),
-                            Dropdown(['Open - High Prio', 'Closed'], "Status"),
+                            Dropdown(
+                                const ['Open - High Prio', 'Closed'], "Status"),
                           ],
                         ),
                       )
@@ -86,11 +88,14 @@ class _ProjectScreenState extends State<ProjectScreen> {
                             onTap: () {
                               debugPrint('Card $index clicked');
                             },
-                            child: ItemCards(index: index)),
+                            child: ItemCards(
+                              tasks: widget.tasks,
+                              index: index,
+                            )),
                       );
                     },
                     separatorBuilder: (context, index) => SizedBox(height: 10),
-                    itemCount: 10,
+                    itemCount: widget.tasks.length,
                   ),
                 ),
               ],

@@ -19,17 +19,17 @@ class ProjectsScreen extends StatefulWidget {
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
   @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
+  // void initState() {
+  //   super.initState();
+  //   fetchData();
+  // }
 
-  void fetchData() async {
-    List fetchedData = await org_repo.fetchData();
-    setState(() {
-      servers = fetchedData;
-    });
-  }
+  // void fetchData() async {
+  //   List fetchedData = await org_repo.fetchData();
+  //   setState(() {
+  //     servers = fetchedData;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +104,3 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     );
   }
 }
-
-void main() =>
-    runApp(MaterialApp(home: ProjectsScreen(org_uid: 'your_org_uid_here')));
