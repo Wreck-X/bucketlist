@@ -16,8 +16,14 @@ class _BucketItemState extends State<BucketItem> {
 
   @override
   Widget build(BuildContext context) {
-    var name = widget.data['projects'][widget.index]['name'];
-    print('name $name ${widget.index}');
+    print(widget.data);
+    var entry = widget.data['projects'][widget.index].entries;
+    var name;
+    var tasks;
+    for (var i in entry) {
+      name = i.value['name'];
+    }
+    print('test $name ');
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: InkWell(

@@ -96,7 +96,7 @@ class ApiService {
       }
       debugPrint("POST /login");
       if (json.decode(response.body)['status'] == "success") {
-        debugPrint("we're in");
+        debugPrint("Logged in");
         session_token.storeToken(json.decode(response.body)["session_token"]);
         return true;
       }
@@ -125,7 +125,6 @@ class ApiService {
         debugPrint("Error while fetching data");
         return res;
       }
-      debugPrint("POST");
       if (json.decode(response.body)['status'] == "success") {
         debugPrint(res);
         session_token.storeToken(json.decode(response.body)["session_token"]);
@@ -147,7 +146,6 @@ class ApiService {
       headers['X-CSRFToken'] = token;
       headers['Authorization'] = sessionKey!;
       headers['org'] = org;
-      print(org);
     }
     return http
         .get(Uri.parse("$baseUrl$url"), headers: headers)
@@ -162,7 +160,6 @@ class ApiService {
         return {"Error code": statusCode};
       } else {
         Map<String, dynamic> responseBody = json.decode(res);
-        print(responseBody['projects']);
         return responseBody;
       }
     });
@@ -189,7 +186,6 @@ class ApiService {
       }
       if (statusCode == 200) {
         Map<String, dynamic> responseBody = json.decode(res);
-        print(responseBody['status_update'].runtimeType);
         return responseBody['status_update'];
       }
 
@@ -223,7 +219,6 @@ class ApiService {
       }
       if (statusCode == 200) {
         Map<String, dynamic> responseBody = json.decode(res);
-        print(responseBody['members'].runtimeType);
         return responseBody['members'];
       }
 

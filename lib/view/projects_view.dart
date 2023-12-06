@@ -19,21 +19,17 @@ class ProjectsScreen extends StatefulWidget {
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
   @override
-  // void initState() {
-  //   super.initState();
+  void initState() {
+    super.initState();
+    fetchData();
+  }
 
-  //   print("widget" + widget.org_uid);
-  //   fetchData();
-  // }
-
-  // void fetchData() async {
-  //   List fetchedData = await proj_repo.fetchData(widget.org_uid);
-  //   setState(() {
-  //     projects = fetchedData;
-  //     print(projects);
-  //     print("ran");
-  //   });
-  // }
+  void fetchData() async {
+    List fetchedData = await org_repo.fetchData();
+    setState(() {
+      servers = fetchedData;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
