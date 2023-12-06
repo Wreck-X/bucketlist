@@ -79,24 +79,25 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             // Scroll area with clickable rows of cards
             Expanded(
               child: FutureBuilder(
-                  future: getprojects(widget.org_uid, 'items'),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      // While waiting for data, return a loading indicator or placeholder
-                      return Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      // If there's an error, display an error message
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      return ListView.builder(
-                        itemCount: snapshot.data?['projects']
-                            .length, // Use the length of the projects list
-                        itemBuilder: (context, index) {
-                          return BucketItem(data: snapshot.data, index: index);
-                        },
-                      );
-                    }
-                  }),
+                future: getprojects(widget.org_uid, 'items'),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    // While waiting for data, return a loading indicator or placeholder
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    // If there's an error, display an error message
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return ListView.builder(
+                      itemCount: snapshot.data?['projects']
+                          .length, // Use the length of the projects list
+                      itemBuilder: (context, index) {
+                        return BucketItem(data: snapshot.data, index: index);
+                      },
+                    );
+                  }
+                },
+              ),
             ),
           ],
         ),
