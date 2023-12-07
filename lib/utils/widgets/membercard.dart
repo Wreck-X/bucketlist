@@ -19,10 +19,8 @@ class _MemebersCardState extends State<MembersCard> {
     var maincontent = widget.content?[widget.index]
         [widget.content?[widget.index].keys.toList().first];
     var name = maincontent['name'];
-    var colour = maincontent['icon_color'];
+    var colour = maincontent['icon_color']; // do stuff
     var roles = maincontent['role'];
-    print(colour);
-    print(maincontent);
     return Column(
       children: [
         Container(

@@ -255,12 +255,6 @@ class ApiService {
         debugPrint("Error while fetching data");
         return '';
       }
-      if (statusCode == 200) {
-        Map<String, dynamic> responseBody = json.decode(res);
-        print(responseBody['members'].runtimeType);
-        return responseBody['members'];
-      }
-
       if (json.decode(response.body) == "success") {
         session_token.storeToken(json.decode(response.body)["session_token"]);
         return '';
@@ -271,7 +265,7 @@ class ApiService {
   }
 
   Future<String> post_taskboolstate(
-      String url, bool state, String key1, String key2) async {
+      String url, bool state, String key1, int key2) async {
     String? sessionKey = await session_token.getToken();
     String? token = await csrf_token.getToken();
     Map<String, dynamic> requestBody;
@@ -283,7 +277,7 @@ class ApiService {
       headers['X-CSRFToken'] = token;
       headers['Authorization'] = sessionKey!;
       headers['proj'] = key1;
-      headers['proj'] = key2;
+      headers['milestone-id'] = key2.toString();
     }
     return http
         .post(Uri.parse("$baseUrl$url"),
@@ -298,12 +292,6 @@ class ApiService {
         debugPrint("Error while fetching data");
         return '';
       }
-      if (statusCode == 200) {
-        Map<String, dynamic> responseBody = json.decode(res);
-        print(responseBody['members'].runtimeType);
-        return responseBody['members'];
-      }
-
       if (json.decode(response.body) == "success") {
         session_token.storeToken(json.decode(response.body)["session_token"]);
         return '';

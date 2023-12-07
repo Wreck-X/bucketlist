@@ -5,7 +5,9 @@ import '../utils/widgets/cards.dart';
 
 class ProjectScreen extends StatefulWidget {
   var tasks;
-  ProjectScreen({Key? key, required this.tasks}) : super(key: key);
+  var projid;
+  ProjectScreen({Key? key, required this.tasks, required this.projid})
+      : super(key: key);
 
   @override
   State<ProjectScreen> createState() => _ProjectScreenState();
@@ -89,6 +91,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                               debugPrint('Card $index clicked');
                             },
                             child: ItemCards(
+                              projid: widget.projid,
                               tasks: widget.tasks,
                               index: index,
                             )),

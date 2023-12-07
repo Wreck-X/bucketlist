@@ -38,8 +38,14 @@ class _BucketItemState extends State<BucketItem> {
       padding: const EdgeInsets.only(bottom: 10.0),
       child: InkWell(
         onTap: () {
-          Navigator.of(context)
-              .push(FadeRoute(page: ProjectScreen(tasks: tasks)));
+          Navigator.of(context).push(
+            FadeRoute(
+              page: ProjectScreen(
+                tasks: tasks,
+                projid: key,
+              ),
+            ),
+          );
         },
         child: Card(
           color: GlobalTheme.backWidget,

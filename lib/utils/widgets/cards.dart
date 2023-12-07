@@ -1,6 +1,7 @@
 import 'package:bucketlist/resources/screendat.dart';
 import 'package:bucketlist/view/projects_view.dart';
 import 'package:bucketlist/view/tripage_view.dart';
+import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../resources/animation.dart';
@@ -80,7 +81,12 @@ class ProjectCards extends StatelessWidget {
 class ItemCards extends StatefulWidget {
   int index;
   var tasks;
-  ItemCards({Key? key, required this.index, required this.tasks})
+  String projid;
+  ItemCards(
+      {Key? key,
+      required this.index,
+      required this.projid,
+      required this.tasks})
       : super(key: key);
 
   @override
@@ -89,10 +95,13 @@ class ItemCards extends StatefulWidget {
 
 class _ItemCardsState extends State<ItemCards> {
   bool boolean = false;
+  int id = -1;
 
   @override
   void initState() {
     super.initState();
+    print(widget.tasks);
+    id = widget.tasks[widget.index]['id'];
     // Initialize localBoolean with the initial value from the API
     boolean = widget.tasks[widget.index]['complete'];
   }
@@ -108,6 +117,10 @@ class _ItemCardsState extends State<ItemCards> {
             onChanged: (value) {
               setState(() {
                 boolean = !boolean;
+                print(boolean);
+                print(widget.projid);
+                print(id);
+                posttaskboolstate(boolean, widget.projid, id);
               });
             },
           ),

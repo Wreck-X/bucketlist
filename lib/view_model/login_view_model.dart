@@ -30,4 +30,9 @@ Future<String> postboolstate(bool state, String keys) async {
   var response = api.post_boolstate('check_project/', state, keys);
   return response;
 }
+
+Future<String> posttaskboolstate(bool state, String key1, int key2) async {
+  var response = api.post_taskboolstate('check_task/', state, key1, key2);
+  return response;
+}
 //post_boolstate for checkboxes and visibility here
