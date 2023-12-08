@@ -14,7 +14,6 @@ class StatusScreen extends StatefulWidget {
 }
 
 class _StatusScreenState extends State<StatusScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,29 +158,30 @@ class _StatusScreenState extends State<StatusScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(5),
                     child: Row(
                       children: [
                         Container(
                           height: 30,
                           width: 20,
                           child: Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor:
-                                const Color.fromARGB(255, 123, 123, 123),
-                            child: const Icon(
-                              Icons.person,
-                              color: Colors.purple,
-                            ),
-                          ),
+                              baseColor: Color.fromARGB(255, 19, 19, 19),
+                              highlightColor:
+                                  const Color.fromARGB(255, 167, 166, 186),
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorsClass.lightblack),
+                              )),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
+                          baseColor: Color.fromARGB(255, 19, 19, 19),
                           highlightColor:
-                              const Color.fromARGB(255, 123, 123, 123),
+                              const Color.fromARGB(255, 167, 166, 186),
                           child: Container(
                             height: 10,
                             width: 40,
@@ -194,25 +194,27 @@ class _StatusScreenState extends State<StatusScreen> {
                   Row(children: [
                     SizedBox(
                         height: 30,
-                        width: 30,
+                        width: 20,
                         child: Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Color.fromARGB(255, 123, 123, 123),
-                          child: const Icon(
-                            Icons.pending_outlined,
-                            color: Colors.yellow,
-                            size: 30,
-                          ),
-                        )),
+                            baseColor: Color.fromARGB(255, 19, 19, 19),
+                            highlightColor:
+                                const Color.fromARGB(255, 167, 166, 186),
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: ColorsClass.lightblack),
+                            ))),
                     const SizedBox(
                       width: 10,
                     ),
                     Column(
                       children: [
                         Shimmer.fromColors(
+                          baseColor: Color.fromARGB(255, 19, 19, 19),
                           highlightColor:
-                              const Color.fromARGB(255, 123, 123, 123),
-                          baseColor: Colors.grey[300]!,
+                              const Color.fromARGB(255, 167, 166, 186),
                           child: Container(
                             height: 10,
                             width: 100,
@@ -226,23 +228,24 @@ class _StatusScreenState extends State<StatusScreen> {
                     children: [
                       SizedBox(
                         height: 30,
-                        width: 30,
+                        width: 20,
                         child: Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor:
-                              const Color.fromARGB(255, 123, 123, 123),
-                          child: const Icon(
-                            Icons.play_circle_outline,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                        ),
+                            baseColor: Color.fromARGB(255, 19, 19, 19),
+                            highlightColor:
+                                const Color.fromARGB(255, 167, 166, 186),
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: ColorsClass.lightblack),
+                            )),
                       ),
                       const SizedBox(width: 10),
                       Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
+                        baseColor: Color.fromARGB(255, 19, 19, 19),
                         highlightColor:
-                            const Color.fromARGB(255, 123, 123, 123),
+                            const Color.fromARGB(255, 167, 166, 186),
                         child: Container(
                           height: 10,
                           width: 100,

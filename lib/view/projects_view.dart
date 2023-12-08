@@ -2,6 +2,7 @@ import 'package:bucketlist/utils/widgets/bucketitem.dart';
 import 'package:bucketlist/view/project_view.dart';
 import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import '../resources/animation.dart';
 import '../resources/colors.dart';
 import '../utils/Routes/route_names.dart';
@@ -33,6 +34,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double containerWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Projects',
@@ -67,7 +70,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             FutureBuilder(
               future: getprojects(widget.org_uid, 'status'),
               builder: (context, snapshot) {
-                if (snapshot.hasError) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return loadingShimmer1();
+                } else if (snapshot.hasError) {
                   // If there's an error, display an error message
                   return Text('Error: ${snapshot.error}');
                 } else {
@@ -79,29 +84,115 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             // Scroll area with clickable rows of cards
             Expanded(
               child: FutureBuilder(
-                future: getprojects(widget.org_uid, 'items'),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    // While waiting for data, return a loading indicator or placeholder
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    // If there's an error, display an error message
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    return ListView.builder(
-                      itemCount: snapshot.data?['projects']
-                          .length, // Use the length of the projects list
-                      itemBuilder: (context, index) {
-                        return BucketItem(data: snapshot.data, index: index);
-                      },
-                    );
-                  }
-                },
-              ),
+                  future: getprojects(widget.org_uid, 'items'),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      // While waiting for data, return a loading indicator or placeholder
+                      return loadingShimmer2(context);
+                    } else if (snapshot.hasError) {
+                      // If there's an error, display an error message
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data?['projects']
+                            .length, // Use the length of the projects list
+                        itemBuilder: (context, index) {
+                          return BucketItem(data: snapshot.data, index: index);
+                        },
+                      );
+                    }
+                  }),
             ),
           ],
         ),
       ),
     );
   }
+
+  loadingShimmer1() {
+    double containerWidth = MediaQuery.of(context).size.width / 3.275;
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: [
+          cards(containerWidth),
+          cards(containerWidth),
+          cards(containerWidth),
+        ],
+      ),
+    );
+  }
+
+  Widget cards(double containerWidth) {
+    return SizedBox(
+      height: 120,
+      width: containerWidth,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Shimmer.fromColors(
+                baseColor: Color.fromARGB(255, 19, 19, 19),
+                highlightColor: Color.fromARGB(150, 245, 245, 245),
+                child: Container(
+                  height: 18,
+                  width: 18,
+                  decoration: const BoxDecoration(
+                    color: ColorsClass.lightblack,
+                  ),
+                ),
+              ),
+              Shimmer.fromColors(
+                baseColor: Color.fromARGB(255, 19, 19, 19),
+                highlightColor: Color.fromARGB(150, 245, 245, 245),
+                child: Container(
+                  height: 8,
+                  width: 50,
+                  decoration: const BoxDecoration(
+                    color: ColorsClass.lightblack,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+loadingShimmer2(BuildContext context) {
+  double _Width = MediaQuery.of(context).size.width / 1;
+  return Shimmer.fromColors(
+    baseColor: Color.fromARGB(255, 19, 19, 19),
+    highlightColor: const Color.fromARGB(100, 245, 245, 245),
+    child: SizedBox(
+      width: _Width,
+      child: ListView.builder(
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return Container(
+            height: 70,
+            width: _Width,
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(3, 3, 3, 10),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    ),
+  );
 }

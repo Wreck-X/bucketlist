@@ -198,10 +198,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               });
                             },
                             child: Icon(
-                              _obscureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                            ),
+                                _obscureText
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: _obscureText
+                                    ? ColorsClass.grey
+                                    : ColorsClass.violet),
                           )),
                     ),
                   ),
@@ -232,8 +234,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: 'Login',
                       function: () async {
                         try {
-                          var success = await login(_userNameController.text,
-                              _passwordController.text);
+                          // var success = await login(_userNameController.text,
+                          //     _passwordController.text);
+                          var success = await login('simeddon@gmail.com', 'Lemon123');
                           org_repo.fetchData();
                           if (success) {
                             Navigator.of(context)

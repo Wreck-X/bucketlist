@@ -38,8 +38,7 @@ class _StatusCardState extends State<StatusCard> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(5),
+              SizedBox(
                 child: Row(
                   children: [
                     Container(

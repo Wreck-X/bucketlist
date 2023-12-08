@@ -4,13 +4,17 @@ import 'models/session_token.dart';
 import 'utils/Routes/route.dart';
 import 'package:provider/provider.dart';
 import 'view/token_view.dart';
+import 'package:flutter/rendering.dart';
 
-void main() => runApp(
-      ChangeNotifierProvider(
-        create: (context) => TokenViewModel(TokenStorage()),
-        child: const MyApp(),
-      ),
-    );
+void main() {
+  debugPaintSizeEnabled = false;
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => TokenViewModel(TokenStorage()),
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
