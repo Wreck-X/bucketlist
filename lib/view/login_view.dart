@@ -234,9 +234,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: 'Login',
                       function: () async {
                         try {
-                          // var success = await login(_userNameController.text,
-                          //     _passwordController.text);
-                          var success = await login('simeddon@gmail.com', 'Lemon123');
+                          var success = await login(_userNameController.text,
+                              _passwordController.text);
                           org_repo.fetchData();
                           if (success) {
                             Navigator.of(context)
