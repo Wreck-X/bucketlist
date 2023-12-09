@@ -14,7 +14,7 @@ class MembersScreen extends StatefulWidget {
 class _MembersScreenState extends State<MembersScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: ScreenUtil.screenHeight(context),
       width: ScreenUtil.screenWidth(context),
       child: Scaffold(
@@ -42,7 +42,7 @@ class _MembersScreenState extends State<MembersScreen> {
                             color: ColorsClass.purp,
                             borderRadius: BorderRadius.circular(8)),
                         child: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.filter_alt,
                             color: Colors.white,
                           ),
@@ -59,7 +59,7 @@ class _MembersScreenState extends State<MembersScreen> {
                     const SizedBox(width: 10),
                     Container(
                       padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: ColorsClass.textfcolor),
                       height: ScreenUtil.screenHeight(context) * 0.05,
@@ -85,7 +85,7 @@ class _MembersScreenState extends State<MembersScreen> {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         // While waiting for data, return a loading indicator or placeholder
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
                         // If there's an error, display an error message
                         return Text('Error: ${snapshot.error}');

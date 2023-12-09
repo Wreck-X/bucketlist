@@ -19,10 +19,8 @@ class _MemebersCardState extends State<MembersCard> {
     var maincontent = widget.content?[widget.index]
         [widget.content?[widget.index].keys.toList().first];
     var name = maincontent['name'];
-    var colour = maincontent['icon_color'];
+    var colour = maincontent['icon_color']; // do stuff
     var roles = maincontent['role'];
-    print(colour);
-    print(maincontent);
     return Column(
       children: [
         Container(
@@ -45,27 +43,27 @@ class _MemebersCardState extends State<MembersCard> {
                       height: 25,
                       width: 25,
                       decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 170, 17, 170),
+                          color: const Color.fromARGB(255, 170, 17, 170),
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                           child: Text(
                         name[0].toUpperCase(),
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       )),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
                       name,
-                      style: TextStyle(color: ColorsClass.white, fontSize: 20),
+                      style: const TextStyle(color: ColorsClass.white, fontSize: 20),
                     ),
                   ],
                 ),
               ),
               Row(
                 children: [
-                  SizedBox(height: 20, width: 45),
+                  const SizedBox(height: 20, width: 45),
                   getRoleWidget(roles)
                 ],
               ),

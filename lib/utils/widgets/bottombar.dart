@@ -1,6 +1,5 @@
 import 'package:bucketlist/resources/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:bucketlist/utils/Routes/route_names.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:motion_tab_bar_v2/motion-tab-controller.dart';
 
@@ -19,7 +18,7 @@ class _BottomBarState extends State<BottomBar> {
       controller: widget.controller,
       initialSelectedTab: "Projects",
       labels: const ["Update", "Projects", "Members"],
-      icons: [Icons.message, Icons.playlist_add, Icons.groups],
+      icons: const [Icons.message, Icons.playlist_add, Icons.groups],
       tabSelectedColor: ColorsClass.purp,
       tabBarColor: ColorsClass.darkGrey,
       textStyle: const TextStyle(

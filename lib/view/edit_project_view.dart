@@ -25,7 +25,7 @@ class _ProjectScreenState extends State<EditProjectScreen> {
           style: TextStyle(color: GlobalTheme.foreground),
         ),
         backgroundColor: GlobalTheme.background,
-        iconTheme: IconThemeData(color: GlobalTheme.foreground),
+        iconTheme: const IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
       ),
       backgroundColor: GlobalTheme.background,
@@ -43,7 +43,7 @@ class _ProjectScreenState extends State<EditProjectScreen> {
                           //It will crash if this is not placed in Expanded
                           child: BigTextCard(
                               "This is a project description", true)),
-                      Expanded(
+                      const Expanded(
                         child: Column(
                           children: [
                             //Text("Assigned to: ",style: TextStyle(color: GlobalTheme.foreground),),
@@ -59,21 +59,21 @@ class _ProjectScreenState extends State<EditProjectScreen> {
                       )
                     ],
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                 ],
                 if (!isLandscape) ...[
                   BigTextCard("This is a project description", true),
-                  Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-                  Row(
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                  const Row(
                     children: [
-                      const Padding(padding: EdgeInsets.all(4)),
+                      Padding(padding: EdgeInsets.all(4)),
                       Dropdown(['No one assigned', 'Assigned to John'],
                           'Assigned to'),
-                      const Padding(padding: EdgeInsets.all(10)),
+                      Padding(padding: EdgeInsets.all(10)),
                       Dropdown(['Open - High Prio', 'Closed'], "Status")
                     ],
                   ),
-                  Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                 ],
                 Expanded(
                   child: ListView.separated(
@@ -98,7 +98,7 @@ class _ProjectScreenState extends State<EditProjectScreen> {
                         ),
                       );
                     },
-                    separatorBuilder: (context, index) => SizedBox(height: 10),
+                    separatorBuilder: (context, index) => const SizedBox(height: 10),
                     itemCount: 10,
                   ),
                 ),

@@ -13,6 +13,7 @@ class ApiService {
   Map<String, String> headers = {"Content-Type": "application/json"};
   Map<String, String> cookies = {};
 
+  //Constructor
   ApiService({required this.baseUrl}) {
     if (cookies.isEmpty) {
       _fetchBaseCookies();
@@ -22,13 +23,14 @@ class ApiService {
   Future<void> _fetchBaseCookies() async {
     final response = await http.get(Uri.parse(baseUrl));
     _updateCookie(response);
-    csrf_token.storeToken(cookies['csrftoken']!);
+    CSRF_TOKEN.storeToken(cookies['csrftoken'] ?? "");
   }
 
   void _updateCookie(http.Response response) {
     String? allSetCookie = response.headers['set-cookie'];
 
     if (allSetCookie != null) {
+      print("coookiesss $allSetCookie");
       var setCookies = allSetCookie.split(',');
 
       for (var setCookie in setCookies) {
@@ -56,7 +58,7 @@ class ApiService {
         this.cookies[key] = value;
 
         if (this.cookies.containsKey('csrftoken')) {
-          csrf_token.storeToken(this.cookies['csrftoken']!);
+          CSRF_TOKEN.storeToken(this.cookies['csrftoken']!);
         }
       }
     }
@@ -75,7 +77,7 @@ class ApiService {
 
   Future<bool> post(String url, Map<String, dynamic> data) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
     if (token != null) {
       debugPrint(sessionKey);
       headers['X-CSRFToken'] = token;
@@ -96,7 +98,7 @@ class ApiService {
       }
       debugPrint("POST /login");
       if (json.decode(response.body)['status'] == "success") {
-        debugPrint("we're in");
+        debugPrint("Logged in");
         session_token.storeToken(json.decode(response.body)["session_token"]);
         return true;
       }
@@ -107,7 +109,7 @@ class ApiService {
 
   Future<String> get(String url) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
     if (token != null) {
       debugPrint(sessionKey);
       headers['X-CSRFToken'] = token;
@@ -125,7 +127,6 @@ class ApiService {
         debugPrint("Error while fetching data");
         return res;
       }
-      debugPrint("POST");
       if (json.decode(response.body)['status'] == "success") {
         debugPrint(res);
         session_token.storeToken(json.decode(response.body)["session_token"]);
@@ -139,15 +140,12 @@ class ApiService {
   Future<Map<String, dynamic>> get_projects(
       String url, String org, String type) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
     if (token != null) {
-      debugPrint("-");
-      debugPrint(org);
-      debugPrint("-");
+      debugPrint(sessionKey);
       headers['X-CSRFToken'] = token;
       headers['Authorization'] = sessionKey!;
       headers['org'] = org;
-      print(org);
     }
     return http
         .get(Uri.parse("$baseUrl$url"), headers: headers)
@@ -158,53 +156,18 @@ class ApiService {
       _updateCookie(response);
 
       if (statusCode < 200 || statusCode > 400) {
-        debugPrint("Error while fetching data");
+        debugPrint("Error while fetching data $statusCode");
         return {"Error code": statusCode};
       } else {
         Map<String, dynamic> responseBody = json.decode(res);
-        print(responseBody['projects']);
         return responseBody;
       }
     });
   }
 
-  Future<List<dynamic>> get_updates(String url) async {
-    String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
-    if (token != null) {
-      headers['X-CSRFToken'] = token;
-      headers['Authorization'] = sessionKey!;
-    }
-    return http
-        .get(Uri.parse("$baseUrl$url"), headers: headers)
-        .then((http.Response response) {
-      final String res = response.body;
-      final int statusCode = response.statusCode;
-
-      _updateCookie(response);
-
-      if (statusCode < 200 || statusCode > 400) {
-        debugPrint("Error while fetching data");
-        return [];
-      }
-      if (statusCode == 200) {
-        Map<String, dynamic> responseBody = json.decode(res);
-        print(responseBody['status_update'].runtimeType);
-        return responseBody['status_update'];
-      }
-
-      if (json.decode(response.body) == "success") {
-        session_token.storeToken(json.decode(response.body)["session_token"]);
-        return [];
-      }
-      // print(response.body);
-      return [];
-    });
-  }
-
   Future<List<dynamic>> get_members(String url) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
     if (token != null) {
       headers['X-CSRFToken'] = token;
       headers['Authorization'] = sessionKey!;
@@ -213,6 +176,7 @@ class ApiService {
         .get(Uri.parse("$baseUrl$url"), headers: headers)
         .then((http.Response response) {
       final String res = response.body;
+      print(res);
       final int statusCode = response.statusCode;
 
       _updateCookie(response);
@@ -223,7 +187,6 @@ class ApiService {
       }
       if (statusCode == 200) {
         Map<String, dynamic> responseBody = json.decode(res);
-        print(responseBody['members'].runtimeType);
         return responseBody['members'];
       }
 
@@ -236,17 +199,18 @@ class ApiService {
     });
   }
 
-  Future<List<dynamic>> post_boolstate(String url, bool state) async {
+  Future<String> post_boolstate(String url, bool state, String keys) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
+    Map<String, dynamic> requestBody;
 
-    Map<String, dynamic> requestBody = {
-      'state': state,
-    };
+    requestBody = {"state": state};
+
     String requestBodyJson = jsonEncode(requestBody);
     if (token != null) {
       headers['X-CSRFToken'] = token;
       headers['Authorization'] = sessionKey!;
+      headers['proj'] = keys;
     }
     return http
         .post(Uri.parse("$baseUrl$url"),
@@ -259,20 +223,51 @@ class ApiService {
 
       if (statusCode < 200 || statusCode > 400) {
         debugPrint("Error while fetching data");
-        return [];
+        return '';
       }
-      if (statusCode == 200) {
-        Map<String, dynamic> responseBody = json.decode(res);
-        print(responseBody['members'].runtimeType);
-        return responseBody['members'];
-      }
-
       if (json.decode(response.body) == "success") {
         session_token.storeToken(json.decode(response.body)["session_token"]);
-        return [];
+        return '';
       }
       // print(response.body);
-      return [];
+      return '';
+    });
+  }
+
+  Future<String> post_taskboolstate(
+      String url, bool state, String key1, int key2) async {
+    String? sessionKey = await session_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
+    Map<String, dynamic> requestBody;
+
+    requestBody = {"state": state};
+
+    String requestBodyJson = jsonEncode(requestBody);
+    if (token != null) {
+      headers['X-CSRFToken'] = token;
+      headers['Authorization'] = sessionKey!;
+      headers['proj'] = key1;
+      headers['milestone-id'] = key2.toString();
+    }
+    return http
+        .post(Uri.parse("$baseUrl$url"),
+            headers: headers, body: requestBodyJson)
+        .then((http.Response response) {
+      final String res = response.body;
+      final int statusCode = response.statusCode;
+
+      _updateCookie(response);
+
+      if (statusCode < 200 || statusCode > 400) {
+        debugPrint("Error while fetching data");
+        return '';
+      }
+      if (json.decode(response.body) == "success") {
+        session_token.storeToken(json.decode(response.body)["session_token"]);
+        return '';
+      }
+      // print(response.body);
+      return '';
     });
   }
 

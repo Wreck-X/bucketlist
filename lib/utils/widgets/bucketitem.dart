@@ -1,5 +1,7 @@
+import 'package:bucketlist/resources/animation.dart';
+import 'package:bucketlist/view/project_view.dart';
+import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
-import '../../utils/Routes/route_names.dart';
 import '../../resources/colors.dart';
 
 class BucketItem extends StatefulWidget {
@@ -12,27 +14,50 @@ class BucketItem extends StatefulWidget {
 }
 
 class _BucketItemState extends State<BucketItem> {
-  bool boolean = false; // Move the variable here to maintain its state.
+  var key;
+  var name;
+  var tasks;
+  var completed = false;
+  @override
+  void initState() {
+    super.initState();
+    var entry = widget.data['projects'][widget.index].entries;
+
+    for (var i in entry) {
+      key = i.key;
+      name = i.value['name'];
+      completed = i.value['completed'];
+      tasks = i.value['tasks'];
+    }
+    // Initialize localBoolean with the initial value from the API
+  }
 
   @override
   Widget build(BuildContext context) {
-    var name = widget.data['projects'][widget.index]['name'];
-    print('name $name ${widget.index}');
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed(RouteNames.project);
+          Navigator.of(context).push(
+            FadeRoute(
+              page: ProjectScreen(
+                tasks: tasks,
+                projid: key,
+              ),
+            ),
+          );
         },
         child: Card(
           color: GlobalTheme.backWidget,
           child: Row(
             children: [
               Checkbox(
-                value: boolean,
+                value: completed,
                 onChanged: (value) {
                   setState(() {
-                    boolean = value ?? false;
+                    completed = !completed;
+                    postboolstate(completed, key)
+                        .then((value) => (print("posted")));
                   });
                 },
               ),

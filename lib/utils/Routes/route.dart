@@ -18,11 +18,11 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteNames.tripage:
-        return MaterialPageRoute(builder: (_) => TriPage(org_uid: ''));
+        return MaterialPageRoute(builder: (_) => const TriPage(org_uid: ''));
       case RouteNames.statistics:
-        return MaterialPageRoute(builder: (_) => StatisticScreen());
+        return MaterialPageRoute(builder: (_) => const StatisticScreen());
       case RouteNames.members:
-        return SwipeablePageRoute(builder: (_) => MembersScreen());
+        return SwipeablePageRoute(builder: (_) => const MembersScreen());
       case RouteNames.login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case RouteNames.status:
@@ -32,16 +32,20 @@ class Routes {
       case RouteNames.organizations:
         return MaterialPageRoute(builder: (_) => const OrganizationScreen());
       case RouteNames.sendupdate:
-        return MaterialPageRoute(builder: (_) => SendStatus());
+        return MaterialPageRoute(builder: (_) => const SendStatus());
       case RouteNames.settings:
-        return MaterialPageRoute(builder: (_) => OrgSettings(orgUid: ''));
+        return MaterialPageRoute(builder: (_) => const OrgSettings(orgUid: ''));
       case RouteNames.projects:
         return MaterialPageRoute(
             builder: (_) => const ProjectsScreen(
                   org_uid: '',
                 ));
       case RouteNames.project:
-        return MaterialPageRoute(builder: (_) => const ProjectScreen());
+        return MaterialPageRoute(
+            builder: (_) => ProjectScreen(
+                  tasks: '',
+                  projid: '',
+                ));
       case RouteNames.editProject:
         return MaterialPageRoute(builder: (_) => const EditProjectScreen());
       default:

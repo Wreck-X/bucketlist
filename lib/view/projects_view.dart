@@ -1,11 +1,9 @@
 import 'package:bucketlist/utils/widgets/bucketitem.dart';
-import 'package:bucketlist/view/project_view.dart';
 import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
-import '../resources/animation.dart';
+import 'package:shimmer/shimmer.dart';
 import '../resources/colors.dart';
 import '../utils/Routes/route_names.dart';
-import '../utils/constants.dart';
 import '../utils/widgets/cards.dart';
 
 class ProjectsScreen extends StatefulWidget {
@@ -21,28 +19,26 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   @override
   // void initState() {
   //   super.initState();
-
-  //   print("widget" + widget.org_uid);
   //   fetchData();
   // }
 
   // void fetchData() async {
-  //   List fetchedData = await proj_repo.fetchData(widget.org_uid);
+  //   List fetchedData = await org_repo.fetchData();
   //   setState(() {
-  //     projects = fetchedData;
-  //     print(projects);
-  //     print("ran");
+  //     servers = fetchedData;
   //   });
   // }
 
   @override
   Widget build(BuildContext context) {
+    double containerWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Projects',
             style: TextStyle(color: GlobalTheme.foreground)),
         backgroundColor: GlobalTheme.background,
-        iconTheme: IconThemeData(color: GlobalTheme.foreground),
+        iconTheme: const IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
         actions: [
           IconButton(
@@ -66,14 +62,13 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20), // Spacing
+            const SizedBox(height: 20), // Spacing
             // Three text cards that are horizontally aligned
             FutureBuilder(
               future: getprojects(widget.org_uid, 'status'),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  // While waiting for data, return a loading indicator or placeholder
-                  return Center(child: CircularProgressIndicator());
+                  return loadingShimmer1();
                 } else if (snapshot.hasError) {
                   // If there's an error, display an error message
                   return Text('Error: ${snapshot.error}');
@@ -82,7 +77,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 }
               },
             ),
-            SizedBox(height: 20), // Spacing
+            const SizedBox(height: 20), // Spacing
             // Scroll area with clickable rows of cards
             Expanded(
               child: FutureBuilder(
@@ -90,7 +85,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       // While waiting for data, return a loading indicator or placeholder
-                      return Center(child: CircularProgressIndicator());
+                      return loadingShimmer2(context);
                     } else if (snapshot.hasError) {
                       // If there's an error, display an error message
                       return Text('Error: ${snapshot.error}');
@@ -110,7 +105,91 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
       ),
     );
   }
+
+  loadingShimmer1() {
+    double containerWidth = MediaQuery.of(context).size.width / 3.275;
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: [
+          cards(containerWidth),
+          cards(containerWidth),
+          cards(containerWidth),
+        ],
+      ),
+    );
+  }
+
+  Widget cards(double containerWidth) {
+    return SizedBox(
+      height: 120,
+      width: containerWidth,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Shimmer.fromColors(
+                baseColor: const Color.fromARGB(255, 19, 19, 19),
+                highlightColor: const Color.fromARGB(150, 245, 245, 245),
+                child: Container(
+                  height: 18,
+                  width: 18,
+                  decoration: const BoxDecoration(
+                    color: ColorsClass.lightblack,
+                  ),
+                ),
+              ),
+              Shimmer.fromColors(
+                baseColor: const Color.fromARGB(255, 19, 19, 19),
+                highlightColor: const Color.fromARGB(150, 245, 245, 245),
+                child: Container(
+                  height: 8,
+                  width: 50,
+                  decoration: const BoxDecoration(
+                    color: ColorsClass.lightblack,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-void main() =>
-    runApp(MaterialApp(home: ProjectsScreen(org_uid: 'your_org_uid_here')));
+loadingShimmer2(BuildContext context) {
+  double Width = MediaQuery.of(context).size.width / 1;
+  return Shimmer.fromColors(
+    baseColor: const Color.fromARGB(255, 19, 19, 19),
+    highlightColor: const Color.fromARGB(100, 245, 245, 245),
+    child: SizedBox(
+      width: Width,
+      child: ListView.builder(
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return SizedBox(
+            height: 70,
+            width: Width,
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(3, 3, 3, 10),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}

@@ -4,7 +4,7 @@ import 'package:bucketlist/resources/screendat.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class StatCard1 extends StatefulWidget {
-  StatCard1({Key? key}) : super(key: key);
+  const StatCard1({Key? key}) : super(key: key);
 
   @override
   _StatCard1State createState() => _StatCard1State();
@@ -23,7 +23,7 @@ class _StatCard1State extends State<StatCard1> {
         height: ScreenUtil.screenHeight(context) * 0.3,
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: ScreenUtil.screenWidth(context) * 0.4,
               child: const Column(
                 children: [
@@ -141,7 +141,7 @@ class _StatCard1State extends State<StatCard1> {
 }
 
 class StatCard2 extends StatefulWidget {
-  StatCard2({Key? key}) : super(key: key);
+  const StatCard2({Key? key}) : super(key: key);
 
   @override
   _StatCard2State createState() => _StatCard2State();
@@ -159,7 +159,7 @@ class _StatCard2State extends State<StatCard2> {
         height: ScreenUtil.screenHeight(context) * 0.5,
         child: Column(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
               child:
                   Text("Status Updates", style: TextStyle(color: Colors.white)),
@@ -168,7 +168,7 @@ class _StatCard2State extends State<StatCard2> {
               children: [
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       "Consistency",
                       style: TextStyle(color: Colors.white),
                     ),
@@ -182,7 +182,7 @@ class _StatCard2State extends State<StatCard2> {
                             color: ColorsClass.darkGrey),
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Last sent",
                       style: TextStyle(color: Colors.white),
                     ),
@@ -201,7 +201,7 @@ class _StatCard2State extends State<StatCard2> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("Top Members", style: TextStyle(color: Colors.white)),
+                    const Text("Top Members", style: TextStyle(color: Colors.white)),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
@@ -224,7 +224,7 @@ class _StatCard2State extends State<StatCard2> {
 }
 
 class StatCard3 extends StatefulWidget {
-  StatCard3({Key? key}) : super(key: key);
+  const StatCard3({Key? key}) : super(key: key);
 
   @override
   _StatCard3State createState() => _StatCard3State();

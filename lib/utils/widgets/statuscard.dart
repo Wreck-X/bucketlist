@@ -15,8 +15,15 @@ class StatusCard extends StatefulWidget {
 class _StatusCardState extends State<StatusCard> {
   @override
   Widget build(BuildContext context) {
-    String user = widget.content![widget.index].keys.toList().first;
-    String message = widget.content![widget.index][user]['message'];
+    String user = " ";
+    String message = "";
+
+    if (widget.content != null &&
+        widget.index < widget.content!.length &&
+        widget.content![widget.index] != null) {
+      user = widget.content![widget.index].keys.toList().first.toString();
+      message = widget.content![widget.index][user]['message'];
+    }
     return Column(
       children: [
         const SizedBox(height: 10),
@@ -31,14 +38,13 @@ class _StatusCardState extends State<StatusCard> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(5),
+              SizedBox(
                 child: Row(
                   children: [
-                    Container(
+                    const SizedBox(
                       height: 30,
                       width: 20,
-                      child: const Icon(
+                      child: Icon(
                         Icons.person,
                         color: ColorsClass.purp,
                       ),
@@ -48,7 +54,7 @@ class _StatusCardState extends State<StatusCard> {
                     ),
                     Text(
                       user,
-                      style: TextStyle(color: ColorsClass.white, fontSize: 18),
+                      style: const TextStyle(color: ColorsClass.white, fontSize: 18),
                     ),
                   ],
                 ),
@@ -63,21 +69,21 @@ class _StatusCardState extends State<StatusCard> {
                         color: ColorsClass.yellow,
                         size: 30,
                       )),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Column(
                     children: [
                       Text(
                         message,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: const TextStyle(color: Colors.white, fontSize: 14),
                       ),
                     ],
                   ),
                 ],
               ),
-              Row(
+              const Row(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 30,
                     width: 30,
                     child: Icon(
@@ -87,7 +93,7 @@ class _StatusCardState extends State<StatusCard> {
                     ),
                   ),
                   SizedBox(width: 10),
-                  const Text(
+                  Text(
                     "Started working on blah blah",
                     style: TextStyle(color: ColorsClass.white, fontSize: 14),
                   ),

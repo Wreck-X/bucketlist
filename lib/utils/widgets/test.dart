@@ -17,15 +17,15 @@ Widget getRoleWidget(List<dynamic> strings) {
                 padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                 child: Text(
                   strings[i],
-                  style: TextStyle(color: ColorsClass.yellow, fontSize: 12),
+                  style: const TextStyle(color: ColorsClass.yellow, fontSize: 12),
                 ),
               ),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
         ],
       ),
     );
   }
-  return new Row(children: list);
+  return Row(children: list);
 }
