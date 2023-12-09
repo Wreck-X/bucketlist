@@ -99,7 +99,6 @@ class _$StatusUpdatesImpl implements _StatusUpdates {
   @override
   List<Map<String, dynamic>> get Updates {
     if (_Updates is EqualUnmodifiableListView) return _Updates;
-    // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_Updates);
   }
 

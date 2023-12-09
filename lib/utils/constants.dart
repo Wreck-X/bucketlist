@@ -4,7 +4,7 @@ import '../services/ApiServices.dart';
 
 TokenStorage CSRF_TOKEN = TokenStorage();
 TokenStorage session_token = TokenStorage();
-String base_url = 'django-beacon.vercel.app';
+String base_url = 'https://django-beacon.vercel.app/';
 ApiService api = ApiService(baseUrl: base_url);
 final OrgRepository org_repo = OrgRepository();
 List<dynamic> servers = [];

@@ -176,6 +176,7 @@ class ApiService {
         .get(Uri.parse("$baseUrl$url"), headers: headers)
         .then((http.Response response) {
       final String res = response.body;
+      print(res);
       final int statusCode = response.statusCode;
 
       _updateCookie(response);
