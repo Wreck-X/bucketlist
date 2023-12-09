@@ -2,7 +2,6 @@ import 'package:bucketlist/resources/animation.dart';
 import 'package:bucketlist/view/project_view.dart';
 import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
-import '../../utils/Routes/route_names.dart';
 import '../../resources/colors.dart';
 
 class BucketItem extends StatefulWidget {
@@ -19,6 +18,7 @@ class _BucketItemState extends State<BucketItem> {
   var name;
   var tasks;
   var completed = false;
+  @override
   void initState() {
     super.initState();
     var entry = widget.data['projects'][widget.index].entries;

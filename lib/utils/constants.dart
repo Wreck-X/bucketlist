@@ -1,11 +1,10 @@
 import '../models/session_token.dart';
 import '../repositories/my_orgs.dart';
-import '../repositories/org_projects.dart';
 import '../services/ApiServices.dart';
 
-TokenStorage csrf_token = TokenStorage();
+TokenStorage CSRF_TOKEN = TokenStorage();
 TokenStorage session_token = TokenStorage();
-String base_url = 'https://django.biscuitbobby.me/';
+String base_url = 'django-beacon.vercel.app';
 ApiService api = ApiService(baseUrl: base_url);
 final OrgRepository org_repo = OrgRepository();
 List<dynamic> servers = [];

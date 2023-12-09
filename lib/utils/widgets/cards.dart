@@ -1,5 +1,4 @@
 import 'package:bucketlist/resources/screendat.dart';
-import 'package:bucketlist/view/projects_view.dart';
 import 'package:bucketlist/view/tripage_view.dart';
 import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
@@ -31,17 +30,17 @@ class _TappableCardState extends State<TappableCard> {
           },
           child: Expanded(
             child: Container(
-              decoration: BoxDecoration(color: GlobalTheme.backWidget),
+              decoration: const BoxDecoration(color: GlobalTheme.backWidget),
               height: 50,
               width: ScreenUtil.screenWidth(context) - 20,
               child: Center(
                   child: Column(children: [
                 Text(
                   widget.title,
-                  style: TextStyle(color: GlobalTheme.foreground),
+                  style: const TextStyle(color: GlobalTheme.foreground),
                 ),
                 Text(widget.description,
-                    style: TextStyle(color: GlobalTheme.foreground))
+                    style: const TextStyle(color: GlobalTheme.foreground))
               ])),
             ),
           ),
@@ -141,11 +140,11 @@ class TextCard extends StatelessWidget {
   final String number;
   final String label;
 
-  TextCard(this.number, this.label);
+  const TextCard(this.number, this.label, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    Icon(Icons.chevron_right);
+    const Icon(Icons.chevron_right);
     return Container(
       constraints:
           BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 4),
@@ -165,12 +164,12 @@ class TextCard extends StatelessWidget {
                 children: [
                   Text(
                     number,
-                    style:
-                        TextStyle(fontSize: 24, color: GlobalTheme.foreground),
+                    style: const TextStyle(
+                        fontSize: 24, color: GlobalTheme.foreground),
                   ),
                   Text(
                     label,
-                    style: TextStyle(color: GlobalTheme.foreground),
+                    style: const TextStyle(color: GlobalTheme.foreground),
                   ),
                 ],
               ),
@@ -186,14 +185,14 @@ class BigTextCard extends StatelessWidget {
   final String displayed_text;
   bool edit = false;
 
-  BigTextCard(this.displayed_text, this.edit);
+  BigTextCard(this.displayed_text, this.edit, {super.key});
   @override
   Widget build(BuildContext context) {
     if (edit) {
       return Card(
         color: GlobalTheme.darkAccent,
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           width: double.infinity,
           height: 200,
           child: Center(
@@ -207,7 +206,7 @@ class BigTextCard extends StatelessWidget {
                       14.0, // Adjust the font size as needed
                 ),
               ),
-              style: TextStyle(color: GlobalTheme.foreground),
+              style: const TextStyle(color: GlobalTheme.foreground),
             ),
           ),
         ),
@@ -216,7 +215,7 @@ class BigTextCard extends StatelessWidget {
       return Card(
         color: GlobalTheme.darkAccent,
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           width: double.infinity,
           height: 200,
           child: Center(
@@ -234,7 +233,7 @@ class Dropdown extends StatelessWidget {
   final List<String> list;
   final title;
 
-  Dropdown(this.list, this.title);
+  const Dropdown(this.list, this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -243,7 +242,7 @@ class Dropdown extends StatelessWidget {
         color: GlobalTheme.backWidget,
         borderRadius: BorderRadius.circular(4),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           items: list.map((String value) {
@@ -267,7 +266,7 @@ class ImageCard extends StatelessWidget {
   final String name;
   final String org_uid;
 
-  const ImageCard({Key? key, this.name = "default value", this.org_uid = ''});
+  const ImageCard({super.key, this.name = "default value", this.org_uid = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -294,8 +293,9 @@ class ImageCard extends StatelessWidget {
                       child: CachedNetworkImage(
                         imageUrl: 'https://picsum.photos/200',
                         placeholder: (context, url) =>
-                            Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         fit: BoxFit.cover,
                       ),
                     ),

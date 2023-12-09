@@ -13,6 +13,7 @@ class ApiService {
   Map<String, String> headers = {"Content-Type": "application/json"};
   Map<String, String> cookies = {};
 
+  //Constructor
   ApiService({required this.baseUrl}) {
     if (cookies.isEmpty) {
       _fetchBaseCookies();
@@ -22,13 +23,14 @@ class ApiService {
   Future<void> _fetchBaseCookies() async {
     final response = await http.get(Uri.parse(baseUrl));
     _updateCookie(response);
-    csrf_token.storeToken(cookies['csrftoken'] ?? "");
+    CSRF_TOKEN.storeToken(cookies['csrftoken'] ?? "");
   }
 
   void _updateCookie(http.Response response) {
     String? allSetCookie = response.headers['set-cookie'];
 
     if (allSetCookie != null) {
+      print("coookiesss $allSetCookie");
       var setCookies = allSetCookie.split(',');
 
       for (var setCookie in setCookies) {
@@ -56,7 +58,7 @@ class ApiService {
         this.cookies[key] = value;
 
         if (this.cookies.containsKey('csrftoken')) {
-          csrf_token.storeToken(this.cookies['csrftoken']!);
+          CSRF_TOKEN.storeToken(this.cookies['csrftoken']!);
         }
       }
     }
@@ -75,7 +77,7 @@ class ApiService {
 
   Future<bool> post(String url, Map<String, dynamic> data) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
     if (token != null) {
       debugPrint(sessionKey);
       headers['X-CSRFToken'] = token;
@@ -107,7 +109,7 @@ class ApiService {
 
   Future<String> get(String url) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
     if (token != null) {
       debugPrint(sessionKey);
       headers['X-CSRFToken'] = token;
@@ -138,7 +140,7 @@ class ApiService {
   Future<Map<String, dynamic>> get_projects(
       String url, String org, String type) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
     if (token != null) {
       debugPrint(sessionKey);
       headers['X-CSRFToken'] = token;
@@ -163,42 +165,9 @@ class ApiService {
     });
   }
 
-  Future<List<dynamic>> get_updates(String url) async {
-    String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
-    if (token != null) {
-      headers['X-CSRFToken'] = token;
-      headers['Authorization'] = sessionKey!;
-    }
-    return http
-        .get(Uri.parse("$baseUrl$url"), headers: headers)
-        .then((http.Response response) {
-      final String res = response.body;
-      final int statusCode = response.statusCode;
-
-      _updateCookie(response);
-
-      if (statusCode < 200 || statusCode > 400) {
-        debugPrint("Error while fetching data");
-        return [];
-      }
-      if (statusCode == 200) {
-        Map<String, dynamic> responseBody = json.decode(res);
-        return responseBody['status_update'];
-      }
-
-      if (json.decode(response.body) == "success") {
-        session_token.storeToken(json.decode(response.body)["session_token"]);
-        return [];
-      }
-      // print(response.body);
-      return [];
-    });
-  }
-
   Future<List<dynamic>> get_members(String url) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
     if (token != null) {
       headers['X-CSRFToken'] = token;
       headers['Authorization'] = sessionKey!;
@@ -231,7 +200,7 @@ class ApiService {
 
   Future<String> post_boolstate(String url, bool state, String keys) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
     Map<String, dynamic> requestBody;
 
     requestBody = {"state": state};
@@ -267,7 +236,7 @@ class ApiService {
   Future<String> post_taskboolstate(
       String url, bool state, String key1, int key2) async {
     String? sessionKey = await session_token.getToken();
-    String? token = await csrf_token.getToken();
+    String? token = await CSRF_TOKEN.getToken();
     Map<String, dynamic> requestBody;
 
     requestBody = {"state": state};

@@ -1,12 +1,9 @@
 import 'package:bucketlist/utils/widgets/bucketitem.dart';
-import 'package:bucketlist/view/project_view.dart';
 import 'package:bucketlist/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import '../resources/animation.dart';
 import '../resources/colors.dart';
 import '../utils/Routes/route_names.dart';
-import '../utils/constants.dart';
 import '../utils/widgets/cards.dart';
 
 class ProjectsScreen extends StatefulWidget {
@@ -41,7 +38,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         title: const Text('Projects',
             style: TextStyle(color: GlobalTheme.foreground)),
         backgroundColor: GlobalTheme.background,
-        iconTheme: IconThemeData(color: GlobalTheme.foreground),
+        iconTheme: const IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
         actions: [
           IconButton(
@@ -65,7 +62,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20), // Spacing
+            const SizedBox(height: 20), // Spacing
             // Three text cards that are horizontally aligned
             FutureBuilder(
               future: getprojects(widget.org_uid, 'status'),
@@ -80,7 +77,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 }
               },
             ),
-            SizedBox(height: 20), // Spacing
+            const SizedBox(height: 20), // Spacing
             // Scroll area with clickable rows of cards
             Expanded(
               child: FutureBuilder(
@@ -136,8 +133,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Shimmer.fromColors(
-                baseColor: Color.fromARGB(255, 19, 19, 19),
-                highlightColor: Color.fromARGB(150, 245, 245, 245),
+                baseColor: const Color.fromARGB(255, 19, 19, 19),
+                highlightColor: const Color.fromARGB(150, 245, 245, 245),
                 child: Container(
                   height: 18,
                   width: 18,
@@ -147,8 +144,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 ),
               ),
               Shimmer.fromColors(
-                baseColor: Color.fromARGB(255, 19, 19, 19),
-                highlightColor: Color.fromARGB(150, 245, 245, 245),
+                baseColor: const Color.fromARGB(255, 19, 19, 19),
+                highlightColor: const Color.fromARGB(150, 245, 245, 245),
                 child: Container(
                   height: 8,
                   width: 50,
@@ -166,18 +163,18 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 }
 
 loadingShimmer2(BuildContext context) {
-  double _Width = MediaQuery.of(context).size.width / 1;
+  double Width = MediaQuery.of(context).size.width / 1;
   return Shimmer.fromColors(
-    baseColor: Color.fromARGB(255, 19, 19, 19),
+    baseColor: const Color.fromARGB(255, 19, 19, 19),
     highlightColor: const Color.fromARGB(100, 245, 245, 245),
     child: SizedBox(
-      width: _Width,
+      width: Width,
       child: ListView.builder(
         itemCount: 3,
         itemBuilder: (context, index) {
-          return Container(
+          return SizedBox(
             height: 70,
-            width: _Width,
+            width: Width,
             child: AspectRatio(
               aspectRatio: 1,
               child: Padding(

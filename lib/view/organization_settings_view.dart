@@ -34,7 +34,7 @@ class _OrgSettingsScreenState extends State<OrgSettings>
       backgroundColor: GlobalTheme.background,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
+          child: SizedBox(
             height: ScreenUtil.screenHeight(context) * 1.2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,7 +302,7 @@ class _OrgSettingsScreenState extends State<OrgSettings>
                         labelColor: GlobalTheme.accent,
                         unselectedLabelColor: GlobalTheme.darkAccent,
                         tabAlignment: TabAlignment.start,
-                        labelPadding: EdgeInsets.only(left: 15, right: 30),
+                        labelPadding: const EdgeInsets.only(left: 15, right: 30),
                         automaticIndicatorColorAdjustment: false,
                       ),
                       Expanded(

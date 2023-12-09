@@ -41,10 +41,10 @@ class _StatusCardState extends State<StatusCard> {
               SizedBox(
                 child: Row(
                   children: [
-                    Container(
+                    const SizedBox(
                       height: 30,
                       width: 20,
-                      child: const Icon(
+                      child: Icon(
                         Icons.person,
                         color: ColorsClass.purp,
                       ),
@@ -54,7 +54,7 @@ class _StatusCardState extends State<StatusCard> {
                     ),
                     Text(
                       user,
-                      style: TextStyle(color: ColorsClass.white, fontSize: 18),
+                      style: const TextStyle(color: ColorsClass.white, fontSize: 18),
                     ),
                   ],
                 ),
@@ -69,21 +69,21 @@ class _StatusCardState extends State<StatusCard> {
                         color: ColorsClass.yellow,
                         size: 30,
                       )),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Column(
                     children: [
                       Text(
                         message,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: const TextStyle(color: Colors.white, fontSize: 14),
                       ),
                     ],
                   ),
                 ],
               ),
-              Row(
+              const Row(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 30,
                     width: 30,
                     child: Icon(
@@ -93,7 +93,7 @@ class _StatusCardState extends State<StatusCard> {
                     ),
                   ),
                   SizedBox(width: 10),
-                  const Text(
+                  Text(
                     "Started working on blah blah",
                     style: TextStyle(color: ColorsClass.white, fontSize: 14),
                   ),

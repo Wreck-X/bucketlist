@@ -5,20 +5,15 @@ Future<bool> login(String email, String password) async {
   return response;
 }
 
-Future<List<dynamic>> getupdates() async {
-  var response = await api.get_updates('updates/');
-  return response;
-}
-
 Future<List<dynamic>> getmembers() async {
   var response = await api.get_members('members/');
   print(response);
   return response;
 }
 
-Future<Map<String, dynamic>> getprojects(String org_uid, String type) async {
+Future<Map<String, dynamic>> getprojects(String orgUid, String type) async {
   try {
-    final response = await api.get_projects('projects/', org_uid, type);
+    final response = await api.get_projects('projects/', orgUid, type);
     return response;
   } catch (e) {
     print("Error parsing response: $e");

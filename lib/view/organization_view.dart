@@ -36,7 +36,7 @@ class _OrganizationScreenState extends State<OrganizationScreen> {
         title: const Text('Organizations',
             style: TextStyle(color: GlobalTheme.foreground)),
         backgroundColor: GlobalTheme.background,
-        iconTheme: IconThemeData(color: GlobalTheme.foreground),
+        iconTheme: const IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
       ),
       backgroundColor: GlobalTheme.background,

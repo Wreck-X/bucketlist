@@ -21,7 +21,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
         title: const Text('Project Name',
             style: TextStyle(color: GlobalTheme.foreground)),
         backgroundColor: GlobalTheme.background,
-        iconTheme: IconThemeData(color: GlobalTheme.foreground),
+        iconTheme: const IconThemeData(color: GlobalTheme.foreground),
         foregroundColor: GlobalTheme.foreground,
         actions: [
           IconButton(
@@ -48,38 +48,38 @@ class _ProjectScreenState extends State<ProjectScreen> {
                           //It will crash if this is not placed in Expanded
                           child: BigTextCard(
                               "This is a project description", false)),
-                      Expanded(
+                      const Expanded(
                         child: Column(
                           children: [
                             //Text("Assigned to: ",style: TextStyle(color: GlobalTheme.foreground),),
                             Dropdown(['No one assigned', 'Assigned to John'],
                                 'Assigned to'),
-                            const Padding(
+                            Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 5)),
                             //Text("Status: "),
                             Dropdown(
-                                const ['Open - High Prio', 'Closed'], "Status"),
+                                ['Open - High Prio', 'Closed'], "Status"),
                           ],
                         ),
                       )
                     ],
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                 ],
                 if (!isLandscape) ...[
                   BigTextCard("This is a project description", false),
-                  Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-                  Row(
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                  const Row(
                     children: [
-                      const Padding(padding: EdgeInsets.all(4)),
+                      Padding(padding: EdgeInsets.all(4)),
                       Dropdown(['No one assigned', 'Assigned to John'],
                           'Assigned to'),
-                      const Padding(padding: EdgeInsets.all(10)),
+                      Padding(padding: EdgeInsets.all(10)),
                       Dropdown(['Open - High Prio', 'Closed'], "Status")
                     ],
                   ),
-                  Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                 ],
                 Expanded(
                   child: ListView.separated(
@@ -97,7 +97,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                             )),
                       );
                     },
-                    separatorBuilder: (context, index) => SizedBox(height: 10),
+                    separatorBuilder: (context, index) => const SizedBox(height: 10),
                     itemCount: widget.tasks.length,
                   ),
                 ),
